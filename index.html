@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MENGRULENS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;
+  background:#faf8f5;
+  font-family:"Noto Serif TC",serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:56px 24px 72px;
+}
+
+.brand{
+  font-family:"Cormorant Garamond",serif;
+  font-size:26px;
+  font-weight:300;
+  letter-spacing:10px;
+  color:#2a2118;
+  text-align:center;
+  margin-bottom:5px;
+}
+.brand-sub{
+  font-family:"Cormorant Garamond",serif;
+  font-size:11px;
+  letter-spacing:5px;
+  color:#a0845c;
+  text-align:center;
+  margin-bottom:28px;
+}
+.divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:32px;
+}
+.divider span{height:1px;width:44px;background:#c9b99a;display:block}
+.divider em{color:#a0845c;font-style:normal;font-size:12px}
+
+.tagline{
+  font-size:13px;
+  color:#6a5c4e;
+  letter-spacing:1.5px;
+  text-align:center;
+  margin-bottom:48px;
+  line-height:2;
+}
+
+.links{
+  width:100%;
+  max-width:380px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.link-btn{
+  display:block;
+  width:100%;
+  padding:17px 24px;
+  text-align:center;
+  font-family:"Noto Serif TC",serif;
+  font-size:14px;
+  letter-spacing:2px;
+  color:#2a2118;
+  background:#faf8f5;
+  border:1px solid #c9b99a;
+  text-decoration:none;
+  transition:all .25s;
+  cursor:pointer;
+}
+.link-btn:hover{
+  background:#f0ebe4;
+  border-color:#a0845c;
+}
+.link-btn.primary{
+  background:#a0845c;
+  color:#faf8f5;
+  border-color:#a0845c;
+  letter-spacing:3px;
+}
+.link-btn.primary:hover{
+  background:#8a6e4a;
+}
+
+.section-label{
+  font-family:"Cormorant Garamond",serif;
+  font-size:11px;
+  letter-spacing:4px;
+  color:#c9b99a;
+  text-align:center;
+  margin-top:32px;
+  margin-bottom:14px;
+}
+
+.footer{
+  margin-top:56px;
+  font-size:11px;
+  color:#c9b99a;
+  letter-spacing:2px;
+  text-align:center;
+  line-height:2;
+}
+</style>
+</head>
+<body>
+
+<div class="brand">MENGRULENS</div>
+<div class="brand-sub">PHOTOGRAPHY</div>
+
+<div class="divider"><span></span><em>✦</em><span></span></div>
+
+<div class="tagline">
+  用鏡頭記錄你的每一個珍貴時刻<br>
+  婚禮｜人像｜活動｜空間｜運動
+</div>
+
+<div class="links">
+
+  <div class="section-label">— PORTFOLIO 作品集 —</div>
+
+  <a class="link-btn" href="https://www.instagram.com/mengrulens" target="_blank">
+    📷 &nbsp;Instagram 作品集
+  </a>
+
+  <div class="section-label">— BOOKING 預約拍攝 —</div>
+
+  <a class="link-btn primary" href="booking.html">
+    ✍️ &nbsp;填寫預約需求表
+  </a>
+
+  <div class="section-label">— CONTACT 聯絡 —</div>
+
+  <a class="link-btn" href="tel:0958969988">
+    📞 &nbsp;0958-969-988
+  </a>
+
+</div>
+
+<div class="footer">
+  林孟儒｜MENGRULENS<br>
+  @mengrulens
+</div>
+
+</body>
+</html>
