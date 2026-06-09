@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關於我｜MENGRULENS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#1a1a1a;
+  font-family:"Noto Serif TC",serif;
+  color:#ccc;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+.topbar{
+  background:#111;
+  border-bottom:1px solid #222;
+  padding:0 24px;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.topbar-brand{
+  font-family:"Cormorant Garamond",serif;
+  font-size:18px;letter-spacing:7px;font-weight:300;color:#fff;
+  text-decoration:none;
+}
+.topbar-back{
+  font-size:12px;letter-spacing:2px;color:#a0845c;text-decoration:none;
+}
+.topbar-back:hover{color:#fff}
+
+.hero{
+  position:relative;
+  max-width:480px;
+  margin:0 auto;
+  overflow:hidden;
+}
+.hero img{
+  width:100%;height:auto;display:block;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 50%,rgba(26,26,26,1) 100%);
+}
+
+.content{
+  max-width:520px;margin:0 auto;padding:0 20px;
+}
+
+.name-block{
+  text-align:center;
+  margin-top:-40px;
+  position:relative;z-index:2;
+  margin-bottom:32px;
+}
+.name-main{
+  font-family:"Cormorant Garamond",serif;
+  font-size:28px;letter-spacing:6px;font-weight:300;color:#fff;
+  margin-bottom:6px;
+}
+.name-sub{font-size:12px;letter-spacing:4px;color:#a0845c;}
+
+.divider{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  margin-bottom:28px;
+}
+.divider span{height:1px;width:40px;background:#2a2a2a;display:block}
+.divider em{color:#a0845c;font-style:normal;font-size:11px}
+
+.intro{
+  font-size:14px;color:#888;line-height:2.4;text-align:center;
+  margin-bottom:36px;
+}
+
+.sec-label{
+  font-size:11px;letter-spacing:4px;color:#555;
+  margin:24px 0 10px;
+}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:15px 20px;
+  font-family:"Noto Serif TC",serif;font-size:14px;letter-spacing:2px;
+  color:#ccc;background:#1e1e1e;border:1px solid #2e2e2e;
+  text-decoration:none;transition:all .2s;border-radius:8px;
+  margin-bottom:10px;
+}
+.btn:hover{background:#252525;border-color:#a0845c;color:#fff;}
+.btn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.btn-grid .btn{margin-bottom:0;}
+
+.footer{margin-top:48px;font-size:11px;color:#333;letter-spacing:2px;text-align:center;line-height:2.4;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-brand" href="index.html">MENGRULENS</a>
+  <a class="topbar-back" href="index.html">← 返回</a>
+</div>
+
+<div class="hero">
+  <img src="about/photo1.jpg" alt="小孟">
+  <div class="hero-overlay"></div>
+</div>
+
+<div class="content">
+  <div class="name-block">
+    <div class="name-main">小孟</div>
+    <div class="name-sub">林孟儒 ／ MENGRULENS</div>
+  </div>
+
+  <div class="divider"><span></span><em>✦</em><span></span></div>
+
+  <p class="intro">
+    嗨，我是小孟 👋<br>
+    喜歡用鏡頭捕捉生活裡的光與溫度<br>
+    也歡迎品牌業配與各種合作邀約🫶🏻
+  </p>
+
+  <div class="sec-label">攝影帳</div>
+  <div class="btn-grid">
+    <a class="btn" href="https://www.instagram.com/mengrulens" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a0845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="#a0845c" stroke="none"/></svg>
+      IG @mengrulens
+    </a>
+    <a class="btn" href="https://www.threads.com/@mengrulens" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#a0845c"><path d="M17.5 11.3c-.2-.1-.4-.2-.7-.3-.4-2.5-2-3.9-4.4-3.9-1.6 0-2.8.7-3.6 1.9l1.3.9c.5-.8 1.3-1.2 2.2-1.2 1.3 0 2.2.8 2.5 2-.6-.1-1.3-.1-2 0C10.6 11 9 12.1 9 13.7c0 1.8 1.4 2.8 3.1 2.8 1.5 0 2.6-.7 3.3-2 .5.6.7 1.3.7 2.2 0 2.1-1.6 3.5-4.1 3.5-3 0-5-2-5-5.1s2-5.2 5-5.2c2 0 3.4.7 4.4 2.1l1.4-.9c-1.2-1.8-3-2.8-5.8-2.8-3.8 0-6.5 2.7-6.5 6.8s2.7 6.7 6.5 6.7c3.3 0 5.6-1.9 5.6-5.1 0-1.1-.3-2-.8-2.8l.2-.6zm-5.2 3.5c-.9 0-1.5-.4-1.5-1.1 0-.8.7-1.3 2-1.4.6-.1 1.2 0 1.7.1-.2 1.4-1 2.4-2.2 2.4z"/></svg>
+      Threads
+    </a>
+  </div>
+  <a class="btn" href="https://www.facebook.com/share/1B2SwDYFU4/" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#a0845c"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    Facebook 粉絲頁
+  </a>
+
+  <div class="sec-label">個人社群</div>
+  <div class="btn-grid">
+    <a class="btn" href="https://www.instagram.com/mengru_lin" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a0845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="#a0845c" stroke="none"/></svg>
+      IG 個人帳
+    </a>
+    <a class="btn" href="https://www.threads.com/@mengru_lin" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#a0845c"><path d="M17.5 11.3c-.2-.1-.4-.2-.7-.3-.4-2.5-2-3.9-4.4-3.9-1.6 0-2.8.7-3.6 1.9l1.3.9c.5-.8 1.3-1.2 2.2-1.2 1.3 0 2.2.8 2.5 2-.6-.1-1.3-.1-2 0C10.6 11 9 12.1 9 13.7c0 1.8 1.4 2.8 3.1 2.8 1.5 0 2.6-.7 3.3-2 .5.6.7 1.3.7 2.2 0 2.1-1.6 3.5-4.1 3.5-3 0-5-2-5-5.1s2-5.2 5-5.2c2 0 3.4.7 4.4 2.1l1.4-.9c-1.2-1.8-3-2.8-5.8-2.8-3.8 0-6.5 2.7-6.5 6.8s2.7 6.7 6.5 6.7c3.3 0 5.6-1.9 5.6-5.1 0-1.1-.3-2-.8-2.8l.2-.6zm-5.2 3.5c-.9 0-1.5-.4-1.5-1.1 0-.8.7-1.3 2-1.4.6-.1 1.2 0 1.7.1-.2 1.4-1 2.4-2.2 2.4z"/></svg>
+      Threads 個人
+    </a>
+  </div>
+  <a class="btn" href="https://www.facebook.com/share/1BFAsef1eC/" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#a0845c"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    Facebook 個人
+  </a>
+
+  <div class="sec-label">聯繫方式</div>
+  <div class="btn-grid">
+    <a class="btn" href="https://line.me/ti/p/pH4J7Qh2Qt" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#a0845c"><path d="M20.5 11.3C20.5 7 16.6 4 12 4S3.5 7 3.5 11.3c0 3.8 3.4 7 7.9 7.5.3.1.7.2.8.5.1.3 0 .7 0 1l-.1.8s-.1.5.4.3 2.8-1.6 3.8-2.8c.7-.8 1.1-1.6 1.1-2.5V11.3z"/></svg>
+      Line
+    </a>
+    <a class="btn" href="mailto:claire23232624@gmail.com">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a0845c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Email
+    </a>
+  </div>
+
+  <div class="footer">林孟儒｜MENGRULENS｜@mengrulens</div>
+</div>
+
+</body>
+</html>
