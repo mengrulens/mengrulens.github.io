@@ -96,11 +96,11 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   font-size: 11px; letter-spacing: 3px; color: #a0845c;
 }
 
-/* ── project grid (masonry) ── */
-.proj-wrap { padding: 0 20px 60px; }
-.proj-grid { columns: 2; column-gap: 3px; }
+/* ── project grid (masonry 2-col) ── */
+.proj-wrap { padding: 0 0 60px; }
+.proj-grid { display: flex; gap: 3px; align-items: flex-start; }
+.proj-col { flex: 1; display: flex; flex-direction: column; gap: 3px; }
 .proj-card {
-  break-inside: avoid; margin-bottom: 3px;
   cursor: pointer; position: relative; overflow: hidden;
 }
 .proj-card img { width: 100%; display: block; transition: transform .45s ease; }
@@ -248,7 +248,7 @@ const DATA = [
         ]
       },
       {
-        "name": "白天鵝",
+        "name": "主題創作寫真",
         "slug": "人像寫真__260510adora藏書閣__調色__修完的",
         "cover": "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-1 拷貝.jpg",
         "photos": [
@@ -351,10 +351,11 @@ const DATA = [
         ]
       },
       {
-        "name": "主題創作",
+        "name": "主題創作寫真",
         "slug": "人像寫真__潔妮",
-        "cover": "images/人像寫真__潔妮/0124_0024.jpg",
+        "cover": "images/人像寫真__潔妮/IMG_3547.jpg",
         "photos": [
+          "images/人像寫真__潔妮/IMG_3547.jpg",
           "images/人像寫真__潔妮/0124_0024.jpg",
           "images/人像寫真__潔妮/0124_0025.jpg",
           "images/人像寫真__潔妮/0124_0026.jpg",
@@ -410,13 +411,47 @@ const DATA = [
           "images/人像寫真__潔妮/IMG_3542.jpg",
           "images/人像寫真__潔妮/IMG_3545.jpg",
           "images/人像寫真__潔妮/IMG_3546.jpg",
-          "images/人像寫真__潔妮/IMG_3547.jpg",
           "images/人像寫真__潔妮/IMG_3548.jpg",
           "images/人像寫真__潔妮/IMG_3549.jpg"
         ]
       },
       {
-        "name": "海風寫真",
+        "name": "校園寫真",
+        "slug": "人像寫真__范飯",
+        "cover": "images/人像寫真__范飯/IMG_8108.jpg",
+        "photos": [
+          "images/人像寫真__范飯/IMG_8108.jpg",
+          "images/人像寫真__范飯/DSC05236.jpg",
+          "images/人像寫真__范飯/DSC05239.jpg",
+          "images/人像寫真__范飯/DSC05276.jpg",
+          "images/人像寫真__范飯/DSC05277.jpg",
+          "images/人像寫真__范飯/DSC05296.jpg",
+          "images/人像寫真__范飯/DSC05311.jpg",
+          "images/人像寫真__范飯/DSC05325.jpg",
+          "images/人像寫真__范飯/DSC05336.jpg",
+          "images/人像寫真__范飯/DSC05395.jpg",
+          "images/人像寫真__范飯/DSC05488-2.jpg",
+          "images/人像寫真__范飯/DSC05547.jpg",
+          "images/人像寫真__范飯/DSC05731.jpg",
+          "images/人像寫真__范飯/DSC05738.jpg",
+          "images/人像寫真__范飯/DSC05746.jpg",
+          "images/人像寫真__范飯/DSC05758.jpg",
+          "images/人像寫真__范飯/IMG_8092.jpg",
+          "images/人像寫真__范飯/IMG_8093.jpg",
+          "images/人像寫真__范飯/IMG_8094.jpg",
+          "images/人像寫真__范飯/IMG_8095.jpg",
+          "images/人像寫真__范飯/IMG_8096.jpg",
+          "images/人像寫真__范飯/IMG_8097.jpg",
+          "images/人像寫真__范飯/IMG_8098.jpg",
+          "images/人像寫真__范飯/IMG_8106.jpg",
+          "images/人像寫真__范飯/IMG_8107.jpg",
+          "images/人像寫真__范飯/IMG_8109.jpg",
+          "images/人像寫真__范飯/IMG_8503.jpg",
+          "images/人像寫真__范飯/IMG_8504.jpg"
+        ]
+      },
+      {
+        "name": "夏日寫真",
         "slug": "人像寫真__禹臻",
         "cover": "images/人像寫真__禹臻/IMG_5446.jpg",
         "photos": [
@@ -456,41 +491,6 @@ const DATA = [
           "images/人像寫真__禹臻/IMG_6221.jpg",
           "images/人像寫真__禹臻/IMG_6222.jpg",
           "images/人像寫真__禹臻/IMG_6223.jpg"
-        ]
-      },
-      {
-        "name": "青春校園",
-        "slug": "人像寫真__范飯",
-        "cover": "images/人像寫真__范飯/IMG_8108.jpg",
-        "photos": [
-          "images/人像寫真__范飯/IMG_8108.jpg",
-          "images/人像寫真__范飯/DSC05236.jpg",
-          "images/人像寫真__范飯/DSC05239.jpg",
-          "images/人像寫真__范飯/DSC05276.jpg",
-          "images/人像寫真__范飯/DSC05277.jpg",
-          "images/人像寫真__范飯/DSC05296.jpg",
-          "images/人像寫真__范飯/DSC05311.jpg",
-          "images/人像寫真__范飯/DSC05325.jpg",
-          "images/人像寫真__范飯/DSC05336.jpg",
-          "images/人像寫真__范飯/DSC05395.jpg",
-          "images/人像寫真__范飯/DSC05488-2.jpg",
-          "images/人像寫真__范飯/DSC05547.jpg",
-          "images/人像寫真__范飯/DSC05731.jpg",
-          "images/人像寫真__范飯/DSC05738.jpg",
-          "images/人像寫真__范飯/DSC05746.jpg",
-          "images/人像寫真__范飯/DSC05758.jpg",
-          "images/人像寫真__范飯/IMG_8092.jpg",
-          "images/人像寫真__范飯/IMG_8093.jpg",
-          "images/人像寫真__范飯/IMG_8094.jpg",
-          "images/人像寫真__范飯/IMG_8095.jpg",
-          "images/人像寫真__范飯/IMG_8096.jpg",
-          "images/人像寫真__范飯/IMG_8097.jpg",
-          "images/人像寫真__范飯/IMG_8098.jpg",
-          "images/人像寫真__范飯/IMG_8106.jpg",
-          "images/人像寫真__范飯/IMG_8107.jpg",
-          "images/人像寫真__范飯/IMG_8109.jpg",
-          "images/人像寫真__范飯/IMG_8503.jpg",
-          "images/人像寫真__范飯/IMG_8504.jpg"
         ]
       }
     ],
@@ -647,6 +647,14 @@ function render() {
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
+    const col1 = cat.projects.filter((_,i)=>i%2===0);
+    const col2 = cat.projects.filter((_,i)=>i%2===1);
+    const projCard = p => `
+      <div class="proj-card" data-go="${cat.slug}/${p.slug}">
+        <img src="${enc(p.cover)}" loading="lazy">
+        <div class="proj-card-overlay"></div>
+        <div class="proj-card-label">${p.name}</div>
+      </div>`;
     app.innerHTML = `
       <div class="pg-header">
         <div class="pg-title">${cat.name}</div>
@@ -654,12 +662,8 @@ function render() {
       </div>
       <div class="proj-wrap">
         <div class="proj-grid">
-          ${cat.projects.map(p=>`
-            <div class="proj-card" data-go="${cat.slug}/${p.slug}">
-              <img src="${enc(p.cover)}" loading="lazy">
-              <div class="proj-card-overlay"></div>
-              <div class="proj-card-label">${p.name}</div>
-            </div>`).join('')}
+          <div class="proj-col">${col1.map(projCard).join('')}</div>
+          <div class="proj-col">${col2.map(projCard).join('')}</div>
         </div>
       </div>`;
   } else if (parts.length === 2) {

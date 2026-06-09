@@ -38,15 +38,15 @@ PORTFOLIO = [
     # ── 人像寫真 ──────────────────────────────────────
     ("人像寫真/260427羽甄山棚/羽甄/第一套/修完",   "人像寫真", "韓系寫真",   "20260427-11 拷貝"),
     ("人像寫真/260427羽甄山棚/羽甄/第三套/修完",   "人像寫真", "清甜寫真",   "3-8"),
-    ("人像寫真/260510adora藏書閣/調色/修完的",       "人像寫真", "白天鵝",     ""),
+    ("人像寫真/260510adora藏書閣/調色/修完的",       "人像寫真", "主題創作寫真", ""),
     ("人像寫真/260511謝藏書閣/Wynni/精修作品", "人像寫真", "模特卡",     "IMG_9813"),
     ("人像寫真/260427羽甄山棚/羽甄/第二套/修完",   "人像寫真", "韓系寫真 2", "2-3"),
     ("人像寫真/260316風格寫真",                    "人像寫真", "風格寫真",    ""),
     ("人像寫真/Yona/精修（po文圖）",                "人像寫真", "藍調寫真",    "IMG_7082"),
     ("人像寫真/b_b_b1014",      "人像寫真", "底片感街拍",  "IMG_5469"),
-    ("人像寫真/潔妮",            "人像寫真", "主題創作",    "0124_0024"),
-    ("人像寫真/禹臻",            "人像寫真", "海風寫真",    "IMG_5446"),
-    ("人像寫真/范飯",            "人像寫真", "青春校園",    "IMG_8108"),
+    ("人像寫真/潔妮",            "人像寫真", "主題創作寫真", "IMG_3547"),
+    ("人像寫真/范飯",            "人像寫真", "校園寫真",    "IMG_8108"),
+    ("人像寫真/禹臻",            "人像寫真", "夏日寫真",    "IMG_5446"),
 
     # ── 活動紀錄 ──────────────────────────────────────
     ("活動紀錄/20250601國三畢業典禮",       "活動紀錄", "國三畢業典禮",     "A7S01360"),
@@ -299,11 +299,11 @@ body {{ font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   font-size: 11px; letter-spacing: 3px; color: #a0845c;
 }}
 
-/* ── project grid (masonry) ── */
-.proj-wrap {{ padding: 0 20px 60px; }}
-.proj-grid {{ columns: 2; column-gap: 3px; }}
+/* ── project grid (masonry 2-col) ── */
+.proj-wrap {{ padding: 0 0 60px; }}
+.proj-grid {{ display: flex; gap: 3px; align-items: flex-start; }}
+.proj-col {{ flex: 1; display: flex; flex-direction: column; gap: 3px; }}
 .proj-card {{
-  break-inside: avoid; margin-bottom: 3px;
   cursor: pointer; position: relative; overflow: hidden;
 }}
 .proj-card img {{ width: 100%; display: block; transition: transform .45s ease; }}
@@ -442,6 +442,14 @@ function render() {{
   }} else if (parts.length === 1) {{
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${{cat.name}}</span>`;
+    const col1 = cat.projects.filter((_,i)=>i%2===0);
+    const col2 = cat.projects.filter((_,i)=>i%2===1);
+    const projCard = p => `
+      <div class="proj-card" data-go="${{cat.slug}}/${{p.slug}}">
+        <img src="${{enc(p.cover)}}" loading="lazy">
+        <div class="proj-card-overlay"></div>
+        <div class="proj-card-label">${{p.name}}</div>
+      </div>`;
     app.innerHTML = `
       <div class="pg-header">
         <div class="pg-title">${{cat.name}}</div>
@@ -449,12 +457,8 @@ function render() {{
       </div>
       <div class="proj-wrap">
         <div class="proj-grid">
-          ${{cat.projects.map(p=>`
-            <div class="proj-card" data-go="${{cat.slug}}/${{p.slug}}">
-              <img src="${{enc(p.cover)}}" loading="lazy">
-              <div class="proj-card-overlay"></div>
-              <div class="proj-card-label">${{p.name}}</div>
-            </div>`).join('')}}
+          <div class="proj-col">${{col1.map(projCard).join('')}}</div>
+          <div class="proj-col">${{col2.map(projCard).join('')}}</div>
         </div>
       </div>`;
   }} else if (parts.length === 2) {{
