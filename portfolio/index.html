@@ -3,85 +3,216 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小孟映像 | @mengrulens</title>
+<title>作品集｜MENGRULENS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, 'Helvetica Neue', sans-serif; background: #fff; color: #1a1a1a; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 
-  nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #eee;
-        padding: 14px 40px; display: flex; align-items: center; gap: 6px; font-size: 14px; }
-  nav a { color: #888; text-decoration: none; cursor: pointer; }
-  nav a:hover { color: #1a1a1a; }
-  nav .sep { color: #ccc; }
-  nav .cur { color: #1a1a1a; font-weight: 500; }
+/* ── nav bar ── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: #111; border-bottom: 1px solid #222;
+  padding: 0 24px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px; letter-spacing: 7px; font-weight: 300; color: #fff;
+  text-decoration: none;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: 2px;
+}
+.breadcrumb a {
+  color: #a0845c; text-decoration: none; cursor: pointer;
+  transition: color .2s;
+}
+.breadcrumb a:hover { color: #fff; }
+.breadcrumb .sep { color: #333; }
+.breadcrumb .cur { color: #666; }
 
-  header { padding: 60px 40px 20px; }
-  header h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
-  header p { margin-top: 6px; color: #888; font-size: 15px; }
+/* ── page header ── */
+.pg-header {
+  padding: 48px 24px 32px;
+  text-align: center;
+}
+.pg-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px; letter-spacing: 6px; font-weight: 300; color: #fff;
+  margin-bottom: 8px;
+}
+.pg-sub {
+  font-size: 12px; letter-spacing: 4px; color: #a0845c;
+}
+.pg-divider {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+  margin: 16px 0 0;
+}
+.pg-divider span { height: 1px; width: 40px; background: #2a2a2a; display: block; }
+.pg-divider em { color: #a0845c; font-style: normal; font-size: 11px; }
 
-  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-               gap: 24px; padding: 24px 40px 60px; }
-  .cat-card { cursor: pointer; }
-  .cat-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: top center; display: block; }
-  .cat-card .label { padding: 12px 0 4px; font-size: 15px; font-weight: 500; }
-  .cat-card .sub { font-size: 13px; color: #888; }
+/* ── category grid ── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3px;
+  padding: 0 0 60px;
+}
+.cat-card {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.cat-card img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  display: block;
+  transition: transform .5s ease;
+}
+.cat-card:hover img { transform: scale(1.06); }
+.cat-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
+  transition: background .3s;
+}
+.cat-card:hover .cat-card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
+}
+.cat-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 18px 16px;
+}
+.cat-card-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px; letter-spacing: 4px; color: #fff; font-weight: 300;
+  margin-bottom: 4px;
+}
+.cat-card-count {
+  font-size: 11px; letter-spacing: 3px; color: #a0845c;
+}
 
-  .proj-grid { columns: 2; column-gap: 20px; padding: 24px 40px 60px; }
-  .proj-card { break-inside: avoid; margin-bottom: 20px; cursor: pointer; }
-  .proj-card img { width: 100%; display: block; }
-  .proj-card .label { padding: 10px 0 2px; font-size: 14px; font-weight: 500; }
+/* ── project grid (masonry) ── */
+.proj-wrap { padding: 0 20px 60px; }
+.proj-grid { columns: 2; column-gap: 3px; }
+.proj-card {
+  break-inside: avoid; margin-bottom: 3px;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.proj-card img { width: 100%; display: block; transition: transform .45s ease; }
+.proj-card:hover img { transform: scale(1.04); }
+.proj-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
+  opacity: 0; transition: opacity .3s;
+}
+.proj-card:hover .proj-card-overlay { opacity: 1; }
+.proj-card-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 14px 12px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px; letter-spacing: 3px; color: #fff;
+  opacity: 0; transform: translateY(6px); transition: all .3s;
+}
+.proj-card:hover .proj-card-label { opacity: 1; transform: translateY(0); }
 
-  .photo-hero img { width: 100%; max-height: 85vh; object-fit: contain; background: #f5f5f5; display: block; }
-  .photo-title { padding: 32px 40px 16px; font-size: 22px; font-weight: 600; }
-  .photo-grid { columns: 2; column-gap: 6px; padding: 0 40px 60px; }
-  .photo-grid img { width: 100%; display: block; margin-bottom: 6px; cursor: pointer;
-                     break-inside: avoid; transition: opacity .15s; }
-  .photo-grid img:hover { opacity: .85; }
+/* ── photo view ── */
+.photo-hero {
+  position: relative;
+}
+.photo-hero img {
+  width: 100%; max-height: 88vh;
+  object-fit: contain; background: #111; display: block;
+}
+.photo-info {
+  padding: 24px 24px 20px;
+  display: flex; align-items: baseline; gap: 16px;
+}
+.photo-info-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px; letter-spacing: 5px; color: #fff; font-weight: 300;
+}
+.photo-info-count {
+  font-size: 11px; letter-spacing: 3px; color: #555;
+}
+.photo-grid {
+  columns: 2; column-gap: 3px;
+  padding: 0 0 60px;
+}
+.photo-grid img {
+  width: 100%; display: block; margin-bottom: 3px;
+  cursor: pointer; break-inside: avoid;
+  transition: transform .35s ease, filter .3s;
+  filter: brightness(1);
+}
+.photo-grid img:hover {
+  transform: scale(1.02);
+  filter: brightness(1.08);
+}
 
-  .lb { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
-         z-index: 999; align-items: center; justify-content: center; }
-  .lb.open { display: flex; }
-  .lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
-  .lb-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 28px; cursor: pointer; }
-  .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%);
-                         color: #fff; font-size: 36px; cursor: pointer; padding: 20px; user-select: none; }
-  .lb-prev { left: 8px; } .lb-next { right: 8px; }
+/* ── lightbox ── */
+.lb {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.96);
+  z-index: 999; align-items: center; justify-content: center;
+}
+.lb.open { display: flex; }
+.lb img {
+  max-width: 92vw; max-height: 92vh; object-fit: contain;
+  transition: opacity .2s;
+}
+.lb-close {
+  position: absolute; top: 20px; right: 24px;
+  color: #666; font-size: 22px; cursor: pointer; letter-spacing: 2px;
+  transition: color .2s;
+}
+.lb-close:hover { color: #fff; }
+.lb-prev, .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  color: #444; font-size: 40px; cursor: pointer; padding: 24px;
+  user-select: none; transition: color .2s;
+}
+.lb-prev:hover, .lb-next:hover { color: #a0845c; }
+.lb-prev { left: 0; } .lb-next { right: 0; }
+.lb-counter {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; letter-spacing: 3px; color: #444;
+}
 
-  @media (max-width: 600px) {
-    nav, header, .cat-grid, .proj-grid, .photo-title, .photo-grid { padding-left: 16px; padding-right: 16px; }
-  }
+@media (max-width: 600px) {
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+  .proj-wrap { padding: 0 0 60px; }
+  .photo-info { padding: 16px 16px 12px; }
+}
 </style>
 </head>
 <body>
-<nav id="nav"></nav>
+
+<div class="topbar">
+  <a class="topbar-brand" href="../index.html">MENGRULENS</a>
+  <div class="breadcrumb" id="nav"></div>
+</div>
+
 <div id="app"></div>
+
 <div class="lb" id="lb">
-  <span class="lb-close" onclick="closeLb()">✕</span>
+  <span class="lb-close" onclick="closeLb()">✕ CLOSE</span>
   <span class="lb-prev" onclick="lbMove(-1)">&#8249;</span>
   <img id="lb-img" src="">
   <span class="lb-next" onclick="lbMove(1)">&#8250;</span>
+  <div class="lb-counter" id="lb-counter"></div>
 </div>
+
 <script>
 const DATA = [
   {
     "name": "人像寫真",
     "slug": "人像寫真",
     "projects": [
-      {
-        "name": "風格寫真",
-        "slug": "人像寫真__260316風格寫真",
-        "cover": "images/人像寫真__260316風格寫真/DSC08165.jpg",
-        "photos": [
-          "images/人像寫真__260316風格寫真/DSC08165.jpg",
-          "images/人像寫真__260316風格寫真/DSC08166.jpg",
-          "images/人像寫真__260316風格寫真/DSC08171.jpg",
-          "images/人像寫真__260316風格寫真/DSC08172.jpg",
-          "images/人像寫真__260316風格寫真/DSC08175.jpg",
-          "images/人像寫真__260316風格寫真/DSC08185.jpg",
-          "images/人像寫真__260316風格寫真/DSC08192.jpg",
-          "images/人像寫真__260316風格寫真/DSC08231.jpg"
-        ]
-      },
       {
         "name": "韓系寫真",
         "slug": "人像寫真__260427羽甄山棚__羽甄__第一套__修完",
@@ -97,23 +228,6 @@ const DATA = [
           "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-3 拷貝.jpg",
           "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-5 拷貝.jpg",
           "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-9 拷貝.jpg"
-        ]
-      },
-      {
-        "name": "韓系寫真 2",
-        "slug": "人像寫真__260427羽甄山棚__羽甄__第二套__修完",
-        "cover": "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
-        "photos": [
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-1 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-11 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-13 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-14 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-18 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-2 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-4 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-6 拷貝.jpg",
-          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-8 拷貝.jpg"
         ]
       },
       {
@@ -166,6 +280,38 @@ const DATA = [
           "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9815.jpg",
           "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9817.jpg",
           "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9818.jpg"
+        ]
+      },
+      {
+        "name": "韓系寫真 2",
+        "slug": "人像寫真__260427羽甄山棚__羽甄__第二套__修完",
+        "cover": "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
+        "photos": [
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-1 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-11 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-13 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-14 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-18 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-2 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-4 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-6 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-8 拷貝.jpg"
+        ]
+      },
+      {
+        "name": "風格寫真",
+        "slug": "人像寫真__260316風格寫真",
+        "cover": "images/人像寫真__260316風格寫真/DSC08165.jpg",
+        "photos": [
+          "images/人像寫真__260316風格寫真/DSC08165.jpg",
+          "images/人像寫真__260316風格寫真/DSC08166.jpg",
+          "images/人像寫真__260316風格寫真/DSC08171.jpg",
+          "images/人像寫真__260316風格寫真/DSC08172.jpg",
+          "images/人像寫真__260316風格寫真/DSC08175.jpg",
+          "images/人像寫真__260316風格寫真/DSC08185.jpg",
+          "images/人像寫真__260316風格寫真/DSC08192.jpg",
+          "images/人像寫真__260316風格寫真/DSC08231.jpg"
         ]
       },
       {
@@ -348,7 +494,7 @@ const DATA = [
         ]
       }
     ],
-    "cover": "images/人像寫真__260316風格寫真/DSC08165.jpg"
+    "cover": "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-11 拷貝.jpg"
   },
   {
     "name": "活動紀錄",
@@ -482,26 +628,39 @@ function render() {
   if (parts.length === 0) {
     nav.innerHTML = `<span class="cur">作品集</span>`;
     app.innerHTML = `
-      <header><h1>小孟映像</h1><p>@mengrulens</p></header>
+      <div class="pg-header">
+        <div class="pg-title">作品集</div>
+        <div class="pg-sub">PORTFOLIO</div>
+        <div class="pg-divider"><span></span><em>✦</em><span></span></div>
+      </div>
       <div class="cat-grid">
         ${DATA.map(c=>`
           <div class="cat-card" data-go="${c.slug}">
             <img src="${enc(c.cover)}" loading="lazy">
-            <div class="label">${c.name}</div>
-            <div class="sub">${c.projects.length} 個專案</div>
+            <div class="cat-card-overlay"></div>
+            <div class="cat-card-info">
+              <div class="cat-card-name">${c.name}</div>
+              <div class="cat-card-count">${c.projects.length} 個專案</div>
+            </div>
           </div>`).join('')}
       </div>`;
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
     app.innerHTML = `
-      <header><h1>${cat.name}</h1></header>
-      <div class="proj-grid">
-        ${cat.projects.map(p=>`
-          <div class="proj-card" data-go="${cat.slug}/${p.slug}">
-            <img src="${enc(p.cover)}" loading="lazy">
-            <div class="label">${p.name}</div>
-          </div>`).join('')}
+      <div class="pg-header">
+        <div class="pg-title">${cat.name}</div>
+        <div class="pg-divider"><span></span><em>✦</em><span></span></div>
+      </div>
+      <div class="proj-wrap">
+        <div class="proj-grid">
+          ${cat.projects.map(p=>`
+            <div class="proj-card" data-go="${cat.slug}/${p.slug}">
+              <img src="${enc(p.cover)}" loading="lazy">
+              <div class="proj-card-overlay"></div>
+              <div class="proj-card-label">${p.name}</div>
+            </div>`).join('')}
+        </div>
       </div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
@@ -509,8 +668,11 @@ function render() {
     lbPhotos = proj.photos;
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><a data-go="${cat.slug}">${cat.name}</a><span class="sep">/</span><span class="cur">${proj.name}</span>`;
     app.innerHTML = `
-      <div class="photo-hero"><img src="${enc(proj.photos[0])}"></div>
-      <div class="photo-title">${proj.name}</div>
+      <div class="photo-hero"><img src="${enc(proj.photos[0])}" data-lb="0"></div>
+      <div class="photo-info">
+        <div class="photo-info-title">${proj.name}</div>
+        <div class="photo-info-count">${proj.photos.length} 張</div>
+      </div>
       <div class="photo-grid">
         ${proj.photos.slice(1).map((p,i)=>`<img src="${enc(p)}" loading="lazy" data-lb="${i+1}">`).join('')}
       </div>`;
@@ -520,9 +682,24 @@ function render() {
 
 function enc(p){ return p.split('/').map(s=>encodeURIComponent(s)).join('/'); }
 function go(path){ history.pushState(null,'','#/'+path); render(); }
-function openLb(i){ lbIdx=i; document.getElementById('lb-img').src=enc(lbPhotos[i]); document.getElementById('lb').classList.add('open'); }
+function openLb(i){
+  lbIdx=i;
+  const img=document.getElementById('lb-img');
+  img.style.opacity=0;
+  img.src=enc(lbPhotos[i]);
+  img.onload=()=>{ img.style.opacity=1; };
+  document.getElementById('lb-counter').textContent=(i+1)+' / '+lbPhotos.length;
+  document.getElementById('lb').classList.add('open');
+}
 function closeLb(){ document.getElementById('lb').classList.remove('open'); }
-function lbMove(d){ lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length; document.getElementById('lb-img').src=enc(lbPhotos[lbIdx]); }
+function lbMove(d){
+  lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length;
+  const img=document.getElementById('lb-img');
+  img.style.opacity=0;
+  img.src=enc(lbPhotos[lbIdx]);
+  img.onload=()=>{ img.style.opacity=1; };
+  document.getElementById('lb-counter').textContent=(lbIdx+1)+' / '+lbPhotos.length;
+}
 
 document.addEventListener('click', e=>{
   const el=e.target.closest('[data-go]'); if(el){ e.preventDefault(); go(el.dataset.go); }

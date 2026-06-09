@@ -8,389 +8,455 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
+  background:#f5f1ec;
+  font-family:"Noto Serif TC",serif;
+  color:#2a2118;
   min-height:100vh;
-  background:#faf8f5;
-  font-family:"Noto Serif TC",serif;
-  color:#2a2118;
-  padding:56px 24px 80px;
+  padding:0 0 80px;
 }
 
-.container{
-  max-width:560px;
-  margin:0 auto;
+/* ── top bar ── */
+.topbar{
+  background:#1a1a1a;
+  padding:20px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
-
-/* header */
-.brand{
+.topbar-brand{
   font-family:"Cormorant Garamond",serif;
-  font-size:22px;
+  font-size:18px;
+  letter-spacing:8px;
+  color:#fff;
   font-weight:300;
-  letter-spacing:10px;
-  color:#2a2118;
-  text-align:center;
-  margin-bottom:4px;
 }
-.brand-sub{
-  font-family:"Cormorant Garamond",serif;
-  font-size:10px;
-  letter-spacing:5px;
-  color:#a0845c;
-  text-align:center;
-  margin-bottom:24px;
-}
-.divider{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:16px;
-}
-.divider span{height:1px;width:44px;background:#c9b99a;display:block}
-.divider em{color:#a0845c;font-style:normal;font-size:12px}
-
-.form-title{
-  font-family:"Cormorant Garamond",serif;
-  font-size:20px;
-  letter-spacing:4px;
-  color:#2a2118;
-  text-align:center;
-  margin-bottom:8px;
-}
-.form-desc{
-  font-size:13px;
-  color:#6a5c4e;
-  line-height:2;
-  text-align:center;
-  margin-bottom:48px;
-}
-
-/* section */
-.section-title{
-  font-family:"Cormorant Garamond",serif;
-  font-size:13px;
-  letter-spacing:4px;
-  color:#a0845c;
-  border-bottom:1px solid #e0d8ce;
-  padding-bottom:8px;
-  margin-bottom:24px;
-  margin-top:40px;
-}
-
-/* form group */
-.form-group{
-  margin-bottom:24px;
-}
-.form-group label{
-  display:block;
-  font-size:13px;
-  letter-spacing:1px;
-  color:#4a3f33;
-  margin-bottom:8px;
-}
-.required{color:#a0845c;margin-left:2px}
-.hint{
-  font-size:11px;
-  color:#9a8a7a;
-  margin-top:4px;
-  line-height:1.6;
-}
-
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-input[type="date"],
-select,
-textarea{
-  width:100%;
-  padding:12px 14px;
-  background:#fff;
-  border:1px solid #d8cfc4;
-  color:#2a2118;
-  font-family:"Noto Serif TC",serif;
-  font-size:14px;
-  outline:none;
-  transition:border .2s;
-  appearance:none;
-  -webkit-appearance:none;
-}
-input[type="text"]:focus,
-input[type="tel"]:focus,
-input[type="email"]:focus,
-input[type="date"]:focus,
-select:focus,
-textarea:focus{
-  border-color:#a0845c;
-}
-textarea{
-  resize:vertical;
-  min-height:100px;
-  line-height:1.8;
-}
-select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a0845c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 14px center;
-  padding-right:36px;
-  cursor:pointer;
-}
-
-/* radio / checkbox */
-.options{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.options.row{
-  flex-direction:row;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.option-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  font-size:14px;
-  color:#3a3028;
-}
-.option-item input[type="radio"],
-.option-item input[type="checkbox"]{
-  width:16px;
-  height:16px;
-  accent-color:#a0845c;
-  cursor:pointer;
-  flex-shrink:0;
-}
-
-/* submit */
-.submit-wrap{
-  margin-top:48px;
-  text-align:center;
-}
-.submit-btn{
-  display:inline-block;
-  padding:16px 48px;
-  background:#a0845c;
-  color:#faf8f5;
-  font-family:"Cormorant Garamond",serif;
-  font-size:16px;
-  letter-spacing:4px;
-  border:none;
-  cursor:pointer;
-  transition:background .2s;
-  width:100%;
-  max-width:320px;
-}
-.submit-btn:hover{background:#8a6e4a}
-
-/* back link */
-.back-link{
-  display:block;
-  text-align:center;
-  margin-bottom:40px;
+.topbar-back{
   font-size:12px;
   letter-spacing:2px;
   color:#a0845c;
   text-decoration:none;
 }
-.back-link:hover{color:#2a2118}
+.topbar-back:hover{color:#fff}
 
-/* footer */
-.footer{
-  margin-top:56px;
-  font-size:11px;
-  color:#c9b99a;
-  letter-spacing:2px;
+/* ── hero ── */
+.hero{
+  background:#1a1a1a;
+  padding:32px 24px 48px;
   text-align:center;
-  line-height:2;
+  border-bottom:1px solid #2a2a2a;
+}
+.hero-title{
+  font-family:"Cormorant Garamond",serif;
+  font-size:28px;
+  font-weight:300;
+  letter-spacing:6px;
+  color:#fff;
+  margin-bottom:8px;
+}
+.hero-sub{
+  font-size:13px;
+  color:#a0845c;
+  letter-spacing:3px;
+  margin-bottom:20px;
+}
+.divider{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  margin-bottom:20px;
+}
+.divider span{height:1px;width:40px;background:#333;display:block}
+.divider em{color:#a0845c;font-style:normal;font-size:11px}
+.hero-desc{
+  font-size:13px;
+  color:#888;
+  line-height:2.2;
 }
 
-/* thank you page */
-#thank-you{display:none;text-align:center;padding-top:40px}
+/* ── form wrapper ── */
+.form-wrap{
+  max-width:560px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ── section card ── */
+.section-card{
+  background:#fff;
+  border-radius:12px;
+  margin-top:20px;
+  overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.section-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 20px 14px;
+  border-bottom:1px solid #f0ebe4;
+}
+.section-num{
+  font-family:"Cormorant Garamond",serif;
+  font-size:12px;
+  letter-spacing:2px;
+  color:#a0845c;
+  background:#faf6f0;
+  border:1px solid #e8ddd0;
+  border-radius:4px;
+  padding:2px 8px;
+}
+.section-name{
+  font-family:"Cormorant Garamond",serif;
+  font-size:16px;
+  letter-spacing:4px;
+  color:#2a2118;
+}
+.section-body{
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* ── form group ── */
+.form-group label.field-label{
+  display:block;
+  font-size:13px;
+  letter-spacing:1px;
+  color:#5a4a3a;
+  margin-bottom:8px;
+  font-weight:500;
+}
+.required{color:#a0845c;margin-left:2px}
+.hint{font-size:11px;color:#b0a090;margin-top:5px;line-height:1.6;}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+textarea{
+  width:100%;
+  padding:12px 14px;
+  background:#faf8f5;
+  border:1px solid #e0d8ce;
+  color:#2a2118;
+  font-family:"Noto Serif TC",serif;
+  font-size:14px;
+  outline:none;
+  transition:border .2s, background .2s;
+  border-radius:6px;
+}
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="email"]::placeholder,
+textarea::placeholder{color:#bbb;}
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+textarea:focus{
+  border-color:#a0845c;
+  background:#fff;
+}
+textarea{
+  resize:vertical;
+  min-height:96px;
+  line-height:1.9;
+}
+
+/* ── radio / checkbox ── */
+.options{display:flex;flex-direction:column;gap:0;}
+.options.row{flex-direction:row;flex-wrap:wrap;gap:8px;}
+
+.option-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:14px;
+  color:#3a3028;
+  transition:background .15s;
+}
+.option-item:hover{background:#faf6f0;}
+.option-item input[type="radio"],
+.option-item input[type="checkbox"]{
+  width:16px;height:16px;
+  accent-color:#a0845c;
+  cursor:pointer;flex-shrink:0;
+}
+.options.row .option-item{
+  background:#faf8f5;
+  border:1px solid #e8e0d4;
+  padding:8px 14px;
+}
+.options.row .option-item:hover{background:#f5f0e8;border-color:#c9b99a;}
+
+/* ── submit ── */
+.submit-wrap{
+  max-width:560px;
+  margin:28px auto 0;
+  padding:0 20px;
+  text-align:center;
+}
+.submit-btn{
+  width:100%;
+  padding:18px;
+  background:linear-gradient(135deg,#a0845c,#c9a87a);
+  color:#fff;
+  font-family:"Cormorant Garamond",serif;
+  font-size:17px;
+  letter-spacing:5px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all .2s;
+  box-shadow:0 4px 20px rgba(160,132,92,.25);
+}
+.submit-btn:hover{
+  background:linear-gradient(135deg,#8a6e4a,#a0845c);
+  transform:translateY(-1px);
+  box-shadow:0 6px 24px rgba(160,132,92,.35);
+}
+
+/* ── footer ── */
+.footer{
+  margin-top:40px;
+  font-size:11px;
+  color:#c0b0a0;
+  letter-spacing:2px;
+  text-align:center;
+  line-height:2.4;
+}
+
+/* thank you */
+#thank-you{display:none;text-align:center;padding:60px 24px;}
 #thank-you .ty-icon{font-size:40px;margin-bottom:20px}
 #thank-you .ty-title{
   font-family:"Cormorant Garamond",serif;
-  font-size:22px;
-  letter-spacing:4px;
-  color:#2a2118;
-  margin-bottom:16px;
+  font-size:24px;letter-spacing:4px;color:#2a2118;margin-bottom:16px;
 }
-#thank-you .ty-msg{
-  font-size:13px;
-  color:#6a5c4e;
-  line-height:2.2;
-  margin-bottom:32px;
+#thank-you .ty-msg{font-size:13px;color:#7a6a5a;line-height:2.4;margin-bottom:32px;}
+#thank-you .back-link{
+  font-size:12px;letter-spacing:2px;color:#a0845c;text-decoration:none;
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <a class="back-link" href="index.html">← 返回</a>
+<!-- top bar -->
+<div class="topbar">
+  <div class="topbar-brand">MENGRULENS</div>
+  <a class="topbar-back" href="index.html">← 返回</a>
+</div>
 
-  <div class="brand">MENGRULENS</div>
-  <div class="brand-sub">PHOTOGRAPHY</div>
+<!-- hero -->
+<div class="hero">
+  <div class="hero-title">預約需求表</div>
+  <div class="hero-sub">BOOKING REQUEST</div>
   <div class="divider"><span></span><em>✦</em><span></span></div>
-
-  <div class="form-title">預約需求表</div>
-  <div class="form-desc">
+  <div class="hero-desc">
     嗨！很開心你想和我合作 🌿<br>
     填完之後我會在 1–2 個工作天內與你聯繫，<br>
     我們再一起討論拍攝的細節。
   </div>
-
-  <!-- 表單 -->
-  <form id="booking-form"
-        action="https://formsubmit.co/claire23232624@gmail.com"
-        method="POST">
-
-    <!-- FormSubmit 設定 -->
-    <input type="hidden" name="_subject" value="✨ 新的預約需求｜MENGRULENS">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value=""><!-- 填上你的網址/thank-you 後會跳轉 -->
-
-    <!-- 第一區：認識你 -->
-    <div class="section-title">01 &nbsp;認識你</div>
-
-    <div class="form-group">
-      <label>姓名<span class="required">*</span></label>
-      <input type="text" name="姓名" required placeholder="你的名字">
-    </div>
-
-    <div class="form-group">
-      <label>LINE ID 或手機號碼<span class="required">*</span></label>
-      <input type="text" name="聯絡方式" required placeholder="填寫後我會主動與你聯繫">
-    </div>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" name="Email" placeholder="選填">
-    </div>
-
-    <div class="form-group">
-      <label>你是從哪裡認識 MENGRULENS 的？<span class="required">*</span></label>
-      <div class="options">
-        <label class="option-item"><input type="radio" name="來源" value="Instagram" required> Instagram</label>
-        <label class="option-item"><input type="radio" name="來源" value="Threads"> Threads</label>
-        <label class="option-item"><input type="radio" name="來源" value="朋友介紹"> 朋友介紹</label>
-        <label class="option-item"><input type="radio" name="來源" value="Google 搜尋"> Google 搜尋</label>
-        <label class="option-item"><input type="radio" name="來源" value="其他"> 其他</label>
-      </div>
-    </div>
-
-    <!-- 第二區：拍攝需求 -->
-    <div class="section-title">02 &nbsp;拍攝需求</div>
-
-    <div class="form-group">
-      <label>你想預約的拍攝類型<span class="required">*</span></label>
-      <div class="options">
-        <label class="option-item"><input type="radio" name="拍攝類型" value="人像寫真" required> 人像寫真</label>
-        <label class="option-item"><input type="radio" name="拍攝類型" value="婚禮平面攝影"> 婚禮平面攝影</label>
-        <label class="option-item"><input type="radio" name="拍攝類型" value="活動紀錄"> 活動紀錄</label>
-        <label class="option-item"><input type="radio" name="拍攝類型" value="空間攝影"> 空間攝影</label>
-        <label class="option-item"><input type="radio" name="拍攝類型" value="運動攝影"> 運動攝影</label>
-        <label class="option-item"><input type="radio" name="拍攝類型" value="其他"> 其他</label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>預計拍攝日期<span class="required">*</span></label>
-      <input type="text" name="預計日期" required placeholder="例如：2026/08/10 或 8 月中旬">
-      <div class="hint">若尚未決定，可填寫大概的時間區間</div>
-    </div>
-
-    <div class="form-group">
-      <label>拍攝地點或城市</label>
-      <input type="text" name="拍攝地點" placeholder="選填，沒有想法也沒關係">
-    </div>
-
-    <!-- 第三區：拍攝細節 -->
-    <div class="section-title">03 &nbsp;拍攝細節</div>
-
-    <div class="form-group">
-      <label>拍攝人數</label>
-      <div class="options">
-        <label class="option-item"><input type="radio" name="拍攝人數" value="個人"> 個人</label>
-        <label class="option-item"><input type="radio" name="拍攝人數" value="雙人（情侶 / 閨蜜 / 親子）"> 雙人（情侶 / 閨蜜 / 親子）</label>
-        <label class="option-item"><input type="radio" name="拍攝人數" value="3 人以上"> 3 人以上</label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>服裝套數</label>
-      <div class="options row">
-        <label class="option-item"><input type="radio" name="服裝套數" value="1 套"> 1 套</label>
-        <label class="option-item"><input type="radio" name="服裝套數" value="2 套"> 2 套</label>
-        <label class="option-item"><input type="radio" name="服裝套數" value="3 套以上"> 3 套以上</label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>偏好的拍攝場景（可複選）</label>
-      <div class="options">
-        <label class="option-item"><input type="checkbox" name="拍攝場景" value="戶外自然（公園、山林、海邊）"> 戶外自然（公園、山林、海邊）</label>
-        <label class="option-item"><input type="checkbox" name="拍攝場景" value="室內空間（咖啡廳、工作室）"> 室內空間（咖啡廳、工作室）</label>
-        <label class="option-item"><input type="checkbox" name="拍攝場景" value="街景城市"> 街景城市</label>
-        <label class="option-item"><input type="checkbox" name="拍攝場景" value="都可以，交給攝影師決定"> 都可以，交給攝影師決定</label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>你喜歡的照片風格或氛圍<span class="required">*</span></label>
-      <textarea name="風格描述" required placeholder="例如：自然清新、日系柔和、暗調沉穩……任何形容詞都可以"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>有參考圖或 Pinterest 連結嗎？</label>
-      <input type="text" name="參考連結" placeholder="選填，貼上連結或說明">
-    </div>
-
-    <!-- 第四區：預算 -->
-    <div class="section-title">04 &nbsp;預算範圍</div>
-
-    <div class="form-group">
-      <label>你的預算大約是？<span class="required">*</span></label>
-      <div class="options">
-        <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 5,000 以下" required> NT$ 5,000 以下</label>
-        <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 5,000–10,000"> NT$ 5,000–10,000</label>
-        <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 10,000–20,000"> NT$ 10,000–20,000</label>
-        <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 20,000 以上"> NT$ 20,000 以上</label>
-        <label class="option-item"><input type="radio" name="預算範圍" value="還不確定，想先了解方案"> 還不確定，想先了解方案</label>
-      </div>
-    </div>
-
-    <!-- 第五區：其他 -->
-    <div class="section-title">05 &nbsp;其他</div>
-
-    <div class="form-group">
-      <label>有其他想說的或特別需求嗎？</label>
-      <textarea name="其他備註" placeholder="選填，任何想讓我知道的都可以寫在這裡"></textarea>
-    </div>
-
-    <div class="submit-wrap">
-      <button type="submit" class="submit-btn">送出需求表</button>
-    </div>
-
-  </form>
-
-  <!-- 送出後顯示 -->
-  <div id="thank-you">
-    <div class="ty-icon">🌿</div>
-    <div class="ty-title">謝謝你的填寫</div>
-    <div class="ty-msg">
-      我會在 1–2 個工作天內與你聯繫，<br>
-      期待有機會和你合作，<br>
-      一起留下這份美好的記錄。
-    </div>
-    <a class="back-link" href="index.html">← 返回首頁</a>
-  </div>
-
-  <div class="footer">
-    林孟儒｜MENGRULENS｜@mengrulens
-  </div>
-
 </div>
+
+<!-- form -->
+<form id="booking-form"
+      action="https://formsubmit.co/claire23232624@gmail.com"
+      method="POST">
+
+  <input type="hidden" name="_subject" value="✨ 新的預約需求｜MENGRULENS">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_next" value="">
+
+  <div class="form-wrap">
+
+    <!-- 01 認識你 -->
+    <div class="section-card">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <span class="section-name">認識你</span>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="field-label">姓名<span class="required">*</span></label>
+          <input type="text" name="姓名" required placeholder="你的名字">
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">LINE ID<span class="required">*</span></label>
+          <input type="text" name="LINE ID" required placeholder="填寫後我會主動與你聯繫">
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Instagram 帳號</label>
+          <input type="text" name="Instagram 帳號" placeholder="選填，例如 @yourname">
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">Email</label>
+          <input type="email" name="Email" placeholder="選填">
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">你是從哪裡認識小孟的？<span class="required">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="來源" value="Instagram" required> Instagram</label>
+            <label class="option-item"><input type="radio" name="來源" value="Threads"> Threads</label>
+            <label class="option-item"><input type="radio" name="來源" value="Facebook"> Facebook</label>
+            <label class="option-item"><input type="radio" name="來源" value="朋友介紹"> 朋友介紹</label>
+            <label class="option-item"><input type="radio" name="來源" value="其他"> 其他</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 02 拍攝需求 -->
+    <div class="section-card">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-name">拍攝需求</span>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="field-label">拍攝類型<span class="required">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="拍攝類型" value="人像寫真" required> 人像寫真</label>
+            <label class="option-item"><input type="radio" name="拍攝類型" value="婚禮平面攝影"> 婚禮平面攝影</label>
+            <label class="option-item"><input type="radio" name="拍攝類型" value="活動紀錄"> 活動紀錄</label>
+            <label class="option-item"><input type="radio" name="拍攝類型" value="空間攝影"> 空間攝影</label>
+            <label class="option-item"><input type="radio" name="拍攝類型" value="運動攝影"> 運動攝影</label>
+            <label class="option-item"><input type="radio" name="拍攝類型" value="其他"> 其他</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">預計拍攝日期<span class="required">*</span></label>
+          <input type="text" name="預計日期" required placeholder="例如：2026/08/10 或 8 月中旬">
+          <div class="hint">若尚未決定，可填寫大概的時間區間</div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">拍攝地點或城市</label>
+          <input type="text" name="拍攝地點" placeholder="選填，沒有想法也沒關係">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 03 拍攝細節 -->
+    <div class="section-card">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-name">拍攝細節</span>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="field-label">拍攝人數</label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="拍攝人數" value="個人"> 個人</label>
+            <label class="option-item"><input type="radio" name="拍攝人數" value="雙人（情侶 / 閨蜜 / 親子）"> 雙人（情侶 / 閨蜜 / 親子）</label>
+            <label class="option-item"><input type="radio" name="拍攝人數" value="3 人以上"> 3 人以上</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">服裝套數</label>
+          <div class="options row">
+            <label class="option-item"><input type="radio" name="服裝套數" value="1 套"> 1 套</label>
+            <label class="option-item"><input type="radio" name="服裝套數" value="2 套"> 2 套</label>
+            <label class="option-item"><input type="radio" name="服裝套數" value="3 套以上"> 3 套以上</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">偏好場景（可複選）</label>
+          <div class="options">
+            <label class="option-item"><input type="checkbox" name="拍攝場景" value="戶外自然（公園、山林、海邊）"> 戶外自然（公園、山林、海邊）</label>
+            <label class="option-item"><input type="checkbox" name="拍攝場景" value="室內空間（咖啡廳、工作室）"> 室內空間（咖啡廳、工作室）</label>
+            <label class="option-item"><input type="checkbox" name="拍攝場景" value="街景城市"> 街景城市</label>
+            <label class="option-item"><input type="checkbox" name="拍攝場景" value="都可以，交給攝影師決定"> 都可以，交給攝影師決定</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">喜歡的照片風格或氛圍<span class="required">*</span></label>
+          <textarea name="風格描述" required placeholder="例如：自然清新、日系柔和、暗調沉穩……任何形容詞都可以"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="field-label">參考圖或 Pinterest 連結</label>
+          <input type="text" name="參考連結" placeholder="選填，貼上連結或說明">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 04 預算 -->
+    <div class="section-card">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <span class="section-name">預算範圍</span>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="field-label">你的預算大約是？<span class="required">*</span></label>
+          <div class="options">
+            <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 5,000 以下" required> NT$ 5,000 以下</label>
+            <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 5,000–10,000"> NT$ 5,000–10,000</label>
+            <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 10,000–20,000"> NT$ 10,000–20,000</label>
+            <label class="option-item"><input type="radio" name="預算範圍" value="NT$ 20,000 以上"> NT$ 20,000 以上</label>
+            <label class="option-item"><input type="radio" name="預算範圍" value="還不確定，想先了解方案"> 還不確定，想先了解方案</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 05 其他 -->
+    <div class="section-card">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <span class="section-name">其他備註</span>
+      </div>
+      <div class="section-body">
+
+        <div class="form-group">
+          <label class="field-label">有其他想說的或特別需求嗎？</label>
+          <textarea name="其他備註" placeholder="選填，任何想讓我知道的都可以寫在這裡"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end form-wrap -->
+
+  <div class="submit-wrap">
+    <button type="submit" class="submit-btn">送出需求表</button>
+  </div>
+
+</form>
+
+<!-- 送出後顯示 -->
+<div id="thank-you">
+  <div class="ty-icon">🌿</div>
+  <div class="ty-title">謝謝你的填寫</div>
+  <div class="ty-msg">
+    我會在 1–2 個工作天內與你聯繫，<br>
+    期待有機會和你合作，<br>
+    一起留下這份美好的記錄。
+  </div>
+  <a class="back-link" href="index.html">← 返回首頁</a>
+</div>
+
+<div class="footer">
+  林孟儒｜MENGRULENS｜@mengrulens
+</div>
+
 </body>
 </html>
