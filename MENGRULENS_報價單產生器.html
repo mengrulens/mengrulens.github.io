@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MENGRULENS 報價單產生器</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Serif TC","Microsoft JhengHei",serif;color:#2a2118;background:#1a1612}
+
+/* ── 分頁列 ── */
+.tab-bar{display:flex;gap:2px;background:#111}
+.tab-btn{flex:1;padding:13px 8px;background:#2a2118;color:#7a6a55;border:none;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:13px;letter-spacing:2px;transition:background .2s,color .2s}
+.tab-btn:hover{background:#3a3028;color:#c9b99a}
+.tab-btn.active{background:#a0845c;color:#faf8f5}
+
+/* ── 表單面板 ── */
+#form-panel{background:#2a2118;padding:24px 32px 32px}
+#form-panel h2{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:300;letter-spacing:6px;color:#c9b99a;margin-bottom:4px}
+.form-subtitle{font-size:11px;color:#6a5a4a;letter-spacing:2px;margin-bottom:20px}
+.section-label{font-family:"Cormorant Garamond",serif;font-size:13px;letter-spacing:4px;color:#7a6a55;border-bottom:1px solid #3a3028;padding-bottom:5px;margin:20px 0 12px}
+.form-grid{display:grid;gap:12px 18px}
+.fg3{grid-template-columns:repeat(3,1fr)}
+.fg2{grid-template-columns:repeat(2,1fr)}
+.fg1{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:2px;color:#a0845c}
+.form-group input,.form-group textarea,.form-group select{background:#1a1612;border:1px solid #4a3f33;color:#e8e0d0;padding:7px 10px;font-family:"Noto Serif TC",serif;font-size:13px;outline:none;transition:border-color .2s;border-radius:0;-webkit-appearance:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#a0845c}
+.form-group select option{background:#1a1612;color:#e8e0d0}
+.form-group textarea{resize:vertical;min-height:64px;line-height:1.8}
+input[readonly]{opacity:.5;cursor:not-allowed}
+input[type="date"]{color-scheme:dark;cursor:pointer}
+input[type="date"]::-webkit-calendar-picker-indicator{background-color:#a0845c;border-radius:2px;padding:3px;cursor:pointer;opacity:.8}
+input[type="date"]::-webkit-calendar-picker-indicator:hover{opacity:1}
+
+/* 項目列表 */
+.item-table{width:100%;border-collapse:collapse;margin-bottom:10px}
+.item-table th{background:#1a1612;color:#a0845c;font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:2px;font-weight:400;padding:8px 10px;text-align:left;border-bottom:1px solid #4a3f33}
+.item-table th:last-child{width:40px;text-align:center}
+.item-table th.col-price{width:140px}
+.item-row td{padding:5px 4px;border-bottom:1px solid #3a3028;vertical-align:middle}
+.item-row input{background:#1a1612;border:1px solid #3a3028;color:#e8e0d0;padding:6px 8px;font-family:"Noto Serif TC",serif;font-size:12.5px;width:100%;outline:none}
+.item-row input:focus{border-color:#a0845c}
+.item-row input.price-input{text-align:right}
+.del-row-btn{background:none;border:1px solid #4a3f33;color:#7a6a55;cursor:pointer;width:28px;height:28px;font-size:14px;display:block;margin:0 auto;transition:all .2s}
+.del-row-btn:hover{border-color:#c97a6a;color:#c97a6a}
+.add-row-btn{background:none;border:1px dashed #4a3f33;color:#7a6a55;cursor:pointer;width:100%;padding:8px;font-family:"Cormorant Garamond",serif;font-size:13px;letter-spacing:2px;margin-top:4px;transition:all .2s}
+.add-row-btn:hover{border-color:#a0845c;color:#c9b99a}
+
+.print-btn{display:block;width:100%;margin-top:24px;padding:13px;background:#a0845c;color:#faf8f5;font-family:"Cormorant Garamond",serif;font-size:16px;letter-spacing:4px;border:none;cursor:pointer;transition:background .2s}
+.print-btn:hover{background:#c9b99a;color:#2a2118}
+
+/* ── 報價單預覽 ── */
+#quote-wrap{padding:28px 18px;background:#e8e4de}
+.page{max-width:780px;margin:0 auto;background:#faf8f5;position:relative;overflow:hidden}
+.page::before{content:"";position:absolute;inset:14px;border:1px solid #c9b99a;pointer-events:none;z-index:0}
+.page::after{content:"";position:absolute;inset:18px;border:.5px solid #c9b99a44;pointer-events:none;z-index:0}
+.inner{position:relative;z-index:1;padding:56px 66px}
+.top-orn{text-align:center;margin-bottom:28px}
+.orn-wrap{display:flex;align-items:center;gap:12px;justify-content:center}
+.orn-line{height:1px;width:80px;background:linear-gradient(to right,transparent,#a0845c)}
+.orn-line.r{background:linear-gradient(to left,transparent,#a0845c)}
+.orn-dia{width:7px;height:7px;background:#a0845c;transform:rotate(45deg)}
+.q-header{text-align:center;margin-bottom:32px}
+.brand{font-family:"Cormorant Garamond",serif;font-size:36px;font-weight:300;letter-spacing:14px;color:#2a2118;line-height:1}
+.brand-sub{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:6px;color:#a0845c;margin-top:5px}
+.title-div{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0}
+.title-div span{height:1px;width:60px;background:#c9b99a;display:block}
+.title-div em{color:#a0845c;font-style:normal;font-size:15px}
+.q-title{font-size:16px;font-weight:500;letter-spacing:4px;color:#2a2118}
+
+/* 報價資訊列 */
+.q-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid #c9b99a}
+.q-meta-left{font-size:12px;color:#7a6a55;line-height:2}
+.q-meta-left strong{color:#2a2118;font-weight:600}
+.q-meta-right{text-align:right;font-size:12px;color:#7a6a55;line-height:2}
+.q-meta-right strong{color:#2a2118;font-weight:600}
+
+/* 雙方資訊 */
+.info-cols{display:flex;gap:22px;margin-bottom:26px}
+.info-box{flex:1;background:#f2ede6;border:1px solid #ddd0bc;padding:18px 20px}
+.box-title{font-family:"Cormorant Garamond",serif;font-size:13px;letter-spacing:3px;color:#a0845c;margin-bottom:12px}
+.info-row{display:flex;font-size:13px;line-height:1.8;border-bottom:1px dotted #ccc0aa;padding:4px 0}
+.info-row:last-child{border-bottom:none}
+.i-label{color:#7a6a55;min-width:76px;font-size:12px}
+.i-val{font-weight:500;color:#2a2118}
+
+/* 報價項目表格 */
+.sec-head{font-family:"Cormorant Garamond",serif;font-size:14px;letter-spacing:4px;color:#a0845c;border-bottom:1px solid #c9b99a;padding-bottom:5px;margin-bottom:0;display:flex;align-items:baseline;gap:10px}
+.sec-head .zh{font-family:"Noto Serif TC",serif;font-size:11px;color:#888070;letter-spacing:2px}
+.q-table{width:100%;border-collapse:collapse;margin-top:0;margin-bottom:0}
+.q-table thead tr{background:#2a2118}
+.q-table thead th{color:#c9b99a;font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:2px;font-weight:400;padding:9px 12px;text-align:left}
+.q-table thead th:last-child{text-align:right;width:130px}
+.q-table tbody tr{border-bottom:1px solid #e8e0d0}
+.q-table tbody tr:nth-child(even){background:#f7f4ef}
+.q-table tbody td{padding:9px 12px;font-size:13px;color:#2a2118;vertical-align:top}
+.q-table tbody td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.q-table tbody td.item-name{font-weight:500}
+.q-table tbody td.item-note{font-size:12px;color:#7a6a55}
+.q-table tfoot tr{background:#f2ede6}
+.q-table tfoot td{padding:9px 12px;font-size:13px;text-align:right}
+.q-table tfoot td:first-child{text-align:left;color:#7a6a55;font-size:12px;letter-spacing:1px}
+.q-table tfoot tr.total-row{background:#2a2118}
+.q-table tfoot tr.total-row td{color:#faf8f5;font-size:14px;font-weight:600;letter-spacing:1px}
+.q-table tfoot tr.total-row td:first-child{font-family:"Cormorant Garamond",serif;font-size:15px;letter-spacing:3px;color:#c9b99a;font-weight:400}
+
+.q-validity{margin-top:18px;padding:12px 16px;background:#f7f4ef;border:1px solid #ddd0bc;font-size:12px;color:#7a6a55;line-height:2}
+.q-validity strong{color:#2a2118}
+
+.q-notes{margin-top:16px;padding:12px 16px;border-left:3px solid #c9b99a;font-size:12.5px;color:#4a3f33;line-height:2}
+
+.sig-sec{margin-top:28px;padding-top:20px;border-top:1px solid #c9b99a}
+.sig-intro{font-size:11.5px;color:#7a6a55;text-align:center;letter-spacing:1px;margin-bottom:20px;line-height:1.9}
+.sig-grid{display:flex;gap:26px}
+.sig-box{flex:1;border:1px solid #ddd0bc;padding:18px 16px;background:#f7f4ef}
+.sig-party{font-family:"Cormorant Garamond",serif;font-size:13px;letter-spacing:3px;color:#a0845c;margin-bottom:12px;text-align:center}
+.sig-line{border-bottom:1px solid #bbb0a0;padding:7px 0 3px;font-size:12px;color:#5a4a3a;display:flex;gap:7px;margin-bottom:10px}
+.sig-key{color:#8a7a6a;flex-shrink:0}
+.sig-val{font-weight:600;color:#2a2118}
+.sig-blank{flex:1;min-height:18px}
+
+/* ── 訊息面板（僅螢幕顯示） ── */
+#msg-panel{background:#1e1a16;padding:24px 32px;border-top:2px solid #a0845c}
+.msg-panel-title{font-family:"Cormorant Garamond",serif;font-size:16px;letter-spacing:4px;color:#c9b99a;margin-bottom:14px}
+.msg-tabs{display:flex;gap:4px;margin-bottom:14px}
+.msg-tab{flex:1;padding:10px;background:#2a2118;color:#7a6a55;border:none;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:13px;letter-spacing:2px;transition:all .2s;border-bottom:2px solid transparent}
+.msg-tab:hover{color:#c9b99a}
+.msg-tab.active{color:#faf8f5;border-bottom-color:#a0845c;background:#3a3028}
+.msg-section{display:none}
+.msg-section.active{display:block}
+.msg-textarea{width:100%;min-height:260px;background:#111;border:1px solid #4a3f33;color:#e8e0d0;padding:14px 16px;font-family:"Noto Serif TC",sans-serif;font-size:13.5px;line-height:2;resize:vertical;outline:none}
+.msg-textarea:focus{border-color:#a0845c}
+.copy-btn{display:block;width:100%;margin-top:10px;padding:13px;background:#4a7c59;color:#fff;font-family:"Noto Serif TC",serif;font-size:15px;letter-spacing:3px;border:none;cursor:pointer;transition:background .2s}
+.copy-btn:hover{background:#5a9c6a}
+.copy-btn.copied{background:#2a5c3a}
+@media print{#msg-panel{display:none!important}}
+
+.q-footer{margin-top:32px;text-align:center}
+.f-orn{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+.f-line{height:1px;width:60px;background:linear-gradient(to right,transparent,#c9b99a)}
+.f-line.r{background:linear-gradient(to left,transparent,#c9b99a)}
+.f-dia{width:5px;height:5px;background:#c9b99a;transform:rotate(45deg)}
+.f-txt{font-family:"Cormorant Garamond",serif;font-size:12px;letter-spacing:3px;color:#a0845c}
+
+/* ── 訊息頁 ── */
+.msg-page{max-width:780px;margin:0 auto 28px;background:#faf8f5;position:relative;overflow:hidden}
+.msg-page::before{content:"";position:absolute;inset:14px;border:1px solid #c9b99a;pointer-events:none;z-index:0}
+.msg-page::after{content:"";position:absolute;inset:18px;border:.5px solid #c9b99a44;pointer-events:none;z-index:0}
+.msg-inner{position:relative;z-index:1;padding:56px 66px;min-height:520px;display:flex;flex-direction:column}
+.msg-mini-brand{font-family:"Cormorant Garamond",serif;font-size:18px;font-weight:300;letter-spacing:10px;color:#a0845c;text-align:center;margin-bottom:4px}
+.msg-mini-sub{font-family:"Cormorant Garamond",serif;font-size:10px;letter-spacing:5px;color:#c9b99a;text-align:center;margin-bottom:24px}
+.msg-divider{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:32px}
+.msg-divider span{height:1px;width:50px;background:#c9b99a;display:block}
+.msg-divider em{color:#a0845c;font-style:normal;font-size:13px}
+.msg-date{font-size:12px;color:#a0845c;letter-spacing:1px;margin-bottom:28px;font-family:"Cormorant Garamond",serif}
+.msg-greeting{font-size:15px;font-weight:500;color:#2a2118;margin-bottom:20px;letter-spacing:1px}
+.msg-body-text{font-size:13.5px;color:#3a3028;line-height:2.2;white-space:pre-wrap;flex:1}
+.msg-closing{margin-top:40px}
+.msg-closing-word{font-size:13px;color:#4a3f33;line-height:2}
+.msg-sig{margin-top:16px;border-top:1px solid #c9b99a;padding-top:14px}
+.msg-sig-name{font-family:"Cormorant Garamond",serif;font-size:18px;letter-spacing:4px;color:#2a2118}
+.msg-sig-sub{font-size:11px;color:#a0845c;letter-spacing:2px;margin-top:2px}
+
+@page{size:A4;margin:0}
+@media print{
+  #form-panel{display:none!important}
+  #quote-wrap{padding:0;background:#fff}
+  .page{max-width:100%;box-shadow:none}
+  .msg-page{max-width:100%;box-shadow:none;margin-bottom:0;page-break-after:always;height:297mm;box-sizing:border-box}
+  .msg-inner{min-height:unset;height:100%;box-sizing:border-box}
+  .msg-closing{margin-top:auto}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ 表單 ══ -->
+<div id="form-panel">
+  <div class="tab-bar">
+    <button class="tab-btn active" data-type="wedding"  onclick="switchTab(this)">婚禮攝影</button>
+    <button class="tab-btn"        data-type="event"    onclick="switchTab(this)">活動紀錄</button>
+    <button class="tab-btn"        data-type="space"    onclick="switchTab(this)">空間攝影</button>
+    <button class="tab-btn"        data-type="sports"   onclick="switchTab(this)">運動攝影</button>
+    <button class="tab-btn"        data-type="portrait" onclick="switchTab(this)">人像寫真</button>
+    <button class="tab-btn"        data-type="baby"    onclick="switchTab(this)">抓周</button>
+  </div>
+
+  <div style="padding-top:20px">
+  <h2>MENGRULENS</h2>
+  <p class="form-subtitle">填寫後即時預覽，完成後按下方按鈕存成 PDF</p>
+
+  <!-- 共用：客戶資訊 + 報價資訊 -->
+  <div class="section-label">CLIENT 客戶資訊</div>
+  <div class="form-grid fg3">
+    <div class="form-group"><label>客戶姓名／公司</label><input id="q-client" placeholder="○○ 小姐" oninput="update()"></div>
+    <div class="form-group"><label>聯絡電話</label><input id="q-phone" placeholder="0988-000-000" oninput="update()"></div>
+    <div class="form-group"><label>Email（選填）</label><input id="q-email" placeholder="example@mail.com" oninput="update()"></div>
+  </div>
+  <div class="section-label">QUOTE 報價資訊</div>
+  <div class="form-grid fg3">
+    <div class="form-group"><label>報價日期</label><input type="date" id="q-date" oninput="update()"></div>
+    <div class="form-group"><label>報價有效期限</label><input type="date" id="q-valid" oninput="update()"></div>
+    <div class="form-group"><label>拍攝預計日期（選填）</label><input type="date" id="q-shoot" oninput="update()"></div>
+  </div>
+
+  <!-- 回覆訊息 -->
+  <div class="section-label">MESSAGE 回覆客戶訊息</div>
+  <div class="form-grid fg2" style="margin-bottom:12px">
+    <div class="form-group"><label>稱呼（例如：俊葳、伊婷）</label><input id="msg-name" placeholder="您好" oninput="update()"></div>
+    <div class="form-group"><label>結尾署名</label><input id="msg-sign" placeholder="林孟儒" oninput="update()" value="林孟儒"></div>
+  </div>
+  <div class="form-grid fg1">
+    <div class="form-group">
+      <label>訊息內容（可自由修改）</label>
+      <textarea id="msg-body" rows="8" oninput="update()">感謝您對 MENGRULENS 的詢問與信任。
+
+以下為您量身規劃的攝影報價方案，請詳閱各項服務內容與費用明細。
+
+若有任何問題或需要調整方案，歡迎隨時與我聯繫，我很樂意為您說明。
+
+期待能用鏡頭為您記錄這段珍貴的時光。</textarea>
+    </div>
+  </div>
+
+  <!-- ▸ 婚禮攝影 -->
+  <div id="form-wedding" class="type-form">
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-wedding"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('wedding')">＋ 新增項目</button>
+    <div class="form-grid fg1" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填，例如：早鳥優惠 -500）</label><input id="w-discount-note" placeholder="—" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg2" style="margin-top:10px">
+      <div class="form-group"><label>折扣金額（NT$，輸入負數）</label><input type="number" id="w-discount" placeholder="0" oninput="update()"></div>
+      <div class="form-group"><label>訂金比例</label>
+        <select id="w-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option>
+          <option value="30">30%</option>
+          <option value="50" selected>50%</option>
+          <option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="w-qnotes" placeholder="例如：報價含場地停車位一位。" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ▸ 活動紀錄 -->
+  <div id="form-event" class="type-form" hidden>
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-event"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('event')">＋ 新增項目</button>
+    <div class="form-grid fg2" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填）</label><input id="e-discount-note" placeholder="—" oninput="update()"></div>
+      <div class="form-group"><label>折扣金額（NT$）</label><input type="number" id="e-discount" placeholder="0" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>訂金比例</label>
+        <select id="e-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option><option value="30">30%</option>
+          <option value="50" selected>50%</option><option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="e-qnotes" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ▸ 空間攝影 -->
+  <div id="form-space" class="type-form" hidden>
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-space"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('space')">＋ 新增項目</button>
+    <div class="form-grid fg2" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填）</label><input id="s-discount-note" placeholder="—" oninput="update()"></div>
+      <div class="form-group"><label>折扣金額（NT$）</label><input type="number" id="s-discount" placeholder="0" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>訂金比例</label>
+        <select id="s-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option><option value="30">30%</option>
+          <option value="50" selected>50%</option><option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="s-qnotes" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ▸ 運動攝影 -->
+  <div id="form-sports" class="type-form" hidden>
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-sports"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('sports')">＋ 新增項目</button>
+    <div class="form-grid fg2" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填）</label><input id="sp-discount-note" placeholder="—" oninput="update()"></div>
+      <div class="form-group"><label>折扣金額（NT$）</label><input type="number" id="sp-discount" placeholder="0" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>訂金比例</label>
+        <select id="sp-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option><option value="30">30%</option>
+          <option value="50" selected>50%</option><option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="sp-qnotes" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ▸ 人像寫真 -->
+  <div id="form-portrait" class="type-form" hidden>
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-portrait"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('portrait')">＋ 新增項目</button>
+    <div class="form-grid fg2" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填）</label><input id="p-discount-note" placeholder="—" oninput="update()"></div>
+      <div class="form-group"><label>折扣金額（NT$）</label><input type="number" id="p-discount" placeholder="0" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>訂金比例</label>
+        <select id="p-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option><option value="30">30%</option>
+          <option value="50" selected>50%</option><option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="p-qnotes" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ▸ 抓周 -->
+  <div id="form-baby" class="type-form" hidden>
+    <div class="section-label">ITEMS 報價項目</div>
+    <table class="item-table">
+      <thead><tr><th>服務項目</th><th>備註</th><th class="col-price">金額（NT$）</th><th></th></tr></thead>
+      <tbody id="items-baby"></tbody>
+    </table>
+    <button class="add-row-btn" onclick="addRow('baby')">＋ 新增項目</button>
+    <div class="form-grid fg2" style="margin-top:16px">
+      <div class="form-group"><label>折扣說明（選填）</label><input id="ba-discount-note" placeholder="—" oninput="update()"></div>
+      <div class="form-group"><label>折扣金額（NT$）</label><input type="number" id="ba-discount" placeholder="0" oninput="update()"></div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>訂金比例</label>
+        <select id="ba-deposit-pct" onchange="update()">
+          <option value="0">不顯示</option><option value="30">30%</option>
+          <option value="50" selected>50%</option><option value="100">全額</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid fg1" style="margin-top:10px">
+      <div class="form-group"><label>備註說明</label><textarea id="ba-qnotes" oninput="update()"></textarea></div>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">▶ 儲存為 PDF</button>
+  </div>
+</div>
+
+<!-- ══ 訊息複製面板 ══ -->
+<div id="msg-panel">
+  <div class="msg-panel-title">💬 訊息模板</div>
+  <div class="msg-tabs">
+    <button class="msg-tab active" onclick="switchMsgTab('inquiry', this)">📝 初次詢問</button>
+    <button class="msg-tab"       onclick="switchMsgTab('quote',   this)">📋 報價訊息</button>
+    <button class="msg-tab"       onclick="switchMsgTab('remind',  this)">🔔 拍攝提醒</button>
+    <button class="msg-tab"       onclick="switchMsgTab('deliver', this)">📦 交件訊息</button>
+  </div>
+
+  <div id="msg-sec-inquiry" class="msg-section active">
+    <textarea id="msg-preview-inquiry" class="msg-textarea" spellcheck="false"></textarea>
+    <button class="copy-btn" onclick="copyMsg('inquiry')">複製詢問訊息</button>
+  </div>
+
+  <div id="msg-sec-quote" class="msg-section">
+    <textarea id="msg-preview-quote" class="msg-textarea" spellcheck="false"></textarea>
+    <button class="copy-btn" onclick="copyMsg('quote')">複製報價訊息</button>
+  </div>
+
+  <div id="msg-sec-remind" class="msg-section">
+    <textarea id="msg-preview-remind" class="msg-textarea" spellcheck="false"></textarea>
+    <button class="copy-btn" onclick="copyMsg('remind')">複製拍攝提醒</button>
+  </div>
+
+  <div id="msg-sec-deliver" class="msg-section">
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <div class="form-group" style="flex:2">
+        <label>雲端連結</label>
+        <input id="deliver-link" placeholder="https://drive.google.com/..." oninput="updateDeliverMsg()" style="background:#111;border:1px solid #4a3f33;color:#e8e0d0;padding:7px 10px;font-size:13px;outline:none;width:100%">
+      </div>
+      <div class="form-group" style="flex:1">
+        <label>精修張數</label>
+        <input id="deliver-count" placeholder="例如：528" oninput="updateDeliverMsg()" style="background:#111;border:1px solid #4a3f33;color:#e8e0d0;padding:7px 10px;font-size:13px;outline:none;width:100%">
+      </div>
+    </div>
+    <textarea id="msg-preview-deliver" class="msg-textarea" spellcheck="false"></textarea>
+    <button class="copy-btn" onclick="copyMsg('deliver')">複製交件訊息</button>
+  </div>
+</div>
+
+<!-- ══ 訊息頁預覽 ══ -->
+<div id="quote-wrap">
+<div class="msg-page"><div class="msg-inner">
+
+  <div class="msg-mini-brand">MENGRULENS</div>
+  <div class="msg-mini-sub">PHOTOGRAPHY</div>
+  <div class="msg-divider"><span></span><em>✦</em><span></span></div>
+
+  <div class="msg-date" id="msg-date-display">—</div>
+  <div class="msg-greeting" id="msg-greeting-display">您好，</div>
+  <div class="msg-body-text" id="msg-body-display"></div>
+
+  <div class="msg-closing">
+    <div class="msg-closing-word">此致<br>敬祝 幸福美滿</div>
+    <div class="msg-sig">
+      <div class="msg-sig-name" id="msg-sign-display">林孟儒</div>
+      <div class="msg-sig-sub">MENGRULENS｜0958-969-988｜@mengrulens</div>
+    </div>
+  </div>
+
+</div></div>
+
+<div class="page"><div class="inner">
+
+  <div class="top-orn">
+    <div class="orn-wrap"><div class="orn-line"></div><div class="orn-dia"></div><div class="orn-line r"></div></div>
+  </div>
+
+  <div class="q-header">
+    <div class="brand">MENGRULENS</div>
+    <div class="brand-sub" id="q-en">WEDDING PHOTOGRAPHY</div>
+    <div class="title-div"><span></span><em>✦</em><span></span></div>
+    <div class="q-title">攝影服務報價單</div>
+  </div>
+
+  <div class="q-meta">
+    <div class="q-meta-left">
+      <div>報價對象：<strong id="qc-client">—</strong></div>
+      <div>聯絡電話：<strong id="qc-phone">—</strong></div>
+      <div id="qc-email-row" style="display:none">Email：<strong id="qc-email">—</strong></div>
+    </div>
+    <div class="q-meta-right">
+      <div>報價日期：<strong id="qc-date">—</strong></div>
+      <div>有效期限：<strong id="qc-valid">—</strong></div>
+      <div id="qc-shoot-row" style="display:none">預計拍攝：<strong id="qc-shoot">—</strong></div>
+    </div>
+  </div>
+
+  <div class="info-cols">
+    <div class="info-box" style="flex:1.4">
+      <div class="box-title">QUOTATION 報價服務</div>
+      <div class="info-row"><span class="i-label">服務類型</span><span class="i-val" id="qc-type">—</span></div>
+      <div class="info-row"><span class="i-label">攝影師</span><span class="i-val">林孟儒（MENGRULENS）</span></div>
+    </div>
+    <div class="info-box" style="flex:1">
+      <div class="box-title">CONTACT 聯絡方式</div>
+      <div class="info-row"><span class="i-label">電話</span><span class="i-val">0958-969-988</span></div>
+      <div class="info-row"><span class="i-label">Instagram</span><span class="i-val">@mengrulens</span></div>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-bottom:0">ITEMS <span class="zh">報價明細</span></div>
+  <table class="q-table">
+    <thead>
+      <tr>
+        <th style="width:38%">服務項目</th>
+        <th>備註說明</th>
+        <th style="width:130px;text-align:right">金額</th>
+      </tr>
+    </thead>
+    <tbody id="qc-items"></tbody>
+    <tfoot id="qc-tfoot"></tfoot>
+  </table>
+
+  <div id="qc-validity" class="q-validity" style="display:none"></div>
+  <div id="qc-notes" class="q-notes" style="display:none"></div>
+
+  <div class="sig-sec">
+    <p class="sig-intro">如確認接受本報價，請簽名回傳，乙方將安排後續簽約事宜</p>
+    <div class="sig-grid">
+      <div class="sig-box">
+        <div class="sig-party">CLIENT ｜ 客戶確認</div>
+        <div class="sig-line"><span class="sig-key">簽名：</span><span class="sig-blank"></span></div>
+        <div class="sig-line"><span class="sig-key">日期：</span><span class="sig-blank"></span></div>
+      </div>
+      <div class="sig-box">
+        <div class="sig-party">PHOTOGRAPHER ｜ 報價人</div>
+        <div class="sig-line"><span class="sig-key">簽名：</span><span class="sig-val">林孟儒（MENGRULENS）</span></div>
+        <div class="sig-line"><span class="sig-key">日期：</span><span class="sig-blank"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-footer">
+    <div class="f-orn"><div class="f-line"></div><div class="f-dia"></div><div class="f-line r"></div></div>
+    <div class="f-txt">MENGRULENS ｜ 林孟儒 ｜ 0958-969-988</div>
+  </div>
+
+</div></div>
+</div><!-- /.quote-wrap -->
+
+<script>
+let currentType = 'wedding';
+
+const TYPE_META = {
+  wedding:  { en:'WEDDING PHOTOGRAPHY',  zh:'婚禮攝影' },
+  event:    { en:'EVENT PHOTOGRAPHY',    zh:'活動紀錄' },
+  space:    { en:'SPACE PHOTOGRAPHY',    zh:'空間攝影' },
+  sports:   { en:'SPORTS PHOTOGRAPHY',   zh:'運動攝影' },
+  portrait: { en:'PORTRAIT PHOTOGRAPHY', zh:'人像寫真' },
+  baby:     { en:'BABY CEREMONY PHOTOGRAPHY', zh:'抓周攝影' },
+};
+
+const DEFAULT_ITEMS = {
+  wedding:  [['婚禮平面攝影（方案 D｜儀式＋午宴）','',''],['加購：雙機拍攝','','']],
+  event:    [['活動全程平面紀錄','',''],['加購：頒獎典禮特寫','','']],
+  space:    [['空間全區平面拍攝','',''],['加購：夜間燈光拍攝','','']],
+  sports:   [['賽事全程平面紀錄','',''],['加購：選手個人特寫','','']],
+  portrait: [['個人寫真外拍（2 小時）','',''],['加購：精裝相本','','']],
+  baby:     [['抓周儀式全程紀錄','',''],['加購：精修放大照片輸出','','']],
+};
+
+// 每個類型的 items 陣列 {name, note, price}
+const ROWS = { wedding:[], event:[], space:[], sports:[], portrait:[], baby:[] };
+
+function switchTab(btn) {
+  currentType = btn.dataset.type;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.type-form').forEach(f=>f.hidden=true);
+  document.getElementById('form-'+currentType).hidden=false;
+  update();
+}
+
+const fv = id => { const e=document.getElementById(id); return e?e.value.trim():''; };
+const fmt = n => Number(n).toLocaleString('zh-TW');
+const setT = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+const setH = (id,v) => { const e=document.getElementById(id); if(e) e.innerHTML=v; };
+
+function fmtDateStr(val) {
+  if(!val) return '—';
+  const d=new Date(val+'T00:00:00');
+  return d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日';
+}
+
+function addRow(type, name='', note='', price='') {
+  const tbody = document.getElementById('items-'+type);
+  const tr = document.createElement('tr');
+  tr.className = 'item-row';
+  tr.innerHTML = `
+    <td><input type="text" value="${name}" placeholder="服務項目" oninput="update()"></td>
+    <td><input type="text" value="${note}" placeholder="備註（選填）" oninput="update()"></td>
+    <td><input type="number" class="price-input" value="${price}" placeholder="0" oninput="update()"></td>
+    <td><button class="del-row-btn" onclick="removeRow(this)">×</button></td>`;
+  tbody.appendChild(tr);
+  update();
+}
+
+function removeRow(btn) {
+  btn.closest('tr').remove();
+  update();
+}
+
+function getRows(type) {
+  const tbody = document.getElementById('items-'+type);
+  if(!tbody) return [];
+  return Array.from(tbody.querySelectorAll('tr.item-row')).map(tr=>{
+    const inputs = tr.querySelectorAll('input');
+    return {
+      name:  inputs[0].value.trim(),
+      note:  inputs[1].value.trim(),
+      price: Number(inputs[2].value)||0
+    };
+  });
+}
+
+function getPfx(type) {
+  return {wedding:'w',event:'e',space:'s',sports:'sp',portrait:'p',baby:'ba'}[type];
+}
+
+function update() {
+  const m = TYPE_META[currentType];
+  setT('q-en', m.en);
+  setT('qc-type', m.zh+'平面攝影');
+
+  // 訊息頁
+  const msgName = fv('msg-name');
+  setT('msg-greeting-display', msgName ? `親愛的 ${msgName} 您好，` : '您好，');
+  setT('msg-sign-display', fv('msg-sign')||'林孟儒');
+  setT('msg-body-display', fv('msg-body'));
+  const qdate=fv('q-date');
+  setT('msg-date-display', qdate ? fmtDateStr(qdate) : '');
+
+  // 客戶資訊
+  setT('qc-client', fv('q-client')||'—');
+  setT('qc-phone',  fv('q-phone') ||'—');
+  const email=fv('q-email'), shoot=fv('q-shoot');
+  document.getElementById('qc-email-row').style.display = email?'':'none';
+  setT('qc-email', email);
+  document.getElementById('qc-shoot-row').style.display = shoot?'':'none';
+  setT('qc-shoot', fmtDateStr(shoot));
+  setT('qc-date',  fmtDateStr(fv('q-date')));
+  setT('qc-valid', fmtDateStr(fv('q-valid')));
+
+  // 報價項目
+  const pfx=getPfx(currentType);
+  const rows=getRows(currentType);
+  const discount=Number(fv(pfx+'-discount'))||0;
+  const discountNote=fv(pfx+'-discount-note');
+  const depPct=Number(fv(pfx+'-deposit-pct'))||0;
+  const subtotal=rows.reduce((s,r)=>s+r.price,0);
+  const total=subtotal+discount;
+
+  // 項目列
+  const tbody=document.getElementById('qc-items');
+  tbody.innerHTML=rows.map(r=>`
+    <tr>
+      <td class="item-name">${r.name||'—'}</td>
+      <td class="item-note">${r.note||''}</td>
+      <td>NT$ ${fmt(r.price)}</td>
+    </tr>`).join('');
+
+  // 尾部小計 / 折扣 / 總計 / 訂金
+  const tfoot=document.getElementById('qc-tfoot');
+  let tfHTML='';
+  if(discount!==0) {
+    tfHTML+=`<tr><td colspan="2">${discountNote||'折扣'}</td><td>NT$ ${fmt(discount)}</td></tr>`;
+  }
+  tfHTML+=`<tr class="total-row"><td colspan="2">TOTAL 合計</td><td>NT$ ${fmt(total)}</td></tr>`;
+  if(depPct>0){
+    const dep=Math.round(total*depPct/100);
+    tfHTML+=`<tr><td colspan="2">訂金（${depPct}%）</td><td>NT$ ${fmt(dep)}</td></tr>`;
+    tfHTML+=`<tr><td colspan="2">尾款</td><td>NT$ ${fmt(total-dep)}</td></tr>`;
+  }
+  tfoot.innerHTML=tfHTML;
+
+  // 有效期限說明
+  const validEl=document.getElementById('qc-validity');
+  const validDate=fv('q-valid');
+  if(validDate){
+    validEl.style.display='';
+    validEl.innerHTML=`本報價單有效期限至 <strong>${fmtDateStr(validDate)}</strong>，逾期請重新確認報價。`;
+  } else { validEl.style.display='none'; }
+
+  // 備註
+  const notesEl=document.getElementById('qc-notes');
+  const notes=fv(pfx+'-qnotes');
+  if(notes){ notesEl.style.display=''; notesEl.textContent=notes; }
+  else { notesEl.style.display='none'; }
+
+  // 訊息面板
+  updateMsgPreview(currentType, rows, subtotal, discount, total, depPct);
+  updateDeliverMsg();
+}
+
+const INQUIRY_TEMPLATES = {
+  wedding: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的婚禮攝影報價，方便告訴我以下資訊嗎？
+
+1. 婚禮日期：請問婚禮預計是哪一天？
+2. 婚禮地點：儀式和宴客地點分別在哪裡？
+3. 拍攝項目：是單儀式、單宴客、儀式＋宴客，還是婚禮全日紀錄？
+4. 宴客桌數：大約幾桌？
+5. 特別需求：有沒有特別想記錄的環節或想法？
+
+收到您的回覆後，我會儘快為您提供報價！😄`,
+
+  event: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的活動攝影報價，方便告訴我以下資訊嗎？
+
+1. 活動日期：請問活動預計是哪一天？
+2. 活動地點：活動地點在哪個縣市？
+3. 拍攝時數：活動大約需要拍攝幾個小時？
+4. 活動類型：是企業活動、典禮儀式，還是其他類型的活動？
+5. 特別需求：有沒有特別需要記錄的環節？
+
+收到您的回覆後，我會儘快為您提供報價！😄`,
+
+  space: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的空間攝影報價，方便告訴我以下資訊嗎？
+
+1. 拍攝日期：請問預計什麼時候拍攝？
+2. 空間地址：拍攝地點在哪個縣市？
+3. 空間類型：是住宅、餐廳、民宿、辦公室，還是其他？
+4. 坪數：室內大約幾坪？
+5. 拍攝用途：照片主要用於官網、社群媒體，還是其他用途？
+
+收到您的回覆後，我會儘快為您提供報價！😄`,
+
+  sports: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的運動攝影報價，方便告訴我以下資訊嗎？
+
+1. 賽事日期：請問活動預計是哪一天？
+2. 賽事地點：活動地點在哪個縣市？
+3. 拍攝時數：預計需要拍攝幾個小時？
+4. 賽事類型：是哪種運動項目的賽事或活動？
+5. 特別需求：有沒有特別需要記錄的環節或選手？
+
+收到您的回覆後，我會儘快為您提供報價！😄`,
+
+  portrait: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的寫真報價，方便告訴我以下資訊嗎？
+
+1. 拍攝日期：請問預計什麼時候拍攝？
+2. 拍攝地點：希望室內棚拍，還是戶外外拍？有喜歡的地點嗎？
+3. 拍攝風格：想要什麼風格或主題？（清新自然、復古、韓系⋯）
+4. 拍攝對象：是個人寫真，還是雙人、閨蜜等？
+5. 特別需求：有沒有特別的想法或參考照片？
+
+收到您的回覆後，我會儘快為您提供報價！😄`,
+
+  baby: `嗨，您好🫶🏻 我是攝影師小孟
+感謝您的詢問
+
+為了提供精確的抓周攝影報價，方便告訴我以下資訊嗎？
+
+1. 抓周日期：請問寶寶抓周預計是哪一天？
+2. 地點安排：打算在家裡，還是特定場地舉辦？
+3. 拍攝內容：希望只紀錄抓周儀式，還是包含家庭合照？
+4. 寶寶月齡：寶寶到時候幾個月大？
+5. 特別需求：有沒有特定的佈置風格或想要的畫面？
+
+收到您的回覆後，我會儘快為您提供報價！😄`
+};
+
+const REMIND_TEMPLATES = {
+  wedding: `婚禮拍攝提醒 💍✨
+
+🕐 時間安排
+✨ 請提前提供當天完整的流程時間表，方便我規劃各時段的拍攝重點
+✨ 新娘梳化時間請預留充裕，梳化完畢後我會先進行梳化紀錄拍攝
+✨ 建議每個儀式環節保留 5–10 分鐘的緩衝時間
+
+📸 拍攝配合
+✨ 儀式進行時，請讓賓客保持通道暢通，方便我移動拍攝角度
+✨ 重要時刻（如拜別、交換信物）請告知主持人稍作停頓，讓我捕捉完整畫面
+✨ 全家福合照請事先安排好人員名單，節省集合時間
+
+💄 造型建議
+✨ 婚紗、禮服確認後，可提前告知顏色，方便搭配拍攝場景
+✨ 建議攜帶補妝小包，宴客時可隨時補妝
+
+有任何問題歡迎隨時聯繫 😊`,
+
+  event: `活動攝影提醒 🎉✨
+
+📋 事前確認
+✨ 請提供活動流程表，方便規劃各環節的拍攝重點
+✨ 若有指定需要記錄的重要環節或人物（如長官致詞、頒獎），請提前告知
+✨ 如有特定使用用途（官網、IG、簡報），也可以提前說，我會針對需求拍攝
+
+📍 現場配合
+✨ 若場地有燈光調整，麻煩提前知會
+✨ 頒獎或上台環節，請讓我站在適合的位置，拍起來效果更好
+
+有任何問題歡迎隨時聯繫 😊`,
+
+  space: `空間拍攝提醒 🏠✨
+
+🧹 拍攝前準備
+✨ 請提前整理空間，移除不需要入鏡的雜物
+✨ 窗簾建議用自然光拍攝較有氛圍
+✨ 方便的話，請提供手機實拍的現場照片以及 3D 圖，方便我提前規劃拍攝角度
+
+📅 拍攝時程安排
+✨ 建議安排在「細清」完工後、傢俱入住前進行拍攝，此時空間狀態最乾淨完整
+✨ 若有配合軟裝廠商，需額外預留約半天的現場佈置時間，再安排拍攝
+
+🛋️ 軟裝與需求確認
+✨ 請確認本次是否有請專業軟裝設計師，或由您自行處理佈置
+✨ 若有任何空間調整或佈置上的想法，歡迎提前告知，我們會一起討論最適合的拍攝方式
+
+有任何問題歡迎隨時聯繫 😊`,
+
+  sports: `賽事拍攝提醒 🏃✨
+
+📋 事前確認
+✨ 請提供賽事流程與賽程表，方便規劃各時段的拍攝位置
+✨ 若有特定需要記錄的選手或隊伍，請提前告知號碼或特徵
+✨ 如有頒獎典禮，請告知位置與時間，我會提前到場準備
+
+📍 現場配合
+✨ 請告知攝影師可以活動的區域範圍
+✨ 若有管制區域需要進入，請協助辦理相關證件或許可
+✨ 頒獎或上台環節，請讓我站在適合的位置
+
+有任何問題歡迎隨時聯繫 😊`,
+
+  portrait: `寫真拍攝提醒 📸✨
+
+👗 造型準備
+✨ 建議準備 2–3 套服裝，顏色以素色、淡色系為主，避免大花紋
+✨ 可依拍攝風格選擇服裝，若不確定可提前傳照片給我確認
+✨ 配件（項鍊、耳環、帽子等）可多帶幾樣，現場搭配
+
+📍 當天集合
+✨ 請提前 10–15 分鐘抵達集合地點
+✨ 若有需要換裝，請準備好換裝袋方便攜帶
+✨ 帶上補妝小包，長時間拍攝中途可以補妝
+
+📸 拍攝小提醒
+✨ 拍攝前一晚睡眠充足，氣色會更好
+✨ 放輕鬆就好，我會引導您擺 pose 和表情
+✨ 若天氣不佳需延期，請提前 2 天告知
+
+有任何問題歡迎隨時聯繫 😊`,
+
+  baby: `抓周拍攝提醒 🎂✨
+
+🧸 場地佈置準備
+✨ 建議提前 30–40 分鐘佈置抓周場地，完成後再進行拍攝
+✨ 抓周道具（算盤、書、印章等）請事先備好並排放整齊
+✨ 背景布或地墊顏色建議以素色、淡色系為主，拍起來更清爽
+
+👶 寶寶準備
+✨ 抓周當天讓寶寶維持好心情，避免在肚子餓或想睡覺時拍攝
+✨ 可替寶寶準備 1–2 套衣服，方便替換
+✨ 備好奶瓶、零食、玩具以備安撫
+
+👨‍👩‍👧 家庭合照
+✨ 若有安排全家福合照，請事先告知合照人員名單
+✨ 建議家人穿著相近色系，整體視覺更統一
+
+有任何問題歡迎隨時聯繫 😊`
+};
+
+function switchMsgTab(tab, btn) {
+  document.querySelectorAll('.msg-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.msg-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('msg-sec-'+tab).classList.add('active');
+}
+
+function updateMsgPreview(type, rows, subtotal, discount, total, depPct) {
+  const pfx = getPfx(type);
+  const client = fv('q-client') || '您';
+  const shoot  = fv('q-shoot');
+  const valid  = fv('q-valid');
+  const notes  = fv(pfx+'-qnotes');
+  const discountNote = fv(pfx+'-discount-note');
+  const dep = depPct>0 ? Math.round(total*depPct/100) : 0;
+
+  const TYPE_EMOJI = { wedding:'💍', event:'🎉', space:'🏠', sports:'🏃', portrait:'📸', baby:'🎂' };
+  const TYPE_NAME  = { wedding:'婚禮攝影', event:'活動紀錄', space:'空間攝影', sports:'運動攝影', portrait:'人像寫真', baby:'抓周攝影' };
+
+  // 報價訊息
+  const itemLines = rows.filter(r=>r.name).map(r=>{
+    const note = r.note ? `（${r.note}）` : '';
+    return `▸ ${r.name}${note}　NT$ ${fmt(r.price)}`;
+  }).join('\n');
+
+  let qmsg = `感謝您的詢問 ${TYPE_EMOJI[type]}\n`;
+  qmsg += `以下是 ${TYPE_NAME[type]} 的報價資訊：\n\n`;
+  if(shoot) qmsg += `📅 拍攝日期：${fmtDateStr(shoot)}\n`;
+  if(valid) qmsg += `⏳ 報價有效期限：${fmtDateStr(valid)}\n`;
+  if(shoot||valid) qmsg += '\n';
+  if(itemLines){
+    qmsg += `💰 費用明細\n${itemLines}\n`;
+    if(discount!==0) qmsg += `▸ ${discountNote||'折扣'}　NT$ ${fmt(discount)}\n`;
+    qmsg += `▸ 合計　NT$ ${fmt(total)}\n`;
+    if(dep>0){
+      qmsg += `▸ 訂金（${depPct}%）　NT$ ${fmt(dep)}\n`;
+      qmsg += `▸ 尾款　NT$ ${fmt(total-dep)}\n`;
+    }
+    qmsg += '\n';
+  }
+  if(notes) qmsg += `📝 備註\n${notes}\n\n`;
+  qmsg += `有任何問題歡迎隨時詢問 😊\n\n林孟儒 MENGRULENS\n📞 0958-969-988\n📷 @mengrulens`;
+  document.getElementById('msg-preview-quote').value = qmsg;
+
+  // 初次詢問
+  document.getElementById('msg-preview-inquiry').value = INQUIRY_TEMPLATES[type] || '';
+
+  // 拍攝提醒
+  document.getElementById('msg-preview-remind').value = REMIND_TEMPLATES[type] || '';
+}
+
+function copyMsg(tab) {
+  const idMap = { inquiry:'msg-preview-inquiry', quote:'msg-preview-quote', remind:'msg-preview-remind', deliver:'msg-preview-deliver' };
+  const ta = document.getElementById(idMap[tab]);
+  ta.select();
+  ta.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    const btn = ta.nextElementSibling;
+    const orig = btn.textContent;
+    btn.textContent = '✓ 已複製！';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent=orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function updateDeliverMsg() {
+  const link  = document.getElementById('deliver-link').value.trim();
+  const count = document.getElementById('deliver-count').value.trim();
+  const client = fv('q-client');
+  const greeting = client ? `親愛的 ${client} 您好，` : '您好，';
+
+  let msg = `${greeting}\n\n`;
+  msg += `謝謝您的耐心等待 🌿\n`;
+  msg += `照片都修好囉，希望您會喜歡！\n\n`;
+  if(count) msg += `📷 本次共交付精修照片 ${count} 張\n`;
+  if(link)  msg += `🔗 雲端相簿連結：\n${link}\n`;
+  msg += `\n`;
+  msg += `連結效期約 180 天，有空的時候記得下載並備份到自己的裝置喔 🙂\n\n`;
+  msg += `看完如果有任何想法或需要調整的地方，都歡迎隨時跟我說 💬\n\n`;
+  msg += `若後續有其他拍攝需求，也歡迎再與我聯繫，很期待有機會再次合作 ✨\n\n`;
+  msg += `如果在社群平台分享照片，也歡迎標記 @mengrulens，讓更多人看見這份美好的記錄 📷\n\n`;
+  msg += `林孟儒｜MENGRULENS\n\n`;
+  msg += `📞 0958-969-988`;
+
+  document.getElementById('msg-preview-deliver').value = msg;
+}
+
+// 初始化：每個類型載入預設項目
+Object.keys(DEFAULT_ITEMS).forEach(type=>{
+  DEFAULT_ITEMS[type].forEach(([name,note,price])=>addRow(type,name,note,price));
+});
+
+update();
+</script>
+</body>
+</html>
