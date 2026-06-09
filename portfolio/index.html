@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小孟映像 | @mengrulens</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Helvetica Neue', sans-serif; background: #fff; color: #1a1a1a; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #eee;
+        padding: 14px 40px; display: flex; align-items: center; gap: 6px; font-size: 14px; }
+  nav a { color: #888; text-decoration: none; cursor: pointer; }
+  nav a:hover { color: #1a1a1a; }
+  nav .sep { color: #ccc; }
+  nav .cur { color: #1a1a1a; font-weight: 500; }
+
+  header { padding: 60px 40px 20px; }
+  header h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
+  header p { margin-top: 6px; color: #888; font-size: 15px; }
+
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+               gap: 24px; padding: 24px 40px 60px; }
+  .cat-card { cursor: pointer; }
+  .cat-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: top center; display: block; }
+  .cat-card .label { padding: 12px 0 4px; font-size: 15px; font-weight: 500; }
+  .cat-card .sub { font-size: 13px; color: #888; }
+
+  .proj-grid { columns: 2; column-gap: 20px; padding: 24px 40px 60px; }
+  .proj-card { break-inside: avoid; margin-bottom: 20px; cursor: pointer; }
+  .proj-card img { width: 100%; display: block; }
+  .proj-card .label { padding: 10px 0 2px; font-size: 14px; font-weight: 500; }
+
+  .photo-hero img { width: 100%; max-height: 85vh; object-fit: contain; background: #f5f5f5; display: block; }
+  .photo-title { padding: 32px 40px 16px; font-size: 22px; font-weight: 600; }
+  .photo-grid { columns: 2; column-gap: 6px; padding: 0 40px 60px; }
+  .photo-grid img { width: 100%; display: block; margin-bottom: 6px; cursor: pointer;
+                     break-inside: avoid; transition: opacity .15s; }
+  .photo-grid img:hover { opacity: .85; }
+
+  .lb { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
+         z-index: 999; align-items: center; justify-content: center; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
+  .lb-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 28px; cursor: pointer; }
+  .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%);
+                         color: #fff; font-size: 36px; cursor: pointer; padding: 20px; user-select: none; }
+  .lb-prev { left: 8px; } .lb-next { right: 8px; }
+
+  @media (max-width: 600px) {
+    nav, header, .cat-grid, .proj-grid, .photo-title, .photo-grid { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+<div id="app"></div>
+<div class="lb" id="lb">
+  <span class="lb-close" onclick="closeLb()">✕</span>
+  <span class="lb-prev" onclick="lbMove(-1)">&#8249;</span>
+  <img id="lb-img" src="">
+  <span class="lb-next" onclick="lbMove(1)">&#8250;</span>
+</div>
+<script>
+const DATA = [
+  {
+    "name": "人像寫真",
+    "slug": "人像寫真",
+    "projects": [
+      {
+        "name": "風格寫真",
+        "slug": "人像寫真__260316風格寫真",
+        "cover": "images/人像寫真__260316風格寫真/DSC08165.jpg",
+        "photos": [
+          "images/人像寫真__260316風格寫真/DSC08165.jpg",
+          "images/人像寫真__260316風格寫真/DSC08166.jpg",
+          "images/人像寫真__260316風格寫真/DSC08171.jpg",
+          "images/人像寫真__260316風格寫真/DSC08172.jpg",
+          "images/人像寫真__260316風格寫真/DSC08175.jpg",
+          "images/人像寫真__260316風格寫真/DSC08185.jpg",
+          "images/人像寫真__260316風格寫真/DSC08192.jpg",
+          "images/人像寫真__260316風格寫真/DSC08231.jpg"
+        ]
+      },
+      {
+        "name": "韓系寫真",
+        "slug": "人像寫真__260427羽甄山棚__羽甄__第一套__修完",
+        "cover": "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-11 拷貝.jpg",
+        "photos": [
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-11 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-12 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-13 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-15 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-16 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-17 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-20 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-3 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-5 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第一套__修完/20260427-9 拷貝.jpg"
+        ]
+      },
+      {
+        "name": "韓系寫真 2",
+        "slug": "人像寫真__260427羽甄山棚__羽甄__第二套__修完",
+        "cover": "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
+        "photos": [
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-3 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-1 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-11 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-13 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-14 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-18 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-2 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-4 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-6 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第二套__修完/20260427-2-8 拷貝.jpg"
+        ]
+      },
+      {
+        "name": "清甜寫真",
+        "slug": "人像寫真__260427羽甄山棚__羽甄__第三套__修完",
+        "cover": "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-8 拷貝.jpg",
+        "photos": [
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-8 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-1 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-10 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-11 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-14 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-15 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-17 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-3 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-4 拷貝.jpg",
+          "images/人像寫真__260427羽甄山棚__羽甄__第三套__修完/20260427-3-9 拷貝.jpg"
+        ]
+      },
+      {
+        "name": "白天鵝",
+        "slug": "人像寫真__260510adora藏書閣__調色__修完的",
+        "cover": "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-1 拷貝.jpg",
+        "photos": [
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-1 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-11 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-17 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-19 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-21 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-22 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-23 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-26 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-27 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-4 拷貝.jpg",
+          "images/人像寫真__260510adora藏書閣__調色__修完的/20260510-7 拷貝.jpg"
+        ]
+      },
+      {
+        "name": "模特卡",
+        "slug": "人像寫真__260511謝藏書閣__Wynni__精修作品",
+        "cover": "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9813.jpg",
+        "photos": [
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9813.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/20260427-3-14 拷貝.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/20260427-3-7 拷貝.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/20260511-13 拷貝.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/20260511-14 拷貝.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/20260511-2 拷貝.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9811.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9815.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9817.jpg",
+          "images/人像寫真__260511謝藏書閣__Wynni__精修作品/IMG_9818.jpg"
+        ]
+      },
+      {
+        "name": "藍調寫真",
+        "slug": "人像寫真__Yona__精修（po文圖）",
+        "cover": "images/人像寫真__Yona__精修（po文圖）/IMG_7082.jpg",
+        "photos": [
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7082.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7067.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7068.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7069.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7072.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7073.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7074.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7075.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7076.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7077.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7078.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7079.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7081.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7083.jpg",
+          "images/人像寫真__Yona__精修（po文圖）/IMG_7084.jpg"
+        ]
+      },
+      {
+        "name": "底片感街拍",
+        "slug": "人像寫真__b_b_b1014",
+        "cover": "images/人像寫真__b_b_b1014/IMG_5469.jpg",
+        "photos": [
+          "images/人像寫真__b_b_b1014/IMG_5469.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5471.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5472.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5473.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5474.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5476.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5478.jpg"
+        ]
+      },
+      {
+        "name": "主題創作",
+        "slug": "人像寫真__潔妮",
+        "cover": "images/人像寫真__潔妮/0124_0024.jpg",
+        "photos": [
+          "images/人像寫真__潔妮/0124_0024.jpg",
+          "images/人像寫真__潔妮/0124_0025.jpg",
+          "images/人像寫真__潔妮/0124_0026.jpg",
+          "images/人像寫真__潔妮/0124_0028.jpg",
+          "images/人像寫真__潔妮/0124_0029.jpg",
+          "images/人像寫真__潔妮/0124_0030.jpg",
+          "images/人像寫真__潔妮/0124_0031.jpg",
+          "images/人像寫真__潔妮/0124_0032.jpg",
+          "images/人像寫真__潔妮/0124_0035.jpg",
+          "images/人像寫真__潔妮/0124_0056.jpg",
+          "images/人像寫真__潔妮/0124_0057.jpg",
+          "images/人像寫真__潔妮/0124_0061.jpg",
+          "images/人像寫真__潔妮/0124_0063.jpg",
+          "images/人像寫真__潔妮/0124_0064.jpg",
+          "images/人像寫真__潔妮/0124_0067.jpg",
+          "images/人像寫真__潔妮/0124_0068.jpg",
+          "images/人像寫真__潔妮/0124_0070.jpg",
+          "images/人像寫真__潔妮/0124_0071.jpg",
+          "images/人像寫真__潔妮/0124_0072.jpg",
+          "images/人像寫真__潔妮/0124_0076.jpg",
+          "images/人像寫真__潔妮/0124_0077.jpg",
+          "images/人像寫真__潔妮/0124_0078.jpg",
+          "images/人像寫真__潔妮/0124_0082-2.jpg",
+          "images/人像寫真__潔妮/0124_0082.jpg",
+          "images/人像寫真__潔妮/0124_0087.jpg",
+          "images/人像寫真__潔妮/0124_0088.jpg",
+          "images/人像寫真__潔妮/0124_0091.jpg",
+          "images/人像寫真__潔妮/0124_0093.jpg",
+          "images/人像寫真__潔妮/0124_0096.jpg",
+          "images/人像寫真__潔妮/0124_0097.jpg",
+          "images/人像寫真__潔妮/0124_0102.jpg",
+          "images/人像寫真__潔妮/0124_0104.jpg",
+          "images/人像寫真__潔妮/0124_0105.jpg",
+          "images/人像寫真__潔妮/0124_0107.jpg",
+          "images/人像寫真__潔妮/0124_0109.jpg",
+          "images/人像寫真__潔妮/0124_0110.jpg",
+          "images/人像寫真__潔妮/0124_0116.jpg",
+          "images/人像寫真__潔妮/0124_0119.jpg",
+          "images/人像寫真__潔妮/0124_0120.jpg",
+          "images/人像寫真__潔妮/0124_0126.jpg",
+          "images/人像寫真__潔妮/0124_0129.jpg",
+          "images/人像寫真__潔妮/0124_0139.jpg",
+          "images/人像寫真__潔妮/0124_0150.jpg",
+          "images/人像寫真__潔妮/0124_0151.jpg",
+          "images/人像寫真__潔妮/0124_0152.jpg",
+          "images/人像寫真__潔妮/0124_0154.jpg",
+          "images/人像寫真__潔妮/0124_0160.jpg",
+          "images/人像寫真__潔妮/0124_0162.jpg",
+          "images/人像寫真__潔妮/0124_0163.jpg",
+          "images/人像寫真__潔妮/0124_0188.jpg",
+          "images/人像寫真__潔妮/0124_0189.jpg",
+          "images/人像寫真__潔妮/0124_0192.jpg",
+          "images/人像寫真__潔妮/IMG_3542.jpg",
+          "images/人像寫真__潔妮/IMG_3545.jpg",
+          "images/人像寫真__潔妮/IMG_3546.jpg",
+          "images/人像寫真__潔妮/IMG_3547.jpg",
+          "images/人像寫真__潔妮/IMG_3548.jpg",
+          "images/人像寫真__潔妮/IMG_3549.jpg"
+        ]
+      },
+      {
+        "name": "海風寫真",
+        "slug": "人像寫真__禹臻",
+        "cover": "images/人像寫真__禹臻/IMG_5446.jpg",
+        "photos": [
+          "images/人像寫真__禹臻/IMG_5446.jpg",
+          "images/人像寫真__禹臻/A7S03438.jpg",
+          "images/人像寫真__禹臻/A7S03473.jpg",
+          "images/人像寫真__禹臻/A7S03573.jpg",
+          "images/人像寫真__禹臻/A7S03879.jpg",
+          "images/人像寫真__禹臻/A7S03882.jpg",
+          "images/人像寫真__禹臻/A7S03886.jpg",
+          "images/人像寫真__禹臻/A7S03891.jpg",
+          "images/人像寫真__禹臻/A7S03942.jpg",
+          "images/人像寫真__禹臻/IMG_6196.jpg",
+          "images/人像寫真__禹臻/IMG_6197.jpg",
+          "images/人像寫真__禹臻/IMG_6198.jpg",
+          "images/人像寫真__禹臻/IMG_6199.jpg",
+          "images/人像寫真__禹臻/IMG_6200.jpg",
+          "images/人像寫真__禹臻/IMG_6201.jpg",
+          "images/人像寫真__禹臻/IMG_6202.jpg",
+          "images/人像寫真__禹臻/IMG_6203.jpg",
+          "images/人像寫真__禹臻/IMG_6204.jpg",
+          "images/人像寫真__禹臻/IMG_6205.jpg",
+          "images/人像寫真__禹臻/IMG_6206.jpg",
+          "images/人像寫真__禹臻/IMG_6207.jpg",
+          "images/人像寫真__禹臻/IMG_6208.jpg",
+          "images/人像寫真__禹臻/IMG_6209.jpg",
+          "images/人像寫真__禹臻/IMG_6210.jpg",
+          "images/人像寫真__禹臻/IMG_6211.jpg",
+          "images/人像寫真__禹臻/IMG_6212.jpg",
+          "images/人像寫真__禹臻/IMG_6213.jpg",
+          "images/人像寫真__禹臻/IMG_6214.jpg",
+          "images/人像寫真__禹臻/IMG_6216.jpg",
+          "images/人像寫真__禹臻/IMG_6217.jpg",
+          "images/人像寫真__禹臻/IMG_6218.jpg",
+          "images/人像寫真__禹臻/IMG_6219.jpg",
+          "images/人像寫真__禹臻/IMG_6220.jpg",
+          "images/人像寫真__禹臻/IMG_6221.jpg",
+          "images/人像寫真__禹臻/IMG_6222.jpg",
+          "images/人像寫真__禹臻/IMG_6223.jpg"
+        ]
+      },
+      {
+        "name": "青春校園",
+        "slug": "人像寫真__范飯",
+        "cover": "images/人像寫真__范飯/IMG_8108.jpg",
+        "photos": [
+          "images/人像寫真__范飯/IMG_8108.jpg",
+          "images/人像寫真__范飯/DSC05236.jpg",
+          "images/人像寫真__范飯/DSC05239.jpg",
+          "images/人像寫真__范飯/DSC05276.jpg",
+          "images/人像寫真__范飯/DSC05277.jpg",
+          "images/人像寫真__范飯/DSC05296.jpg",
+          "images/人像寫真__范飯/DSC05311.jpg",
+          "images/人像寫真__范飯/DSC05325.jpg",
+          "images/人像寫真__范飯/DSC05336.jpg",
+          "images/人像寫真__范飯/DSC05395.jpg",
+          "images/人像寫真__范飯/DSC05488-2.jpg",
+          "images/人像寫真__范飯/DSC05547.jpg",
+          "images/人像寫真__范飯/DSC05731.jpg",
+          "images/人像寫真__范飯/DSC05738.jpg",
+          "images/人像寫真__范飯/DSC05746.jpg",
+          "images/人像寫真__范飯/DSC05758.jpg",
+          "images/人像寫真__范飯/IMG_8092.jpg",
+          "images/人像寫真__范飯/IMG_8093.jpg",
+          "images/人像寫真__范飯/IMG_8094.jpg",
+          "images/人像寫真__范飯/IMG_8095.jpg",
+          "images/人像寫真__范飯/IMG_8096.jpg",
+          "images/人像寫真__范飯/IMG_8097.jpg",
+          "images/人像寫真__范飯/IMG_8098.jpg",
+          "images/人像寫真__范飯/IMG_8106.jpg",
+          "images/人像寫真__范飯/IMG_8107.jpg",
+          "images/人像寫真__范飯/IMG_8109.jpg",
+          "images/人像寫真__范飯/IMG_8503.jpg",
+          "images/人像寫真__范飯/IMG_8504.jpg"
+        ]
+      }
+    ],
+    "cover": "images/人像寫真__260316風格寫真/DSC08165.jpg"
+  },
+  {
+    "name": "活動紀錄",
+    "slug": "活動紀錄",
+    "projects": [
+      {
+        "name": "國三畢業典禮",
+        "slug": "活動紀錄__20250601國三畢業典禮",
+        "cover": "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg",
+        "photos": [
+          "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S00960.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S00985.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01015.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01043.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01112.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01141.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01188.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01218.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01253.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01279.jpg",
+          "images/活動紀錄__20250601國三畢業典禮/A7S01313.jpg"
+        ]
+      },
+      {
+        "name": "木子診所開幕",
+        "slug": "活動紀錄__20250615木子診所開幕",
+        "cover": "images/活動紀錄__20250615木子診所開幕/A7S04000(1).jpg",
+        "photos": [
+          "images/活動紀錄__20250615木子診所開幕/A7S04000(1).jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S03712.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04515.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04347.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04502.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S03841.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S03902.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S03980.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04035.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04098.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04160.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04384.jpg"
+        ]
+      },
+      {
+        "name": "台大異國文化節",
+        "slug": "活動紀錄__260425台大異國文化節",
+        "cover": "images/活動紀錄__260425台大異國文化節/_DSC3748.jpg",
+        "photos": [
+          "images/活動紀錄__260425台大異國文化節/_DSC3748.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC3743.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC3889.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC4077.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC4710.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC4021.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5030.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5213.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC3946.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5308.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5471.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5614.jpg"
+        ]
+      },
+      {
+        "name": "逗點十週年",
+        "slug": "活動紀錄__逗點十週年",
+        "cover": "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_184.jpg",
+        "photos": [
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_184.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_106.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_預展會餐點_241223_8.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_開幕典禮_241223_21.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_引導觀展_241223_153.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_引導觀展_241223_61.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_1222逗點高校音樂祭_241223_34.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_歲末抽獎_241223_37.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_1222特展活動紀錄_241223_39.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_可愛的夥伴_241223_50.jpg",
+          "images/活動紀錄__逗點十週年/LINE_ALBUM_牛山 精選_241223_4.jpg",
+          "images/活動紀錄__逗點十週年/Howard-27.jpg"
+        ]
+      },
+      {
+        "name": "郵輪派對",
+        "slug": "活動紀錄__郵輪派對stepcwaveparty",
+        "cover": "images/活動紀錄__郵輪派對stepcwaveparty/A7S00821-3.jpg",
+        "photos": [
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00821-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00169-Enhanced-NR-4.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00522-4.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01208-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01352-3.jpg"
+        ]
+      }
+    ],
+    "cover": "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg"
+  },
+  {
+    "name": "空間攝影",
+    "slug": "空間攝影",
+    "projects": [
+      {
+        "name": "空間攝影",
+        "slug": "空間攝影__成品",
+        "cover": "images/空間攝影__成品/1 jpg.jpg",
+        "photos": [
+          "images/空間攝影__成品/1 jpg.jpg",
+          "images/空間攝影__成品/10.jpg",
+          "images/空間攝影__成品/11.jpg",
+          "images/空間攝影__成品/2.jpg",
+          "images/空間攝影__成品/3.jpg",
+          "images/空間攝影__成品/4.jpg",
+          "images/空間攝影__成品/5.jpg",
+          "images/空間攝影__成品/6.jpg",
+          "images/空間攝影__成品/7.jpg",
+          "images/空間攝影__成品/8.jpg",
+          "images/空間攝影__成品/9.jpg"
+        ]
+      }
+    ],
+    "cover": "images/空間攝影__成品/1 jpg.jpg"
+  }
+];
+let lbPhotos = [], lbIdx = 0;
+
+function render() {
+  const raw = decodeURIComponent(location.hash.slice(1)) || '/';
+  const parts = raw.split('/').filter(Boolean);
+  const nav = document.getElementById('nav');
+  const app = document.getElementById('app');
+
+  if (parts.length === 0) {
+    nav.innerHTML = `<span class="cur">作品集</span>`;
+    app.innerHTML = `
+      <header><h1>小孟映像</h1><p>@mengrulens</p></header>
+      <div class="cat-grid">
+        ${DATA.map(c=>`
+          <div class="cat-card" data-go="${c.slug}">
+            <img src="${enc(c.cover)}" loading="lazy">
+            <div class="label">${c.name}</div>
+            <div class="sub">${c.projects.length} 個專案</div>
+          </div>`).join('')}
+      </div>`;
+  } else if (parts.length === 1) {
+    const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
+    nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
+    app.innerHTML = `
+      <header><h1>${cat.name}</h1></header>
+      <div class="proj-grid">
+        ${cat.projects.map(p=>`
+          <div class="proj-card" data-go="${cat.slug}/${p.slug}">
+            <img src="${enc(p.cover)}" loading="lazy">
+            <div class="label">${p.name}</div>
+          </div>`).join('')}
+      </div>`;
+  } else if (parts.length === 2) {
+    const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
+    const proj = cat.projects.find(p=>p.slug===parts[1]); if(!proj) return go(parts[0]);
+    lbPhotos = proj.photos;
+    nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><a data-go="${cat.slug}">${cat.name}</a><span class="sep">/</span><span class="cur">${proj.name}</span>`;
+    app.innerHTML = `
+      <div class="photo-hero"><img src="${enc(proj.photos[0])}"></div>
+      <div class="photo-title">${proj.name}</div>
+      <div class="photo-grid">
+        ${proj.photos.slice(1).map((p,i)=>`<img src="${enc(p)}" loading="lazy" data-lb="${i+1}">`).join('')}
+      </div>`;
+  }
+  window.scrollTo(0,0);
+}
+
+function enc(p){ return p.split('/').map(s=>encodeURIComponent(s)).join('/'); }
+function go(path){ history.pushState(null,'','#/'+path); render(); }
+function openLb(i){ lbIdx=i; document.getElementById('lb-img').src=enc(lbPhotos[i]); document.getElementById('lb').classList.add('open'); }
+function closeLb(){ document.getElementById('lb').classList.remove('open'); }
+function lbMove(d){ lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length; document.getElementById('lb-img').src=enc(lbPhotos[lbIdx]); }
+
+document.addEventListener('click', e=>{
+  const el=e.target.closest('[data-go]'); if(el){ e.preventDefault(); go(el.dataset.go); }
+  const lb=e.target.closest('[data-lb]'); if(lb) openLb(parseInt(lb.dataset.lb));
+});
+document.getElementById('lb').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeLb(); });
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeLb();
+  if(e.key==='ArrowLeft') lbMove(-1);
+  if(e.key==='ArrowRight') lbMove(1);
+});
+window.addEventListener('popstate', render);
+render();
+</script>
+</body>
+</html>
