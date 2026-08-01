@@ -108,17 +108,15 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 .proj-card-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
-  opacity: 0; transition: opacity .3s;
+  opacity: 1;
 }
-.proj-card:hover .proj-card-overlay { opacity: 1; }
 .proj-card-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: 16px 14px 12px;
   font-family: "Cormorant Garamond", serif;
   font-size: 16px; letter-spacing: 3px; color: #fff;
-  opacity: 0; transform: translateY(6px); transition: all .3s;
+  opacity: 1; transform: translateY(0);
 }
-.proj-card:hover .proj-card-label { opacity: 1; transform: translateY(0); }
 
 /* ── photo view ── */
 .photo-hero {
@@ -451,6 +449,34 @@ const DATA = [
         ]
       },
       {
+        "name": "職業形象照",
+        "slug": "人像寫真__李雨樵",
+        "cover": "images/人像寫真__李雨樵/IMG_8228.JPG",
+        "photos": [
+          "images/人像寫真__李雨樵/IMG_8228.JPG",
+          "images/人像寫真__李雨樵/IMG_8229.JPG",
+          "images/人像寫真__李雨樵/IMG_8270.JPG",
+          "images/人像寫真__李雨樵/IMG_8273.JPG",
+          "images/人像寫真__李雨樵/IMG_8281.JPG",
+          "images/人像寫真__李雨樵/IMG_8534.JPG",
+          "images/人像寫真__李雨樵/IMG_8535.JPG",
+          "images/人像寫真__李雨樵/IMG_8536.JPG"
+        ]
+      },
+      {
+        "name": "體態紀錄",
+        "slug": "人像寫真__250907體態紀錄",
+        "cover": "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
+        "photos": [
+          "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4433.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4434.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4435.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4436.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4438.JPG"
+        ]
+      },
+      {
         "name": "夏日寫真",
         "slug": "人像寫真__禹臻",
         "cover": "images/人像寫真__禹臻/IMG_5446.jpg",
@@ -501,95 +527,260 @@ const DATA = [
     "slug": "活動紀錄",
     "projects": [
       {
-        "name": "國三畢業典禮",
-        "slug": "活動紀錄__20250601國三畢業典禮",
-        "cover": "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg",
+        "name": "環境部綠領人才講座",
+        "slug": "活動紀錄__環境部綠領人才講座",
+        "cover": "images/活動紀錄__環境部綠領人才講座/_DSC9480.jpg",
         "photos": [
-          "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S00960.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S00985.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01015.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01043.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01112.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01141.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01188.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01218.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01253.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01279.jpg",
-          "images/活動紀錄__20250601國三畢業典禮/A7S01313.jpg"
+          "images/活動紀錄__環境部綠領人才講座/_DSC9480.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9322.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9303.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9307.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9179.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9228.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9232.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9493.jpg",
+          "images/活動紀錄__環境部綠領人才講座/_DSC9073.jpg"
         ]
       },
       {
-        "name": "木子診所開幕",
-        "slug": "活動紀錄__20250615木子診所開幕",
-        "cover": "images/活動紀錄__20250615木子診所開幕/A7S04000(1).jpg",
+        "name": "AI未來展",
+        "slug": "活動紀錄__AI未來展",
+        "cover": "images/活動紀錄__AI未來展/IMG_9580.jpg",
         "photos": [
-          "images/活動紀錄__20250615木子診所開幕/A7S04000(1).jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S03712.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04515.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04347.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04502.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S03841.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S03902.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S03980.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04035.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04098.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04160.jpg",
-          "images/活動紀錄__20250615木子診所開幕/A7S04384.jpg"
+          "images/活動紀錄__AI未來展/IMG_9580.jpg",
+          "images/活動紀錄__AI未來展/IMG_9588.JPG",
+          "images/活動紀錄__AI未來展/IMG_9564.jpg",
+          "images/活動紀錄__AI未來展/IMG_9573.jpg",
+          "images/活動紀錄__AI未來展/IMG_9574.JPG",
+          "images/活動紀錄__AI未來展/IMG_9578.JPG",
+          "images/活動紀錄__AI未來展/IMG_9583.jpg",
+          "images/活動紀錄__AI未來展/IMG_9589.JPG",
+          "images/活動紀錄__AI未來展/IMG_9590.JPG",
+          "images/活動紀錄__AI未來展/IMG_9592.JPG"
         ]
       },
       {
-        "name": "台大異國文化節",
-        "slug": "活動紀錄__260425台大異國文化節",
-        "cover": "images/活動紀錄__260425台大異國文化節/_DSC3748.jpg",
+        "name": "ＴＭＴ德州撲克",
+        "slug": "活動紀錄__ＴＭＴ德州撲克",
+        "cover": "images/活動紀錄__ＴＭＴ德州撲克/A7S02828.jpg",
         "photos": [
-          "images/活動紀錄__260425台大異國文化節/_DSC3748.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC3743.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC3889.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC4077.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC4710.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC4021.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC5030.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC5213.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC3946.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC5308.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC5471.jpg",
-          "images/活動紀錄__260425台大異國文化節/_DSC5614.jpg"
-        ]
-      },
-      {
-        "name": "逗點十週年",
-        "slug": "活動紀錄__逗點十週年",
-        "cover": "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_184.jpg",
-        "photos": [
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_184.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_1220_241223_106.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_預展會餐點_241223_8.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_開幕典禮_241223_21.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_引導觀展_241223_153.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_引導觀展_241223_61.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_1222逗點高校音樂祭_241223_34.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_歲末抽獎_241223_37.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_1222特展活動紀錄_241223_39.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_可愛的夥伴_241223_50.jpg",
-          "images/活動紀錄__逗點十週年/LINE_ALBUM_牛山 精選_241223_4.jpg",
-          "images/活動紀錄__逗點十週年/Howard-27.jpg"
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02828.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02577.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02601.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02787.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02876.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02879.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02884.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02888.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02891.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02897.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02899.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S02995-3.jpg",
+          "images/活動紀錄__ＴＭＴ德州撲克/A7S03155.jpg"
         ]
       },
       {
         "name": "郵輪派對",
         "slug": "活動紀錄__郵輪派對stepcwaveparty",
-        "cover": "images/活動紀錄__郵輪派對stepcwaveparty/A7S00821-3.jpg",
+        "cover": "images/活動紀錄__郵輪派對stepcwaveparty/A7S01208-2.jpg",
         "photos": [
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01208-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01379-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00086-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00580-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00463-3.jpg",
           "images/活動紀錄__郵輪派對stepcwaveparty/A7S00821-3.jpg",
           "images/活動紀錄__郵輪派對stepcwaveparty/A7S00169-Enhanced-NR-4.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01352-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00999-2.jpg",
           "images/活動紀錄__郵輪派對stepcwaveparty/A7S00522-4.jpg",
-          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01208-2.jpg",
-          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01352-3.jpg"
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01178-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S01091-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00900-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00881-2.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00781-3.jpg",
+          "images/活動紀錄__郵輪派對stepcwaveparty/A7S00738-2.jpg"
+        ]
+      },
+      {
+        "name": "木子診所開幕",
+        "slug": "活動紀錄__20250615木子診所開幕",
+        "cover": "images/活動紀錄__20250615木子診所開幕/A7S04006.jpg",
+        "photos": [
+          "images/活動紀錄__20250615木子診所開幕/A7S04006.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04045.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04024.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04109.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04135.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04400.jpg",
+          "images/活動紀錄__20250615木子診所開幕/A7S04470.jpg"
+        ]
+      },
+      {
+        "name": "台大異國文化節",
+        "slug": "活動紀錄__260425台大異國文化節",
+        "cover": "images/活動紀錄__260425台大異國文化節/_DSC5350.jpg",
+        "photos": [
+          "images/活動紀錄__260425台大異國文化節/_DSC5350.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC4014.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5428.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5439.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5137.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5178.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC4908.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5198.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5228.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5360.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5440.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5528.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5578.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5592.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5855.jpg",
+          "images/活動紀錄__260425台大異國文化節/_DSC5929.jpg"
+        ]
+      },
+      {
+        "name": "逗點十週年慶市集展覽",
+        "slug": "活動紀錄__逗點十週年",
+        "cover": "images/活動紀錄__逗點十週年/A7S00436.JPG",
+        "photos": [
+          "images/活動紀錄__逗點十週年/A7S00436.JPG",
+          "images/活動紀錄__逗點十週年/A7S00553.JPG",
+          "images/活動紀錄__逗點十週年/A7S00538.JPG",
+          "images/活動紀錄__逗點十週年/A7S01288.JPG",
+          "images/活動紀錄__逗點十週年/A7S01269.JPG",
+          "images/活動紀錄__逗點十週年/A7S02225 (1).JPG",
+          "images/活動紀錄__逗點十週年/A7S02455.JPG",
+          "images/活動紀錄__逗點十週年/A7S01891.JPG",
+          "images/活動紀錄__逗點十週年/A7S01610.JPG",
+          "images/活動紀錄__逗點十週年/A7S01239.JPG",
+          "images/活動紀錄__逗點十週年/A7S01131.JPG"
+        ]
+      },
+      {
+        "name": "高中參訪",
+        "slug": "活動紀錄__高中參訪",
+        "cover": "images/活動紀錄__高中參訪/IMG_8318.JPG",
+        "photos": [
+          "images/活動紀錄__高中參訪/IMG_8318.JPG",
+          "images/活動紀錄__高中參訪/A7S04831.JPEG",
+          "images/活動紀錄__高中參訪/A7S04833.JPEG",
+          "images/活動紀錄__高中參訪/IMG_8474.JPEG",
+          "images/活動紀錄__高中參訪/A7S04924.JPEG",
+          "images/活動紀錄__高中參訪/A7S04821.JPEG",
+          "images/活動紀錄__高中參訪/A7S04611.JPEG",
+          "images/活動紀錄__高中參訪/A7S04567.JPEG",
+          "images/活動紀錄__高中參訪/A7S04444.JPEG",
+          "images/活動紀錄__高中參訪/A7S04473.JPEG",
+          "images/活動紀錄__高中參訪/IMG_8314.JPEG"
+        ]
+      },
+      {
+        "name": "診所健康講座",
+        "slug": "活動紀錄__診所健康講座",
+        "cover": "images/活動紀錄__診所健康講座/A7S06841.jpg",
+        "photos": [
+          "images/活動紀錄__診所健康講座/A7S06841.jpg",
+          "images/活動紀錄__診所健康講座/A7S06696.jpg",
+          "images/活動紀錄__診所健康講座/A7S06699.jpg",
+          "images/活動紀錄__診所健康講座/A7S06710.jpg",
+          "images/活動紀錄__診所健康講座/A7S06727.jpg",
+          "images/活動紀錄__診所健康講座/A7S06746.jpg",
+          "images/活動紀錄__診所健康講座/A7S06764.jpg",
+          "images/活動紀錄__診所健康講座/A7S06770.jpg",
+          "images/活動紀錄__診所健康講座/A7S06782.jpg",
+          "images/活動紀錄__診所健康講座/A7S06819.jpg",
+          "images/活動紀錄__診所健康講座/A7S06896.jpg"
         ]
       }
     ],
-    "cover": "images/活動紀錄__20250601國三畢業典禮/A7S01360.jpg"
+    "cover": "images/活動紀錄__AI未來展/IMG_9580.jpg"
+  },
+  {
+    "name": "運動攝影",
+    "slug": "運動攝影",
+    "projects": [
+      {
+        "name": "龍潭盃",
+        "slug": "運動攝影__龍潭盃250930",
+        "cover": "images/運動攝影__龍潭盃250930/A7S00474-2.jpg",
+        "photos": [
+          "images/運動攝影__龍潭盃250930/A7S00474-2.jpg",
+          "images/運動攝影__龍潭盃250930/A7S00614.jpg",
+          "images/運動攝影__龍潭盃250930/A7S06810.jpg",
+          "images/運動攝影__龍潭盃250930/A7S06947.jpg",
+          "images/運動攝影__龍潭盃250930/A7S06950.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07023.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07090-2.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07137.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07258.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07274.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07309.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07336.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07469.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07478-2.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07482-2.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07497.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07563-2.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07590.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07650.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07677.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07740.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07754.jpg",
+          "images/運動攝影__龍潭盃250930/A7S07877.jpg",
+          "images/運動攝影__龍潭盃250930/A7S08148.jpg",
+          "images/運動攝影__龍潭盃250930/A7S08244.jpg",
+          "images/運動攝影__龍潭盃250930/A7S08339.jpg"
+        ]
+      },
+      {
+        "name": "籃球",
+        "slug": "運動攝影__籃球",
+        "cover": "images/運動攝影__籃球/_DSC5672.jpg",
+        "photos": [
+          "images/運動攝影__籃球/_DSC5672.jpg",
+          "images/運動攝影__籃球/_DSC5689.jpg",
+          "images/運動攝影__籃球/_DSC5731.jpg",
+          "images/運動攝影__籃球/_DSC5746.jpg",
+          "images/運動攝影__籃球/_DSC5777.jpg",
+          "images/運動攝影__籃球/_DSC5779.jpg",
+          "images/運動攝影__籃球/_DSC5827.jpg",
+          "images/運動攝影__籃球/_DSC5828.jpg",
+          "images/運動攝影__籃球/_DSC5845.jpg",
+          "images/運動攝影__籃球/_DSC5848.jpg",
+          "images/運動攝影__籃球/_DSC5881.jpg",
+          "images/運動攝影__籃球/_DSC5894.jpg",
+          "images/運動攝影__籃球/_DSC5896.jpg",
+          "images/運動攝影__籃球/_DSC5917.jpg",
+          "images/運動攝影__籃球/_DSC5941.jpg",
+          "images/運動攝影__籃球/_DSC5996.jpg",
+          "images/運動攝影__籃球/_DSC6022.jpg",
+          "images/運動攝影__籃球/_DSC6071.jpg"
+        ]
+      },
+      {
+        "name": "足球乙級聯賽",
+        "slug": "運動攝影__足球",
+        "cover": "images/運動攝影__足球/A7S08837.jpg",
+        "photos": [
+          "images/運動攝影__足球/A7S08837.jpg",
+          "images/運動攝影__足球/A7S08641.jpg",
+          "images/運動攝影__足球/A7S08666.jpg",
+          "images/運動攝影__足球/A7S08372.jpg",
+          "images/運動攝影__足球/A7S08129.jpg",
+          "images/運動攝影__足球/A7S08086.jpg",
+          "images/運動攝影__足球/A7S08080.jpg",
+          "images/運動攝影__足球/A7S08051.jpg",
+          "images/運動攝影__足球/A7S08034.jpg",
+          "images/運動攝影__足球/A7S07947.jpg",
+          "images/運動攝影__足球/A7S08788.jpg",
+          "images/運動攝影__足球/A7S08816.jpg",
+          "images/運動攝影__足球/A7S08807.jpg",
+          "images/運動攝影__足球/A7S08830.jpg"
+        ]
+      }
+    ],
+    "cover": "images/運動攝影__龍潭盃250930/A7S00474-2.jpg"
   },
   {
     "name": "空間攝影",
@@ -640,7 +831,7 @@ function render() {
             <div class="cat-card-overlay"></div>
             <div class="cat-card-info">
               <div class="cat-card-name">${c.name}</div>
-              <div class="cat-card-count">${c.projects.length} 個專案</div>
+              
             </div>
           </div>`).join('')}
       </div>`;
@@ -675,7 +866,7 @@ function render() {
       <div class="photo-hero"><img src="${enc(proj.photos[0])}" data-lb="0"></div>
       <div class="photo-info">
         <div class="photo-info-title">${proj.name}</div>
-        <div class="photo-info-count">${proj.photos.length} 張</div>
+        
       </div>
       <div class="photo-grid">
         ${proj.photos.slice(1).map((p,i)=>`<img src="${enc(p)}" loading="lazy" data-lb="${i+1}">`).join('')}

@@ -174,6 +174,34 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{opacity:1}
   .msg-closing{margin-top:auto}
   body{background:#fff}
 }
+
+
+/* ── Text Color Fix for Light BG ── */
+.brand-name{color:#2a2118!important}
+.brand-sub{color:#a0845c!important}
+.section-zh{color:#2a2118!important}
+.section-en{color:#a0845c!important}
+.section-desc{color:#9a8a78!important}
+.footer-text{color:#7a6a58!important}
+.doc{background:#f5f0e8}
+
+/* ── Light Mode Override ── */
+body{background:#f5f0e8!important}
+.tab-bar{background:#ddd4c4!important}
+.tab-btn{background:#ede5d8!important;color:#6a5a48!important}
+.tab-btn:hover{background:#e0d4c0!important;color:#3a2a18!important}
+#form-panel{background:#faf8f5!important}
+#form-panel h2{color:#7a6a55!important}
+.form-subtitle,.section-label{color:#9a8a78!important}
+.form-group input,.form-group textarea,.form-group select{background:#fff!important;border-color:#d4c9b8!important;color:#2a2118!important}
+.form-group select option{background:#fff!important;color:#2a2118!important}
+input[type="date"]{color-scheme:light!important}
+.item-table th{background:#ede5d8!important;color:#a0845c!important;border-bottom-color:#d4c9b8!important}
+.item-row td{border-bottom-color:#e0d4c0!important}
+.item-row input{background:#fff!important;border-color:#d4c9b8!important;color:#2a2118!important}
+.del-row-btn{border-color:#d4c9b8!important;color:#9a8a78!important}
+.add-row-btn{border-color:#d4c9b8!important;color:#9a8a78!important}
+#quote-wrap{background:#e8e4de!important}
 </style>
 </head>
 <body>
@@ -932,15 +960,15 @@ function updateDeliverMsg() {
 
   let msg = `${greeting}\n\n`;
   msg += `謝謝您的耐心等待 🌿\n`;
-  msg += `照片都修好囉，希望您會喜歡！\n\n`;
+  msg += `照片都修好囉，希望您會喜歡！\n`;
+  if(count || link) msg += '\n';
   if(count) msg += `📷 本次共交付精修照片 ${count} 張\n`;
   if(link)  msg += `🔗 雲端相簿連結：\n${link}\n`;
-  msg += `\n`;
-  msg += `連結效期約 180 天，有空的時候記得下載並備份到自己的裝置喔 🙂\n\n`;
-  msg += `看完如果有任何想法或需要調整的地方，都歡迎隨時跟我說 💬\n\n`;
-  msg += `若後續有其他拍攝需求，也歡迎再與我聯繫，很期待有機會再次合作 ✨\n\n`;
-  msg += `如果在社群平台分享照片，也歡迎標記 @mengrulens，讓更多人看見這份美好的記錄 📷\n\n`;
-  msg += `林孟儒｜MENGRULENS\n\n`;
+  msg += `\n連結效期約 180 天，有空的時候記得下載並備份到自己的裝置喔 🙂\n`;
+  msg += `\n看完如果有任何想法或需要調整的地方，都歡迎隨時跟我說 💬\n`;
+  msg += `若後續有其他拍攝需求，也歡迎再與我聯繫，很期待有機會再次合作 ✨\n`;
+  msg += `\n如果在社群平台分享照片，也歡迎標記 @mengrulens，讓更多人看見這份美好的記錄 📷\n`;
+  msg += `\n林孟儒｜MENGRULENS\n`;
   msg += `📞 0958-969-988`;
 
   document.getElementById('msg-preview-deliver').value = msg;

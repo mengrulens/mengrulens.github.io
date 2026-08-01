@@ -3,3 +3,14 @@
 ~$*
 __pycache__/
 *.pyc
+
+# 非作品集網站專案,避免誤 push 機密資料 (IG session/憑證、儀表板、爬蟲資料)
+mengrulens-dashboard/
+threads_data/
+ig_session/
+ig_session_mengru_lin/
+ig_session_mengrulens/
+ig_insights_mengru_lin/
+ig_screenshots/
+ig_backend/
+ig_backend2/
