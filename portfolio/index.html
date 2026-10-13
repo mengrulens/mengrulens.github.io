@@ -96,14 +96,18 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   font-size: 11px; letter-spacing: 3px; color: #a0845c;
 }
 
-/* ── project grid (masonry 2-col) ── */
+/* ── project grid ── */
 .proj-wrap { padding: 0 0 60px; }
-.proj-grid { display: flex; gap: 3px; align-items: flex-start; }
-.proj-col { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.proj-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
 .proj-card {
   cursor: pointer; position: relative; overflow: hidden;
+  aspect-ratio: 3/4;
 }
-.proj-card img { width: 100%; display: block; transition: transform .45s ease; }
+.proj-card img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: center 30%;
+  transition: transform .45s ease;
+}
 .proj-card:hover img { transform: scale(1.04); }
 .proj-card-overlay {
   position: absolute; inset: 0;
@@ -179,7 +183,15 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   font-size: 11px; letter-spacing: 3px; color: #444;
 }
 
+@media (min-width: 1200px) {
+  .proj-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 1000px) {
+  .proj-grid { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 600px) {
+  .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .proj-card-label { font-size: 14px; letter-spacing: 2px; padding: 12px 10px 10px; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .proj-wrap { padding: 0 0 60px; }
   .photo-info { padding: 16px 16px 12px; }
@@ -901,8 +913,6 @@ function render() {
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
-    const col1 = cat.projects.filter((_,i)=>i%2===0);
-    const col2 = cat.projects.filter((_,i)=>i%2===1);
     const projCard = p => `
       <div class="proj-card" data-go="${cat.slug}/${p.slug}">
         <img src="${enc(p.cover)}" loading="lazy">
@@ -915,10 +925,7 @@ function render() {
         <div class="pg-divider"><span></span><em>✦</em><span></span></div>
       </div>
       <div class="proj-wrap">
-        <div class="proj-grid">
-          <div class="proj-col">${col1.map(projCard).join('')}</div>
-          <div class="proj-col">${col2.map(projCard).join('')}</div>
-        </div>
+        <div class="proj-grid">${cat.projects.map(projCard).join('')}</div>
       </div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
