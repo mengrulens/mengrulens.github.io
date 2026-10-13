@@ -145,12 +145,13 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   font-size: 11px; letter-spacing: 3px; color: #555;
 }
 .photo-grid {
-  columns: 4; column-gap: 3px;
+  display: flex; gap: 3px; align-items: flex-start;
   padding: 0 0 60px;
 }
+.photo-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .photo-grid img {
-  width: 100%; display: block; margin-bottom: 3px;
-  cursor: pointer; break-inside: avoid;
+  width: 100%; height: auto; display: block;
+  cursor: pointer;
   transition: transform .35s ease;
 }
 .photo-grid img:hover {
@@ -191,11 +192,9 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 }
 @media (max-width: 1000px) {
   .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(3, 1fr); }
-  .photo-grid { columns: 3; }
 }
 @media (max-width: 600px) {
   .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(2, 1fr); }
-  .photo-grid { columns: 2; }
   .proj-card-label { font-size: 14px; letter-spacing: 2px; padding: 12px 10px 10px; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .proj-wrap { padding: 0 0 60px; }
@@ -2688,12 +2687,25 @@ function render() {
         <div class="photo-info-title">${proj.name}</div>
         
       </div>
-      <div class="photo-grid">
-        ${proj.photos.slice(1).map((p,i)=>`<img src="${enc(p)}" loading="lazy" data-lb="${i+1}">`).join('')}
-      </div>`;
+      <div class="photo-grid" id="photo-grid"></div>`;
+    layoutPhotos();
   }
   window.scrollTo(0,0);
 }
+
+// 由左到右依序分配到各欄，保留原始比例不裁切
+function photoCols(){ const w=window.innerWidth; return w>1000?4:w>600?3:2; }
+function layoutPhotos(){
+  const grid=document.getElementById('photo-grid'); if(!grid) return;
+  const n=photoCols(); grid.dataset.cols=n;
+  const cols=Array.from({length:n},()=>[]);
+  lbPhotos.slice(1).forEach((p,i)=>cols[i%n].push(`<img src="${enc(p)}" loading="lazy" data-lb="${i+1}">`));
+  grid.innerHTML=cols.map(c=>`<div class="photo-col">${c.join('')}</div>`).join('');
+}
+window.addEventListener('resize', ()=>{
+  const grid=document.getElementById('photo-grid');
+  if(grid && +grid.dataset.cols!==photoCols()) layoutPhotos();
+});
 
 function enc(p){ return p.split('/').map(s=>encodeURIComponent(s)).join('/'); }
 function go(path){ history.pushState(null,'','#/'+path); render(); }
