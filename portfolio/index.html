@@ -109,6 +109,9 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   transition: transform .45s ease;
 }
 .proj-card:hover img { transform: scale(1.04); }
+.proj-grid.landscape { grid-template-columns: repeat(4, 1fr); }
+.proj-grid.landscape .proj-card { aspect-ratio: 3/2; }
+.proj-grid.landscape .proj-card img { object-position: center; }
 .proj-card-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
@@ -187,10 +190,10 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   .proj-grid { grid-template-columns: repeat(5, 1fr); }
 }
 @media (max-width: 1000px) {
-  .proj-grid { grid-template-columns: repeat(3, 1fr); }
+  .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 600px) {
-  .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(2, 1fr); }
   .proj-card-label { font-size: 14px; letter-spacing: 2px; padding: 12px 10px 10px; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .proj-wrap { padding: 0 0 60px; }
@@ -409,20 +412,6 @@ const DATA = [
         ]
       },
       {
-        "name": "底片感街拍",
-        "slug": "人像寫真__b_b_b1014",
-        "cover": "images/人像寫真__b_b_b1014/IMG_5469.jpg",
-        "photos": [
-          "images/人像寫真__b_b_b1014/IMG_5469.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5471.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5472.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5473.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5474.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5476.jpg",
-          "images/人像寫真__b_b_b1014/IMG_5478.jpg"
-        ]
-      },
-      {
         "name": "主題創作寫真",
         "slug": "人像寫真__潔妮",
         "cover": "images/人像寫真__潔妮/IMG_3547.jpg",
@@ -488,6 +477,48 @@ const DATA = [
         ]
       },
       {
+        "name": "職業形象照",
+        "slug": "人像寫真__李雨樵",
+        "cover": "images/人像寫真__李雨樵/IMG_8228.JPG",
+        "photos": [
+          "images/人像寫真__李雨樵/IMG_8228.JPG",
+          "images/人像寫真__李雨樵/IMG_8229.JPG",
+          "images/人像寫真__李雨樵/IMG_8270.JPG",
+          "images/人像寫真__李雨樵/IMG_8273.JPG",
+          "images/人像寫真__李雨樵/IMG_8281.JPG",
+          "images/人像寫真__李雨樵/IMG_8534.JPG",
+          "images/人像寫真__李雨樵/IMG_8535.JPG",
+          "images/人像寫真__李雨樵/IMG_8536.JPG"
+        ]
+      },
+      {
+        "name": "體態紀錄",
+        "slug": "人像寫真__250907體態紀錄",
+        "cover": "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
+        "photos": [
+          "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4433.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4434.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4435.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4436.JPG",
+          "images/人像寫真__250907體態紀錄/IMG_4438.JPG"
+        ]
+      },
+      {
+        "name": "底片感街拍",
+        "slug": "人像寫真__b_b_b1014",
+        "cover": "images/人像寫真__b_b_b1014/IMG_5469.jpg",
+        "photos": [
+          "images/人像寫真__b_b_b1014/IMG_5469.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5471.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5472.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5473.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5474.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5476.jpg",
+          "images/人像寫真__b_b_b1014/IMG_5478.jpg"
+        ]
+      },
+      {
         "name": "校園寫真",
         "slug": "人像寫真__范飯",
         "cover": "images/人像寫真__范飯/IMG_8108.jpg",
@@ -520,34 +551,6 @@ const DATA = [
           "images/人像寫真__范飯/IMG_8109.jpg",
           "images/人像寫真__范飯/IMG_8503.jpg",
           "images/人像寫真__范飯/IMG_8504.jpg"
-        ]
-      },
-      {
-        "name": "職業形象照",
-        "slug": "人像寫真__李雨樵",
-        "cover": "images/人像寫真__李雨樵/IMG_8228.JPG",
-        "photos": [
-          "images/人像寫真__李雨樵/IMG_8228.JPG",
-          "images/人像寫真__李雨樵/IMG_8229.JPG",
-          "images/人像寫真__李雨樵/IMG_8270.JPG",
-          "images/人像寫真__李雨樵/IMG_8273.JPG",
-          "images/人像寫真__李雨樵/IMG_8281.JPG",
-          "images/人像寫真__李雨樵/IMG_8534.JPG",
-          "images/人像寫真__李雨樵/IMG_8535.JPG",
-          "images/人像寫真__李雨樵/IMG_8536.JPG"
-        ]
-      },
-      {
-        "name": "體態紀錄",
-        "slug": "人像寫真__250907體態紀錄",
-        "cover": "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
-        "photos": [
-          "images/人像寫真__250907體態紀錄/IMG_4432.JPG",
-          "images/人像寫真__250907體態紀錄/IMG_4433.JPG",
-          "images/人像寫真__250907體態紀錄/IMG_4434.JPG",
-          "images/人像寫真__250907體態紀錄/IMG_4435.JPG",
-          "images/人像寫真__250907體態紀錄/IMG_4436.JPG",
-          "images/人像寫真__250907體態紀錄/IMG_4438.JPG"
         ]
       },
       {
@@ -604,7 +607,7 @@ const DATA = [
       {
         "name": "啓碁科技 30 週年家庭日",
         "slug": "活動紀錄__啓碁科技30週年家庭日",
-        "cover": "images/活動紀錄__啓碁科技30週年家庭日/_DSC6199.jpg",
+        "cover": "images/活動紀錄__啓碁科技30週年家庭日/_DSC5815.jpg",
         "photos": [
           "images/活動紀錄__啓碁科技30週年家庭日/_DSC6199.jpg",
           "images/活動紀錄__啓碁科技30週年家庭日/_DSC5010.jpg",
@@ -647,7 +650,7 @@ const DATA = [
       {
         "name": "長榮航空廣告側拍｜機艙",
         "slug": "活動紀錄__260825長榮航空廣告側拍",
-        "cover": "images/活動紀錄__260825長榮航空廣告側拍/_DSC1309.jpg",
+        "cover": "images/活動紀錄__260825長榮航空廣告側拍/_DSC1633.jpg",
         "photos": [
           "images/活動紀錄__260825長榮航空廣告側拍/_DSC1309.jpg",
           "images/活動紀錄__260825長榮航空廣告側拍/_DSC1055.jpg",
@@ -669,7 +672,7 @@ const DATA = [
       {
         "name": "長榮航空廣告側拍｜棚內",
         "slug": "活動紀錄__260821長榮航空廣告側拍",
-        "cover": "images/活動紀錄__260821長榮航空廣告側拍/_DSC7547.jpg",
+        "cover": "images/活動紀錄__260821長榮航空廣告側拍/_DSC8613.jpg",
         "photos": [
           "images/活動紀錄__260821長榮航空廣告側拍/_DSC7547.jpg",
           "images/活動紀錄__260821長榮航空廣告側拍/_DSC6999.jpg",
@@ -691,7 +694,7 @@ const DATA = [
       {
         "name": "神行祭",
         "slug": "活動紀錄__260815-16神行祭",
-        "cover": "images/活動紀錄__260815-16神行祭/_DSC4868.jpg",
+        "cover": "images/活動紀錄__260815-16神行祭/_DSC4635.jpg",
         "photos": [
           "images/活動紀錄__260815-16神行祭/_DSC4868.jpg",
           "images/活動紀錄__260815-16神行祭/_DSC4645.jpg",
@@ -1035,7 +1038,7 @@ function render() {
         <div class="pg-divider"><span></span><em>✦</em><span></span></div>
       </div>
       <div class="proj-wrap">
-        <div class="proj-grid">${cat.projects.map(projCard).join('')}</div>
+        <div class="proj-grid${cat.slug==='活動紀錄'?' landscape':''}">${cat.projects.map(projCard).join('')}</div>
       </div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
