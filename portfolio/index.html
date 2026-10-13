@@ -1038,7 +1038,7 @@ function render() {
         <div class="pg-divider"><span></span><em>✦</em><span></span></div>
       </div>
       <div class="proj-wrap">
-        <div class="proj-grid${cat.slug==='活動紀錄'?' landscape':''}">${cat.projects.map(projCard).join('')}</div>
+        <div class="proj-grid${['活動紀錄','運動攝影','空間攝影'].includes(cat.slug)?' landscape':''}">${cat.projects.map(projCard).join('')}</div>
       </div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
