@@ -58,15 +58,15 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 /* ── category grid ── */
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 3px;
-  padding: 0 0 60px;
+  padding: 0 0 24px;
 }
 .cat-card {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/5;
 }
 .cat-card img {
   width: 100%; height: 100%;
@@ -95,6 +95,25 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 .cat-card-count {
   font-size: 11px; letter-spacing: 3px; color: #a0845c;
 }
+
+/* ── category preview rows ── */
+.cat-row { padding: 40px 0 0; }
+.cat-row:last-child { padding-bottom: 60px; }
+.cat-row-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 0 24px 16px;
+}
+.cat-row-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px; letter-spacing: 5px; color: #fff; font-weight: 300;
+}
+.cat-row-more {
+  font-size: 12px; letter-spacing: 3px; color: #a0845c;
+  cursor: pointer; transition: color .2s;
+}
+.cat-row-more:hover { color: #fff; }
+.cat-row .proj-card:nth-child(n+6),
+.cat-row .proj-grid.landscape .proj-card:nth-child(n+5) { display: none; }
 
 /* ── project grid ── */
 .proj-wrap { padding: 0 0 60px; }
@@ -190,13 +209,19 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
 @media (min-width: 1200px) {
   .proj-grid { grid-template-columns: repeat(5, 1fr); }
 }
+@media (max-width: 1199px) {
+  .cat-row .proj-card:nth-child(n+5) { display: none; }
+}
 @media (max-width: 1000px) {
   .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(3, 1fr); }
+  .cat-row .proj-card:nth-child(n+4) { display: none; }
 }
 @media (max-width: 600px) {
   .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(2, 1fr); }
   .proj-card-label { font-size: 14px; letter-spacing: 2px; padding: 12px 10px 10px; }
   .cat-grid { grid-template-columns: 1fr 1fr; }
+  .cat-row .proj-card:nth-child(4) { display: block; }
+  .cat-row-head { padding: 0 16px 12px; }
   .proj-wrap { padding: 0 0 60px; }
   .photo-info { padding: 16px 16px 12px; }
 }
@@ -4858,6 +4883,14 @@ function render() {
   const nav = document.getElementById('nav');
   const app = document.getElementById('app');
 
+  const projCard = (cat, p) => `
+      <div class="proj-card" data-go="${cat.slug}/${p.slug}">
+        <img src="${enc(p.cover)}" loading="lazy">
+        <div class="proj-card-overlay"></div>
+        <div class="proj-card-label">${p.name}</div>
+      </div>`;
+  const projGridClass = cat => 'proj-grid' + (['活動紀錄','運動攝影','空間攝影'].includes(cat.slug) ? ' landscape' : '');
+
   if (parts.length === 0) {
     nav.innerHTML = `<span class="cur">作品集</span>`;
     app.innerHTML = `
@@ -4876,23 +4909,25 @@ function render() {
               
             </div>
           </div>`).join('')}
-      </div>`;
+      </div>
+      ${DATA.filter(c=>c.projects.length>1).map(c=>`
+        <div class="cat-row">
+          <div class="cat-row-head">
+            <div class="cat-row-title">${c.name}</div>
+            <div class="cat-row-more" data-go="${c.slug}">查看全部 →</div>
+          </div>
+          <div class="${projGridClass(c)}">${c.projects.slice(0,5).map(p=>projCard(c,p)).join('')}</div>
+        </div>`).join('')}`;
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
-    const projCard = p => `
-      <div class="proj-card" data-go="${cat.slug}/${p.slug}">
-        <img src="${enc(p.cover)}" loading="lazy">
-        <div class="proj-card-overlay"></div>
-        <div class="proj-card-label">${p.name}</div>
-      </div>`;
     app.innerHTML = `
       <div class="pg-header">
         <div class="pg-title">${cat.name}</div>
         <div class="pg-divider"><span></span><em>✦</em><span></span></div>
       </div>
       <div class="proj-wrap">
-        <div class="proj-grid${['活動紀錄','運動攝影','空間攝影'].includes(cat.slug)?' landscape':''}">${cat.projects.map(projCard).join('')}</div>
+        <div class="${projGridClass(cat)}">${cat.projects.map(p=>projCard(cat,p)).join('')}</div>
       </div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
