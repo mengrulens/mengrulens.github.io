@@ -24,6 +24,7 @@ a{color:inherit;text-decoration:none}
 .breadcrumb a{cursor:pointer;background:#fff;border:2px solid var(--dk);border-radius:999px;padding:2px 12px;transition:transform .15s}
 .breadcrumb a:hover{transform:rotate(-3deg);background:var(--yl)}
 .breadcrumb .sep{color:var(--ac)}
+.breadcrumb a.home{background:var(--yl);margin-right:6px}
 .breadcrumb .cur{background:var(--yl);border-radius:999px;padding:4px 12px}
 
 .page{max-width:1280px;margin:0 auto;padding:0 16px 40px}
@@ -98,6 +99,7 @@ a{color:inherit;text-decoration:none}
   .photo-grid img{border-radius:12px}
   .topbar-brand{font-size:16px}
   .breadcrumb{font-size:12px}
+  .breadcrumb a.home .t{display:none}
 }
 </style>
 </head>
@@ -5474,6 +5476,7 @@ const DATA = [
 let curRatios = [];
 let lbPhotos = [], lbIdx = 0;
 
+const HOME = `<a class="home" href="../index.html">⌂<span class="t"> 回首頁</span></a>`;
 function render() {
   const raw = decodeURIComponent(location.hash.slice(1)) || '/';
   const parts = raw.split('/').filter(Boolean);
@@ -5489,7 +5492,7 @@ function render() {
   const projGridClass = cat => 'proj-grid' + (['活動紀錄','運動攝影','空間攝影'].includes(cat.slug) ? ' landscape' : '');
 
   if (parts.length === 0) {
-    nav.innerHTML = `<span class="cur">作品集</span>`;
+    nav.innerHTML = HOME + `<span class="cur">作品集</span>`;
     app.innerHTML = `
       <div class="bubble pg-header">
         <span class="pg-sub">Portfolio ☺︎</span>
@@ -5509,7 +5512,7 @@ function render() {
       <div class="copy">© 2026 林孟儒｜MENGRULENS｜@mengrulens</div>`;
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
-    nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
+    nav.innerHTML = HOME + `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
     app.innerHTML = `
       <div class="bubble pg-header">
         <span class="pg-sub">Portfolio ☺︎</span>
@@ -5523,7 +5526,7 @@ function render() {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     const proj = cat.projects.find(p=>p.slug===parts[1]); if(!proj) return go(parts[0]);
     lbPhotos = proj.photos; curRatios = proj.ratios;
-    nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><a data-go="${cat.slug}">${cat.name}</a><span class="sep">/</span><span class="cur">${proj.name}</span>`;
+    nav.innerHTML = HOME + `<a data-go="">作品集</a><span class="sep">/</span><a data-go="${cat.slug}">${cat.name}</a><span class="sep">/</span><span class="cur">${proj.name}</span>`;
     app.innerHTML = `
       <div class="bubble photo-hero"><img src="${enc(proj.photos[0])}" data-lb="0"></div>
       <div class="bubble" style="padding:0">
