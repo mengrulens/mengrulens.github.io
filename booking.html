@@ -5,253 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>預約需求表｜MENGRULENS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+:root{
+  --dk:#1E4A6B;  --ac:#3D8BBF;  --lt:#CFE6F3;  --yl:#FFCB2F;  --ylt:#FFF1C2;
+  --bg:#F7F8F3;  --mute:#5E7487;
+}
 *{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--lt);color:var(--dk);font-family:'Noto Sans TC',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;padding:18px 0 40px;
+  background-image:radial-gradient(rgba(61,139,191,.18) 1.5px,transparent 1.5px);background-size:22px 22px}
+a{color:inherit;text-decoration:none}
 
-body{
-  background:#f5f1ec;
-  font-family:"Noto Serif TC",serif;
-  color:#2a2118;
-  min-height:100vh;
-  padding:0 0 80px;
-}
-
-/* ── top bar ── */
-.topbar{
-  background:#1a1a1a;
-  padding:20px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.topbar-brand{
-  font-family:"Cormorant Garamond",serif;
-  font-size:18px;
-  letter-spacing:8px;
-  color:#fff;
-  font-weight:300;
-}
-.topbar-back{
-  font-size:12px;
-  letter-spacing:2px;
-  color:#a0845c;
-  text-decoration:none;
-}
-.topbar-back:hover{color:#fff}
+/* ── top ── */
+.topbar{max-width:560px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between}
+.topbar-brand{font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;letter-spacing:.06em}
+.topbar-back{font-size:13px;font-weight:700;background:#fff;border:2px solid var(--dk);border-radius:999px;padding:4px 14px;transition:transform .15s}
+.topbar-back:hover{transform:rotate(-3deg);background:var(--yl)}
 
 /* ── hero ── */
-.hero{
-  background:#1a1a1a;
-  padding:32px 24px 48px;
-  text-align:center;
-  border-bottom:1px solid #2a2a2a;
-}
-.hero-title{
-  font-family:"Cormorant Garamond",serif;
-  font-size:28px;
-  font-weight:300;
-  letter-spacing:6px;
-  color:#fff;
-  margin-bottom:8px;
-}
-.hero-sub{
-  font-size:13px;
-  color:#a0845c;
-  letter-spacing:3px;
-  margin-bottom:20px;
-}
-.divider{
-  display:flex;align-items:center;gap:10px;justify-content:center;
-  margin-bottom:20px;
-}
-.divider span{height:1px;width:40px;background:#333;display:block}
-.divider em{color:#a0845c;font-style:normal;font-size:11px}
-.hero-desc{
-  font-size:13px;
-  color:#888;
-  line-height:2.2;
-}
+.hero{max-width:528px;margin:16px auto 0;background:var(--dk);color:#fff;border-radius:32px;padding:26px 22px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--yl);opacity:.9}
+.hero>*{position:relative;z-index:1}
+.hero-sub{font-family:'Fredoka',sans-serif;font-size:13px;font-weight:600;color:var(--yl);letter-spacing:.05em}
+.hero-title{font-weight:900;font-size:26px;line-height:1.3}
+.hero-desc{font-size:13px;opacity:.85;line-height:2;margin-top:10px}
+@media(max-width:560px){.hero{margin-left:16px;margin-right:16px}}
 
-/* ── form wrapper ── */
-.form-wrap{
-  max-width:560px;
-  margin:0 auto;
-  padding:0 20px;
-}
+/* ── form ── */
+.form-wrap{max-width:560px;margin:0 auto;padding:0 16px}
+.section-card{background:var(--bg);border-radius:32px;margin-top:16px;overflow:hidden}
+.section-head{display:flex;align-items:center;gap:10px;padding:22px 20px 4px}
+.section-num{font-family:'Fredoka',sans-serif;font-weight:700;font-size:14px;width:36px;height:36px;border-radius:50%;background:var(--yl);display:flex;align-items:center;justify-content:center;flex:none}
+.section-name{font-weight:900;font-size:19px}
+.section-body{padding:16px 20px 22px;display:flex;flex-direction:column;gap:20px}
 
-/* ── section card ── */
-.section-card{
-  background:#fff;
-  border-radius:12px;
-  margin-top:20px;
-  overflow:hidden;
-  box-shadow:0 2px 16px rgba(0,0,0,.06);
-}
-.section-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:18px 20px 14px;
-  border-bottom:1px solid #f0ebe4;
-}
-.section-num{
-  font-family:"Cormorant Garamond",serif;
-  font-size:12px;
-  letter-spacing:2px;
-  color:#a0845c;
-  background:#faf6f0;
-  border:1px solid #e8ddd0;
-  border-radius:4px;
-  padding:2px 8px;
-}
-.section-name{
-  font-family:"Cormorant Garamond",serif;
-  font-size:16px;
-  letter-spacing:4px;
-  color:#2a2118;
-}
-.section-body{
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
+.form-group label.field-label{display:block;font-size:14px;font-weight:700;margin-bottom:8px}
+.required{color:var(--ac);margin-left:3px}
+.hint{font-size:12px;color:var(--mute);margin-top:5px;line-height:1.6}
 
-/* ── form group ── */
-.form-group label.field-label{
-  display:block;
-  font-size:13px;
-  letter-spacing:1px;
-  color:#5a4a3a;
-  margin-bottom:8px;
-  font-weight:500;
-}
-.required{color:#a0845c;margin-left:2px}
-.hint{font-size:11px;color:#b0a090;margin-top:5px;line-height:1.6;}
+input[type="text"],input[type="tel"],input[type="email"],textarea{
+  width:100%;padding:12px 16px;background:#fff;border:2px solid var(--lt);color:var(--dk);
+  font-family:'Noto Sans TC',sans-serif;font-size:14px;outline:none;border-radius:18px;transition:border .2s}
+input::placeholder,textarea::placeholder{color:#9fb2c0}
+input[type="text"]:focus,input[type="tel"]:focus,input[type="email"]:focus,textarea:focus{border-color:var(--yl)}
+textarea{resize:vertical;min-height:96px;line-height:1.9}
 
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-textarea{
-  width:100%;
-  padding:12px 14px;
-  background:#faf8f5;
-  border:1px solid #e0d8ce;
-  color:#2a2118;
-  font-family:"Noto Serif TC",serif;
-  font-size:14px;
-  outline:none;
-  transition:border .2s, background .2s;
-  border-radius:6px;
-}
-input[type="text"]::placeholder,
-input[type="tel"]::placeholder,
-input[type="email"]::placeholder,
-textarea::placeholder{color:#bbb;}
-input[type="text"]:focus,
-input[type="tel"]:focus,
-input[type="email"]:focus,
-textarea:focus{
-  border-color:#a0845c;
-  background:#fff;
-}
-textarea{
-  resize:vertical;
-  min-height:96px;
-  line-height:1.9;
-}
-
-/* ── radio / checkbox ── */
-.options{display:flex;flex-direction:column;gap:0;}
-.options.row{flex-direction:row;flex-wrap:wrap;gap:8px;}
-
-.option-item{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 12px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:14px;
-  color:#3a3028;
-  transition:background .15s;
-}
-.option-item:hover{background:#faf6f0;}
-.option-item input[type="radio"],
-.option-item input[type="checkbox"]{
-  width:16px;height:16px;
-  accent-color:#a0845c;
-  cursor:pointer;flex-shrink:0;
-}
-.options.row .option-item{
-  background:#faf8f5;
-  border:1px solid #e8e0d4;
-  padding:8px 14px;
-}
-.options.row .option-item:hover{background:#f5f0e8;border-color:#c9b99a;}
+/* ── radio / checkbox：貼紙膠囊 ── */
+.options,.options.row{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px}
+.option-item{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:500;
+  background:#fff;border:2px solid var(--lt);transition:transform .15s,border-color .15s,background .15s}
+.option-item:hover{transform:translateY(-2px);border-color:var(--yl)}
+.option-item:has(input:checked){background:var(--yl);border-color:var(--dk);font-weight:700}
+.option-item input[type="radio"],.option-item input[type="checkbox"]{width:15px;height:15px;accent-color:var(--dk);cursor:pointer;flex-shrink:0}
 
 /* ── submit ── */
-.submit-wrap{
-  max-width:560px;
-  margin:28px auto 0;
-  padding:0 20px;
-  text-align:center;
-}
-.submit-btn{
-  width:100%;
-  padding:18px;
-  background:linear-gradient(135deg,#a0845c,#c9a87a);
-  color:#fff;
-  font-family:"Cormorant Garamond",serif;
-  font-size:17px;
-  letter-spacing:5px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  transition:all .2s;
-  box-shadow:0 4px 20px rgba(160,132,92,.25);
-}
-.submit-btn:hover{
-  background:linear-gradient(135deg,#8a6e4a,#a0845c);
-  transform:translateY(-1px);
-  box-shadow:0 6px 24px rgba(160,132,92,.35);
-}
+.submit-wrap{max-width:560px;margin:20px auto 0;padding:0 16px}
+.submit-btn{width:100%;padding:16px;background:var(--yl);color:var(--dk);font-family:'Noto Sans TC',sans-serif;font-weight:900;font-size:17px;letter-spacing:.1em;
+  border:3px solid var(--dk);border-radius:999px;cursor:pointer;transition:transform .15s;box-shadow:0 5px 0 var(--dk)}
+.submit-btn:hover{transform:translateY(-2px)}
+.submit-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--dk)}
 
-/* ── footer ── */
-.footer{
-  margin-top:40px;
-  font-size:11px;
-  color:#c0b0a0;
-  letter-spacing:2px;
-  text-align:center;
-  line-height:2.4;
-}
+.footer{margin-top:24px;font-size:12px;color:var(--mute);text-align:center}
 
 /* thank you */
-#thank-you{display:none;text-align:center;padding:60px 24px;}
-#thank-you .ty-icon{font-size:40px;margin-bottom:20px}
-#thank-you .ty-title{
-  font-family:"Cormorant Garamond",serif;
-  font-size:24px;letter-spacing:4px;color:#2a2118;margin-bottom:16px;
-}
-#thank-you .ty-msg{font-size:13px;color:#7a6a5a;line-height:2.4;margin-bottom:32px;}
-#thank-you .back-link{
-  font-size:12px;letter-spacing:2px;color:#a0845c;text-decoration:none;
-}
+#thank-you{display:none;max-width:528px;margin:16px auto 0;background:var(--yl);border-radius:32px;text-align:center;padding:48px 24px}
+#thank-you .ty-icon{font-size:40px;margin-bottom:12px}
+#thank-you .ty-title{font-weight:900;font-size:24px;margin-bottom:12px}
+#thank-you .ty-msg{font-size:14px;line-height:2.2;margin-bottom:24px}
+#thank-you .back-link{display:inline-block;font-size:14px;font-weight:700;background:var(--dk);color:#fff;border-radius:999px;padding:10px 20px}
 </style>
 </head>
 <body>
 
 <!-- top bar -->
 <div class="topbar">
-  <div class="topbar-brand">MENGRULENS</div>
+  <a class="topbar-brand" href="index.html">MENGRULENS</a>
   <a class="topbar-back" href="index.html">← 返回</a>
 </div>
 
 <!-- hero -->
 <div class="hero">
+  <div class="hero-sub">Booking Request ✦</div>
   <div class="hero-title">預約需求表</div>
-  <div class="hero-sub">BOOKING REQUEST</div>
-  <div class="divider"><span></span><em>✦</em><span></span></div>
   <div class="hero-desc">
     嗨！很開心你想和我合作 🌿<br>
     填完之後我會在 1–2 個工作天內與你聯繫，<br>
