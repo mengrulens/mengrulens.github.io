@@ -5,202 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>作品集｜MENGRULENS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+:root{
+  --dk:#1E4A6B;  --ac:#3D8BBF;  --lt:#CFE6F3;  --yl:#FFCB2F;  --ylt:#FFF1C2;
+  --bg:#F7F8F3;  --mute:#5E7487;
+}
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
+body{background:var(--lt);color:var(--dk);font-family:'Noto Sans TC',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(61,139,191,.18) 1.5px,transparent 1.5px);background-size:22px 22px}
+a{color:inherit;text-decoration:none}
 
 /* ── nav bar ── */
-.topbar {
-  position: sticky; top: 0; z-index: 200;
-  background: #111; border-bottom: 1px solid #222;
-  padding: 0 24px;
-  height: 56px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.topbar-brand {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 18px; letter-spacing: 7px; font-weight: 300; color: #fff;
-  text-decoration: none;
-}
-.breadcrumb {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12px; letter-spacing: 2px;
-}
-.breadcrumb a {
-  color: #a0845c; text-decoration: none; cursor: pointer;
-  transition: color .2s;
-}
-.breadcrumb a:hover { color: #fff; }
-.breadcrumb .sep { color: #333; }
-.breadcrumb .cur { color: #666; }
+.topbar{position:sticky;top:0;z-index:200;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:rgba(207,230,243,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.topbar-brand{font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;letter-spacing:.06em;flex:none}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;flex-wrap:wrap;justify-content:flex-end}
+.breadcrumb a{cursor:pointer;background:#fff;border:2px solid var(--dk);border-radius:999px;padding:2px 12px;transition:transform .15s}
+.breadcrumb a:hover{transform:rotate(-3deg);background:var(--yl)}
+.breadcrumb .sep{color:var(--ac)}
+.breadcrumb .cur{background:var(--yl);border-radius:999px;padding:4px 12px}
+
+.page{max-width:1280px;margin:0 auto;padding:0 16px 40px}
+.bubble{background:var(--bg);border-radius:32px;padding:20px;margin-top:12px}
 
 /* ── page header ── */
-.pg-header {
-  padding: 48px 24px 32px;
-  text-align: center;
-}
-.pg-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 28px; letter-spacing: 6px; font-weight: 300; color: #fff;
-  margin-bottom: 8px;
-}
-.pg-sub {
-  font-size: 12px; letter-spacing: 4px; color: #a0845c;
-}
-.pg-divider {
-  display: flex; align-items: center; gap: 10px; justify-content: center;
-  margin: 16px 0 0;
-}
-.pg-divider span { height: 1px; width: 40px; background: #2a2a2a; display: block; }
-.pg-divider em { color: #a0845c; font-style: normal; font-size: 11px; }
+.pg-header{text-align:center;padding:26px 20px}
+.pg-sub{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;background:var(--yl);border-radius:999px;padding:3px 14px}
+.pg-title{font-weight:900;font-size:28px;line-height:1.3;margin-top:8px}
+.pg-title .spark{color:var(--yl);font-size:22px;margin-left:6px;display:inline-block;animation:pop 2.4s ease-in-out infinite}
+@keyframes pop{50%{transform:scale(1.25) rotate(15deg)}}
+.pg-count{font-size:13px;color:var(--mute);font-weight:500;margin-top:2px}
 
 /* ── category grid ── */
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 3px;
-  height: calc(100vh - 56px - 176px);
-  min-height: 420px;
-}
-.cat-card {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.cat-card img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center 30%;
-  display: block;
-  transition: transform .5s ease;
-}
-.cat-card:hover img { transform: scale(1.06); }
-.cat-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
-  transition: background .3s;
-}
-.cat-card:hover .cat-card-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 55%, transparent 100%);
-}
-.cat-card-info {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 20px 18px 16px;
-}
-.cat-card-name {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 20px; letter-spacing: 4px; color: #fff; font-weight: 300;
-  margin-bottom: 4px;
-}
-.cat-card-count {
-  font-size: 11px; letter-spacing: 3px; color: #a0845c;
-}
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;height:calc(100vh - 290px);min-height:420px}
+.cat-card{cursor:pointer;position:relative;overflow:hidden;border-radius:28px;transition:transform .2s}
+.cat-card:hover{transform:rotate(-1.5deg) scale(1.02)}
+.cat-card img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.cat-card-overlay{display:none}
+.cat-card-info{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.cat-card-name{box-shadow:0 2px 8px rgba(0,0,0,.15);background:#fff;border-radius:999px;padding:3px 13px;font-weight:700;font-size:14px}
+.cat-card:nth-child(3n+1) .cat-card-name{background:var(--yl)}
+.cat-card-go{width:34px;height:34px;border-radius:50%;background:var(--yl);display:flex;align-items:center;justify-content:center;font-weight:900;flex:none}
+.cat-card:nth-child(3n+1) .cat-card-go{background:#fff}
 
 /* ── project grid ── */
-.proj-wrap { padding: 0 0 60px; }
-.proj-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
-.proj-card {
-  cursor: pointer; position: relative; overflow: hidden;
-  aspect-ratio: 3/4;
-}
-.proj-card img {
-  width: 100%; height: 100%; display: block;
-  object-fit: cover; object-position: center 30%;
-  transition: transform .45s ease;
-}
-.proj-card:hover img { transform: scale(1.04); }
-.proj-grid.landscape { grid-template-columns: repeat(4, 1fr); }
-.proj-grid.landscape .proj-card { aspect-ratio: 3/2; }
-.proj-grid.landscape .proj-card img { object-position: center 15%; }
-.proj-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
-  opacity: 1;
-}
-.proj-card-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 16px 14px 12px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px; letter-spacing: 3px; color: #fff;
-  opacity: 1; transform: translateY(0);
-}
+.proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.proj-card{cursor:pointer;position:relative;overflow:hidden;aspect-ratio:3/4;border-radius:24px;transition:transform .2s}
+.proj-card:hover{transform:rotate(-1.5deg) scale(1.02)}
+.proj-card img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 30%}
+.proj-grid.landscape .proj-card{aspect-ratio:3/2}
+.proj-grid.landscape .proj-card img{object-position:center 15%}
+.proj-card-overlay{display:none}
+.proj-card-label{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);background:#fff;border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.proj-card:nth-child(3n+1) .proj-card-label{background:var(--yl)}
 
 /* ── photo view ── */
-.photo-hero {
-  position: relative;
-}
-.photo-hero img {
-  width: 100%; max-height: 88vh;
-  object-fit: contain; background: #111; display: block;
-}
-.photo-info {
-  padding: 24px 24px 20px;
-  display: flex; align-items: baseline; gap: 16px;
-}
-.photo-info-title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 22px; letter-spacing: 5px; color: #fff; font-weight: 300;
-}
-.photo-info-count {
-  font-size: 11px; letter-spacing: 3px; color: #555;
-}
-.photo-grid {
-  display: flex; gap: 3px; align-items: flex-start;
-  padding: 0 0 60px;
-}
-.photo-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.photo-grid img {
-  width: 100%; height: auto; display: block;
-  cursor: pointer;
-  transition: transform .35s ease;
-}
-.photo-grid img:hover {
-  transform: scale(1.02);
-}
+.photo-hero{padding:10px}
+.photo-hero img{width:100%;max-height:84vh;object-fit:contain;display:block;border-radius:22px;cursor:zoom-in}
+.photo-info{display:flex;align-items:center;gap:10px;padding:16px 20px}
+.photo-info .ico{width:36px;height:36px;border-radius:50%;background:var(--yl);display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.photo-info-title{font-weight:900;font-size:20px;line-height:1.2}
+.photo-info-title small{display:block;font-family:'Fredoka',sans-serif;font-size:12px;font-weight:600;color:var(--ac)}
+.photo-grid{display:flex;gap:10px;align-items:flex-start;padding:10px}
+.photo-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.photo-grid img{width:100%;height:auto;display:block;cursor:zoom-in;border-radius:16px;transition:transform .25s}
+.photo-grid img:hover{transform:scale(1.02)}
 
 /* ── lightbox ── */
-.lb {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,.96);
-  z-index: 999; align-items: center; justify-content: center;
-}
-.lb.open { display: flex; }
-.lb img {
-  max-width: 92vw; max-height: 92vh; object-fit: contain;
-  transition: opacity .2s;
-}
-.lb-close {
-  position: absolute; top: 20px; right: 24px;
-  color: #666; font-size: 22px; cursor: pointer; letter-spacing: 2px;
-  transition: color .2s;
-}
-.lb-close:hover { color: #fff; }
-.lb-prev, .lb-next {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  color: #444; font-size: 40px; cursor: pointer; padding: 24px;
-  user-select: none; transition: color .2s;
-}
-.lb-prev:hover, .lb-next:hover { color: #a0845c; }
-.lb-prev { left: 0; } .lb-next { right: 0; }
-.lb-counter {
-  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-  font-size: 11px; letter-spacing: 3px; color: #444;
-}
+.lb{display:none;position:fixed;inset:0;background:rgba(20,50,72,.96);z-index:999;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px;transition:opacity .2s}
+.lb-close{position:absolute;top:16px;right:16px;background:var(--yl);color:var(--dk);font-weight:700;font-size:13px;border-radius:999px;padding:6px 14px;cursor:pointer}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:30px;line-height:42px;text-align:center;cursor:pointer;user-select:none;transition:background .2s}
+.lb-prev:hover,.lb-next:hover{background:var(--yl);color:var(--dk)}
+.lb-prev{left:14px}.lb-next{right:14px}
+.lb-counter{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:var(--dk);background:#fff;border-radius:999px;padding:3px 14px}
 
-@media (min-width: 1200px) {
-  .proj-grid { grid-template-columns: repeat(5, 1fr); }
-}
-@media (max-width: 1000px) {
-  .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 600px) {
-  .proj-grid, .proj-grid.landscape { grid-template-columns: repeat(2, 1fr); }
-  .proj-card-label { font-size: 14px; letter-spacing: 2px; padding: 12px 10px 10px; }
-  .cat-grid { grid-template-columns: 1fr 1fr; height: auto; min-height: 0; }
-  .cat-card { aspect-ratio: 3/4; }
-  .cat-card:last-child:nth-child(odd) { grid-column: span 2; aspect-ratio: 3/2; }
-  .proj-wrap { padding: 0 0 60px; }
-  .photo-info { padding: 16px 16px 12px; }
+.copy{text-align:center;font-size:12px;color:var(--mute);margin-top:18px}
+
+@media (min-width: 1200px){ .proj-grid{grid-template-columns:repeat(5,1fr)} }
+@media (max-width: 1000px){ .proj-grid,.proj-grid.landscape{grid-template-columns:repeat(3,1fr)} }
+@media (max-width: 600px){
+  .page{padding:0 12px 32px}
+  .bubble{padding:14px;border-radius:28px}
+  .proj-grid,.proj-grid.landscape{grid-template-columns:repeat(2,1fr);gap:10px}
+  .cat-grid{grid-template-columns:1fr 1fr;height:auto;min-height:0;gap:10px}
+  .cat-card{aspect-ratio:3/4;border-radius:24px}
+  .cat-card:last-child:nth-child(odd){grid-column:span 2;aspect-ratio:3/2}
+  .photo-hero,.photo-grid{padding:6px}
+  .photo-grid,.photo-col{gap:6px}
+  .photo-grid img{border-radius:12px}
+  .topbar-brand{font-size:16px}
+  .breadcrumb{font-size:12px}
 }
 </style>
 </head>
@@ -211,10 +108,10 @@ body { font-family: "Noto Serif TC", serif; background: #1a1a1a; color: #ccc; }
   <div class="breadcrumb" id="nav"></div>
 </div>
 
-<div id="app"></div>
+<div class="page" id="app"></div>
 
 <div class="lb" id="lb">
-  <span class="lb-close" onclick="closeLb()">✕ CLOSE</span>
+  <span class="lb-close" onclick="closeLb()">✕ 關閉</span>
   <span class="lb-prev" onclick="lbMove(-1)">&#8249;</span>
   <img id="lb-img" src="">
   <span class="lb-next" onclick="lbMove(1)">&#8250;</span>
@@ -5594,45 +5491,46 @@ function render() {
   if (parts.length === 0) {
     nav.innerHTML = `<span class="cur">作品集</span>`;
     app.innerHTML = `
-      <div class="pg-header">
-        <div class="pg-title">作品集</div>
-        <div class="pg-sub">PORTFOLIO</div>
-        <div class="pg-divider"><span></span><em>✦</em><span></span></div>
+      <div class="bubble pg-header">
+        <span class="pg-sub">Portfolio ☺︎</span>
+        <div class="pg-title">作品集<span class="spark">✦</span></div>
       </div>
-      <div class="cat-grid">
+      <div class="bubble"><div class="cat-grid">
         ${DATA.map(c=>`
           <div class="cat-card" data-go="${c.slug}">
             <img src="${enc(c.cover)}" loading="lazy">
             <div class="cat-card-overlay"></div>
             <div class="cat-card-info">
               <div class="cat-card-name">${c.name}</div>
-              
+              <span class="cat-card-go">→</span>
             </div>
           </div>`).join('')}
-      </div>`;
+      </div></div>
+      <div class="copy">© 2026 林孟儒｜MENGRULENS｜@mengrulens</div>`;
   } else if (parts.length === 1) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><span class="cur">${cat.name}</span>`;
     app.innerHTML = `
-      <div class="pg-header">
-        <div class="pg-title">${cat.name}</div>
-        <div class="pg-divider"><span></span><em>✦</em><span></span></div>
+      <div class="bubble pg-header">
+        <span class="pg-sub">Portfolio ☺︎</span>
+        <div class="pg-title">${cat.name}<span class="spark">✦</span></div>
       </div>
-      <div class="proj-wrap">
+      <div class="bubble">
         <div class="${projGridClass(cat)}">${cat.projects.map(p=>projCard(cat,p)).join('')}</div>
-      </div>`;
+      </div>
+      <div class="copy">© 2026 林孟儒｜MENGRULENS｜@mengrulens</div>`;
   } else if (parts.length === 2) {
     const cat = DATA.find(c=>c.slug===parts[0]); if(!cat) return go('');
     const proj = cat.projects.find(p=>p.slug===parts[1]); if(!proj) return go(parts[0]);
     lbPhotos = proj.photos; curRatios = proj.ratios;
     nav.innerHTML = `<a data-go="">作品集</a><span class="sep">/</span><a data-go="${cat.slug}">${cat.name}</a><span class="sep">/</span><span class="cur">${proj.name}</span>`;
     app.innerHTML = `
-      <div class="photo-hero"><img src="${enc(proj.photos[0])}" data-lb="0"></div>
-      <div class="photo-info">
-        <div class="photo-info-title">${proj.name}</div>
-        
+      <div class="bubble photo-hero"><img src="${enc(proj.photos[0])}" data-lb="0"></div>
+      <div class="bubble" style="padding:0">
+        <div class="photo-info"><span class="ico">📷</span><div class="photo-info-title"><small>${cat.name}</small>${proj.name}</div></div>
+        <div class="photo-grid" id="photo-grid"></div>
       </div>
-      <div class="photo-grid" id="photo-grid"></div>`;
+      <div class="copy">© 2026 林孟儒｜MENGRULENS｜@mengrulens</div>`;
     layoutPhotos();
   }
   window.scrollTo(0,0);
