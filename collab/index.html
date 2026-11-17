@@ -104,6 +104,14 @@ a.brand{cursor:pointer}
 /* 品牌分類：白底＋彩色小圓點 */
 .g1{--d:#3D8BBF}.g2{--d:#1E4A6B}.g3{--d:#FFCB2F}.g4{--d:#F29BB0}.g5{--d:#7CC49A}
 .brand::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--d,#CFE6F3);margin-right:6px;vertical-align:1px}
+.brands.fold .brand:nth-child(n+19){display:none}
+.more-btn{display:block;margin:14px auto 0;background:var(--lt);color:var(--dk);border:none;border-radius:999px;padding:7px 18px;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;cursor:pointer}
+@media(max-width:480px){
+  .brands{gap:6px}
+  .brand{font-size:12px;padding:4px 10px;border-width:1.5px}
+  .brand small{font-size:10px;margin-left:3px}
+  .brand::before{width:7px;height:7px;margin-right:4px}
+}
 .brand small{font-weight:400;font-size:11px;color:var(--mute);margin-left:4px}
 
 /* 合作方式 */
@@ -189,6 +197,7 @@ a.brand{cursor:pointer}
 <div class="bubble fade">
   <div class="sh"><span class="ico">🤝</span><h2><span class="en">Worked with</span>合作過的品牌</h2><span class="corner">點品牌看作品 ↗</span></div>
   <div class="brands" id="brands"></div>
+  <button class="more-btn" id="moreBrands" onclick="toggleBrands()">看全部品牌 ▾</button>
 </div>
 
 <!-- ===== 合作方式 ===== -->
@@ -270,6 +279,14 @@ document.getElementById("works").innerHTML = WORKS.map((w, i) => `
     </div>
   </a>`).join("");
 
+const bEl = document.getElementById("brands");
+bEl.classList.add("fold");
+document.getElementById("moreBrands").textContent = `看全部 ${BRANDS.length} 個品牌 ▾`;
+function toggleBrands(){
+  const folded = bEl.classList.toggle("fold");
+  document.getElementById("moreBrands").textContent = folded ? `看全部 ${BRANDS.length} 個品牌 ▾` : "收起 ▴";
+  if (folded) bEl.scrollIntoView({behavior: "smooth", block: "center"});
+}
 function copyMail(){
   navigator.clipboard.writeText(document.getElementById("email").textContent).then(() => {
     const t = document.getElementById("toast"); t.classList.add("on");
