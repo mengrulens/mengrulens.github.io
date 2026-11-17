@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>孟儒 Mengru Lin｜品牌合作</title>
+<meta name="description" content="攝影師｜生活風格・旅遊內容創作者 孟儒 Mengru Lin 的品牌合作頁">
+<meta property="og:title" content="孟儒 Mengru Lin｜品牌合作">
+<meta property="og:description" content="攝影師｜生活風格・旅遊內容創作者。Reels 短影音 × 情境攝影，讓產品自然走進生活。">
+<meta property="og:image" content="img/me_sq.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 🎨 配色 N｜湖水藍＋黃 */
+:root{
+  --dk:#1E4A6B;  --ac:#3D8BBF;  --lt:#CFE6F3;  --yl:#FFCB2F;  --ylt:#FFF1C2;
+  --bg:#F7F8F3;  --mute:#5E7487;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--lt);color:var(--dk);font-family:'Noto Sans TC',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:radial-gradient(rgba(61,139,191,.18) 1.5px,transparent 1.5px);background-size:22px 22px}
+a{color:inherit;text-decoration:none}
+.en{font-family:'Fredoka',sans-serif}
+.wrap{max-width:460px;margin:0 auto;padding:18px 16px 40px}
+
+/* 共用泡泡卡 */
+.bubble{background:var(--bg);border-radius:32px;padding:24px 20px;margin-top:16px;position:relative}
+
+/* ===== Hero ===== */
+.hero{text-align:center;padding-top:30px;overflow:hidden}
+.hello{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;background:var(--yl);border-radius:999px;padding:4px 14px;transform:rotate(-4deg)}
+.av-wrap{position:relative;width:150px;height:150px;margin:18px auto 0}
+.av-wrap svg{position:absolute;inset:-18px;width:186px;height:186px;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar{position:relative;width:150px;height:150px;border-radius:50%;object-fit:cover;border:5px solid #fff}
+.spark{position:absolute;font-size:22px;color:var(--yl);animation:pop 2.4s ease-in-out infinite}
+@keyframes pop{50%{transform:scale(1.25) rotate(15deg)}}
+.hero h1{font-weight:900;font-size:30px;margin-top:14px;line-height:1.3}
+.hero h1 .en{font-weight:600;color:var(--ac);font-size:22px;margin-left:6px}
+.role{font-size:14px;color:var(--mute);font-weight:500}
+.tagline{margin-top:12px;font-size:15px;font-weight:500}
+.tagline mark{background:linear-gradient(transparent 55%,var(--yl) 55%);color:inherit;padding:0 2px}
+.stickers{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.st{font-size:13px;font-weight:700;border-radius:999px;padding:5px 13px;border:2px solid var(--dk)}
+.st:nth-child(3n+1){background:var(--yl)}
+.st:nth-child(3n+2){background:#fff}
+.st:nth-child(3n){background:var(--lt)}
+
+/* 合作邀約 */
+.contact{background:var(--dk);color:#fff;border-radius:32px;padding:22px 20px;margin-top:16px;position:relative;overflow:hidden}
+.contact::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--yl);opacity:.9}
+.contact .t{position:relative;z-index:1;font-weight:900;font-size:20px}
+.contact .t .en{display:block;font-size:13px;font-weight:600;color:var(--yl);letter-spacing:.05em}
+.mail{position:relative;z-index:1;margin-top:12px;background:#fff;color:var(--dk);border-radius:999px;padding:6px 6px 6px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mail b{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;word-break:break-all}
+.btn{cursor:pointer;border:none;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.95)}
+.btn.yl{background:var(--yl);color:var(--dk)}
+.btn.lt{background:rgba(255,255,255,.15);color:#fff}
+.contact .row{position:relative;z-index:1;display:flex;gap:8px;margin-top:10px}
+.contact .row a{flex:1;justify-content:center}
+
+/* 標題 */
+.sh{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.sh .ico{width:36px;height:36px;border-radius:50%;background:var(--yl);display:flex;align-items:center;justify-content:center;font-size:17px;flex:none}
+.sh h2{font-weight:900;font-size:20px;line-height:1.2}
+.sh .corner{margin-left:auto;align-self:flex-end;font-size:11px;color:var(--mute);white-space:nowrap}
+.sh h2 .en{display:block;font-size:12px;font-weight:600;color:var(--ac)}
+
+/* 社群 */
+.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pf{background:#fff;border-radius:24px;padding:14px 6px;text-align:center;border:2px solid var(--lt);transition:transform .15s,border-color .15s}
+.pf:hover{transform:translateY(-3px) rotate(-1deg);border-color:var(--yl)}
+.pf .c{width:40px;height:40px;border-radius:50%;background:var(--lt);display:flex;align-items:center;justify-content:center;margin:0 auto}
+.pf svg{width:20px;height:20px}
+.pf div{font-weight:700;font-size:13px;margin-top:6px}
+.pf small{font-size:11px;color:var(--mute)}
+
+/* 作品 */
+.scroller{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 12px;scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.work{flex:0 0 64%;scroll-snap-align:start;border-radius:28px;padding:18px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;position:relative;overflow:hidden;background-size:cover;background-position:center;transition:transform .2s}
+.work:hover{transform:rotate(-1.5deg) scale(1.02)}
+.work::before{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-40px;bottom:-40px;background:rgba(255,255,255,.12)}
+.work.img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,74,107,0),rgba(30,74,107,.85))}
+.work>*{position:relative;z-index:1}
+.w0{background-color:var(--dk)}.w1{background-color:var(--ac)}.w2{background-color:var(--yl);color:var(--dk)}
+.work .tag{align-self:flex-start;background:#fff;color:var(--dk);border-radius:999px;padding:2px 11px;font-size:12px;font-weight:700}
+.work h3{font-weight:900;font-size:19px;line-height:1.35}
+.work p{font-size:12px;opacity:.85;margin:2px 0 12px}
+.work .go{width:40px;height:40px;border-radius:50%;background:var(--yl);color:var(--dk);display:flex;align-items:center;justify-content:center;font-weight:900}
+.w2 .go{background:var(--dk);color:var(--yl)}
+.hint{font-size:12px;color:var(--mute);margin:-8px 0 10px}
+
+/* 品牌貼紙 */
+.brands{display:flex;flex-wrap:wrap;gap:8px}
+.brand{background:#fff;border:2px solid var(--lt);border-radius:999px;padding:5px 14px;font-weight:700;font-size:13px;line-height:1.3;transition:transform .15s}
+.brand:nth-child(4n+1){transform:rotate(-1.5deg)}
+.brand:nth-child(4n+3){transform:rotate(1.5deg)}
+.brand:hover{transform:scale(1.06) rotate(0);border-color:var(--yl);background:var(--ylt)}
+a.brand{cursor:pointer}
+/* 品牌分類：白底＋彩色小圓點 */
+.g1{--d:#3D8BBF}.g2{--d:#1E4A6B}.g3{--d:#FFCB2F}.g4{--d:#F29BB0}.g5{--d:#7CC49A}
+.brand::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--d,#CFE6F3);margin-right:6px;vertical-align:1px}
+.brand small{font-weight:400;font-size:11px;color:var(--mute);margin-left:4px}
+
+/* 合作方式 */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.s{background:#fff;border-radius:24px;padding:16px 14px}
+.s:nth-child(2),.s:nth-child(3){background:var(--ylt)}
+.s .e{font-size:26px;line-height:1}
+.s b{display:block;font-weight:900;font-size:15px;margin-top:8px}
+.s p{font-size:12px;color:var(--mute);margin-top:2px;line-height:1.6}
+
+/* footer */
+.end{text-align:center;background:var(--yl)}
+.end .big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:26px;line-height:1.2}
+.end p{font-size:14px;font-weight:500;margin-top:6px}
+.end .btn{background:var(--dk);color:#fff}
+.copy{text-align:center;font-size:12px;color:var(--mute);margin-top:18px}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:var(--dk);color:#fff;font-weight:700;font-size:13px;padding:9px 20px;border-radius:999px;transition:.3s;pointer-events:none;z-index:10}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.fade{opacity:0;transform:translateY(16px);transition:.6s}
+.fade.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ===== Hero ===== -->
+<div class="bubble hero">
+  <span class="hello">Hi, I'm Mengru ☺︎</span>
+  <div class="av-wrap">
+    <svg viewBox="0 0 200 200"><path fill="#FFCB2F" d="M45.3,-58.6C57.6,-47.9,65.4,-32.2,69.6,-15.3C73.8,1.6,74.4,19.7,66.9,33.6C59.4,47.5,43.8,57.2,27.3,63.6C10.8,70,-6.6,73.1,-23.6,68.9C-40.6,64.7,-57.2,53.2,-66.4,37.3C-75.6,21.4,-77.4,1.1,-71.8,-16.1C-66.2,-33.3,-53.2,-47.4,-38.4,-57.6C-23.6,-67.8,-7,-74.1,8.7,-72.6C24.4,-71.1,33,-69.3,45.3,-58.6Z" transform="translate(100 100)"/></svg>
+    <img class="avatar" src="img/me_sq.jpg" alt="孟儒 Mengru Lin">
+    <span class="spark" style="top:-6px;right:-14px">✦</span>
+    <span class="spark" style="bottom:4px;left:-18px;font-size:16px;animation-delay:.8s">✦</span>
+  </div>
+  <h1>孟儒<span class="en">Mengru Lin</span></h1>
+  <div class="role">攝影師｜生活風格・旅遊內容創作者</div>
+  <p class="tagline">用攝影師的眼睛拍生活，<br>讓產品<mark>自然地</mark>走進日常畫面裡 📷</p>
+  <div class="stickers">
+    <span class="st">📷 攝影師</span><span class="st">💻 3C開箱</span><span class="st">🏠 Home Decor</span><span class="st">✈️ 旅遊記錄</span><span class="st">👟 穿搭分享</span><span class="st">🛍️ 生活好物</span>
+  </div>
+</div>
+
+<!-- ===== 合作邀約 ===== -->
+<div class="contact">
+  <div class="t"><span class="en">Let's work together!</span>合作邀約</div>
+  <div class="mail">
+    <b id="email">mengrulens@gmail.com</b>
+    <button class="btn yl" onclick="copyMail()">複製</button>
+  </div>
+  <div class="row">
+    <a class="btn lt" href="mailto:mengrulens@gmail.com?subject=品牌合作邀約｜">✉️ 寄信給我</a>
+    <a class="btn lt" href="https://www.instagram.com/mengru_lin" target="_blank">💬 IG 私訊</a>
+  </div>
+</div>
+
+<!-- ===== 社群平台 ===== -->
+<div class="bubble fade">
+  <div class="sh"><span class="ico">📱</span><h2><span class="en">Find me on</span>社群平台</h2></div>
+  <div class="platforms">
+    <a class="pf" href="https://www.instagram.com/mengru_lin" target="_blank">
+      <span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#1E4A6B" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="6"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="#1E4A6B"/></svg></span>
+      <div>Instagram</div><small>@mengru_lin</small>
+    </a>
+    <a class="pf" href="https://www.threads.com/@mengru_lin" target="_blank">
+      <span class="c"><svg viewBox="0 0 24 24" fill="#1E4A6B"><path d="M17.5 11.3c-.2-.1-.4-.2-.7-.3-.4-2.5-2-3.9-4.4-3.9-1.6 0-2.8.7-3.6 1.9l1.3.9c.5-.8 1.3-1.2 2.2-1.2 1.3 0 2.2.8 2.5 2-.6-.1-1.3-.1-2 0C10.6 11 9 12.1 9 13.7c0 1.8 1.4 2.8 3.1 2.8 1.5 0 2.6-.7 3.3-2 .5.6.7 1.3.7 2.2 0 2.1-1.6 3.5-4.1 3.5-3 0-5-2-5-5.1s2-5.2 5-5.2c2 0 3.4.7 4.4 2.1l1.4-.9c-1.2-1.8-3-2.8-5.8-2.8-3.8 0-6.5 2.7-6.5 6.8s2.7 6.7 6.5 6.7c3.3 0 5.6-1.9 5.6-5.1 0-1.1-.3-2-.8-2.8l.2-.6zm-5.2 3.5c-.9 0-1.5-.4-1.5-1.1 0-.8.7-1.3 2-1.4.6-.1 1.2 0 1.7.1-.2 1.4-1 2.4-2.2 2.4z"/></svg></span>
+      <div>Threads</div><small>@mengru_lin</small>
+    </a>
+    <a class="pf" href="https://www.facebook.com/share/1BFAsef1eC/" target="_blank">
+      <span class="c"><svg viewBox="0 0 24 24" fill="#1E4A6B"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></span>
+      <div>Facebook</div><small>孟儒</small>
+    </a>
+  </div>
+</div>
+
+<!-- ===== 合作作品 ===== -->
+<div class="bubble fade">
+  <div class="sh"><span class="ico">🎬</span><h2><span class="en">Collabs</span>合作作品</h2><span class="corner">往右滑看更多 →</span></div>
+  <div class="scroller" id="works"></div>
+</div>
+
+<!-- ===== 合作過的品牌 ===== -->
+<div class="bubble fade">
+  <div class="sh"><span class="ico">🤝</span><h2><span class="en">Worked with</span>合作過的品牌</h2><span class="corner">點品牌看作品 ↗</span></div>
+  <div class="brands" id="brands"></div>
+</div>
+
+<!-- ===== 合作方式 ===== -->
+<div class="bubble fade">
+  <div class="sh"><span class="ico">✨</span><h2><span class="en">What I do</span>合作方式</h2></div>
+  <div class="svc">
+    <div class="s"><div class="e">🎥</div><b>Reels 短影音</b><p>生活情境腳本＋拍攝剪輯一手包辦，不只是規格介紹。</p></div>
+    <div class="s"><div class="e">📸</div><b>情境攝影</b><p>攝影師本業，高質感產品情境照，可另談授權。</p></div>
+    <div class="s"><div class="e">📦</div><b>產品體驗・開箱</b><p>實際使用後分享真實心得，IG＋Threads 雙平台。</p></div>
+    <div class="s"><div class="e">🏝️</div><b>活動・旅宿體驗</b><p>品牌活動紀錄、旅宿與景點體驗。</p></div>
+  </div>
+</div>
+
+<!-- ===== 結尾 ===== -->
+<div class="bubble end fade">
+  <div class="big">Let's make something<br>lovely together ♡</div>
+  <p>期待和你一起合作！</p>
+</div>
+<div class="copy">© 2026 孟儒 Mengru Lin｜MENGRULENS</div>
+
+</div>
+
+<div class="toast" id="toast">已複製信箱 ✓</div>
+
+<script>
+/* ============================================================
+   ✏️ 要更新品牌／作品，只需要改這一區
+   ============================================================ */
+const BRANDS = [
+  // 旅宿・旅遊
+  ["澎湖長春大飯店", "飯店住宿", "reel/DbssKUDBDA8", "g1"], ["OwlStay 故事所", "花蓮民宿", "reel/DeEgjajhqOG", "g1"], ["瀾音悠悠 Lanvillage", "懶人露營", "reel/DaAeIH4BqCn", "g1"],
+  ["巴罕營家", "海景露營", "reel/DX_xVUpBY8y", "g1"], ["泰雅渡假村", "渡假村", "reel/DZucGZsB6ye", "g1"], ["莊稼熟了2館", "池上民宿", "reel/Dd1CzfBB0sa", "g1"], ["那山那谷", "宜蘭露營", "p/Db26OCrAa-5", "g1"], ["台北國際夏季旅展", "五福旅行社・星悅航空", "p/Da5GhcugTH4", "g1"],
+  // 攝影・3C
+  ["Canon 佳能", "相機", "p/DRcTSY0gT4x", "g2"], ["NANLITE 南光", "攝影燈", "reel/Db-ic_Rhp_t", "g2"], ["Maono", "麥克風", "reel/Dc8c84lhn5L", "g2"], ["Logitech 羅技", "滑鼠", "reel/DbA0UufhVoX", "g2"],
+  ["HTC VIVE Eagle", "AI 眼鏡", "reel/DaK0OaHhJsN", "g2"], ["MOMAX", "磁吸音箱", "p/DYuHurtlP5X", "g2"], ["Nothing", "頭戴式耳機", "p/DZOk2DJgSYz", "g2"], ["TOSHIBA 東芝 × Hisense 海信", "新品發表會", "p/DejQzdbgSGB", "g2"], ["MONOCOZZI", "手機周邊", "reel/DeZBFt4h0wR", "g2"], ["POLYBATT", "行動電源", "reel/DflmDTixuNh", "g2"],
+  ["CASETiFY", "行李箱", "reel/DcOCI_NhpBr", "g2"],
+  // 居家・生活好物
+  ["御眠窩 HO-ZZZ", "床墊", "p/DfhLLTwAYrz", "g3"], ["睡眠島 Dream Island", "枕頭", "reel/Ddi-lCWhabP", "g3"], ["燈飾123", "居家燈具", "p/DdYpufjARq_", "g3"], ["KAKU 健康生活", "移動桌", "p/Da6uLJrgSJK", "g3"],
+  ["3ZeBra 三隻斑馬", "按摩家電", "reel/Db0VFHGBoxG", "g3"], ["masa LIFE", "按摩家電", "p/DZkLHs2geDs", "g3"], ["COMESAN 康森", "溫敷貼", "reel/DfPGrdXRyob", "g3"],
+  ["CLEAN-X", "巧洗機", "reel/Dc-_f42BDB4", "g3"], ["LMG", "鍋具", "reel/DewRHYcBZzF", "g3"], ["山水", "吸塵器", "reel/DbiPQbSBxu_", "g3"], ["馨藝香觀事物所", "線香", "reel/DelH4KjBhwp", "g3"],
+  ["CHAKO LAB 和序", "保溫水壺", "p/DYCWiNRgbDe", "g3"], ["Shallop 刷樂", "牙刷・牙線", "p/DcCzRF-gVvX", "g3"], ["蒜樂辣", "中秋禮盒", "p/DdGndNIAbio", "g3"], ["NIJIYA", "水果調酒", "p/DclN4rZAZS1", "g3"], ["可可德歐 CACAO D'OR", "宜蘭巧克力", "p/Db8DOWrgQmO", "g3"], ["禾曼咖啡廳 Human Human Cafe", "平鎮咖啡廳", "reel/DFAS2GUTAJi", "g3"], ["時光造所 As Time Goes By", "手作畫室", "p/DXMOHH3gf0g", "g3"], ["Kouun Neko 50:50", "招財貓盲盒", "p/DZryuVMAXjt", "g3"],
+  // 穿搭・配件
+  ["DOMYBEST", "帽T・服飾", "p/DVtCG8IgX4x", "g4"], ["LIKE HOUSE", "皮革肩背包", "p/DZpLE30gZjm", "g4"], ["NONSPACE", "韓國潮流選品", "p/DUK6L2TgVgW", "g4"], ["WILDMEET", "戶外機能服飾", "p/DMj6XHKuYZv", "g4"], ["ION SELECT", "服飾", "p/DPi9jKFgXue", "g4"], ["Gaston Luga", "瑞典後背包", "p/DXO1cXtATkk", "g4"], ["光合系 Sunlight", "純素皮革包", "p/DcLZxspAdMH", "g4"], ["Ucon Acrobatics 悟空", "德國機能後背包", "p/DUfqmzflJE6", "g4"], ["CAM Connect And Mold", "服飾", "p/DLrA-XmzCpp", "g4"], ["deya", "台灣精品包袋", "p/DP3ePM2AXPH", "g4"], ["SLOTHFUL 樹懶", "服飾", "reel/DOI0aHpAf33", "g4"], ["Life8", "服飾", "p/DT-OXerAWhf", "g4"], ["GFOneOne", "機能外套", "p/DQ3UwMJARL2", "g4"], ["HIPPORIZZ", "郵差包", "reel/Dd6KD7dhn1j", "g4"], ["Nareca", "行李箱", "reel/DZH3oYYhXXf", "g4"], ["Koroneko", "襯衫", "p/DYjxGgjkbGA", "g4"], ["HUO", "服飾", "p/DYmihd7AbB0", "g4"],
+  // 美妝・醫美・服務
+  ["淘寶 Taobao", "網購平台", "p/DcgDnvxgRR3", "g5"], ["Starpop", "隱形眼鏡", "p/DaaS77ZAbcK", "g5"], ["REOI", "香水", "p/DWEM7RFgT5R", "g5"], ["Angellala 天使娜拉", "魚油・膠原蛋白", "p/Ddc99-2AULs", "g5"], ["MONCLOS", "韓國香氛", "p/DXHL61uAXcd", "g5"], ["PPEUM 皮膚科", "韓國醫美", "reel/Dc5LmC2Taui", "g5"], ["Unni 歐尼", "韓國醫美 APP", "reel/Degu8N_hm-v", "g5"], ["ShopBack", "現金回饋", "reel/DdqrMNhhTAe", "g5"],
+];
+
+// tag: 合作類型；url: 貼文連結；img: 封面圖（可留空，用色塊）
+const WORKS = [  // 依觀看數由高到低排
+  { brand: "CLEAN-X",             tag: "🏠 居家", title: "巧洗機",   url: "https://www.instagram.com/mengru_lin/reel/Dc-_f42BDB4/" },
+  { brand: "Unni 歐尼",           tag: "☕ 生活", title: "韓國醫美 APP",         url: "https://www.instagram.com/mengru_lin/reel/Degu8N_hm-v/" },
+  { brand: "MONOCOZZI",           tag: "💻 3C",   title: "手機周邊換新",         url: "https://www.instagram.com/mengru_lin/reel/DeZBFt4h0wR/" },
+  { brand: "澎湖長春大飯店",      tag: "🏝️ 旅宿", title: "澎湖住宿",             url: "https://www.instagram.com/mengru_lin/reel/DbssKUDBDA8/" },
+  { brand: "3ZeBra 三隻斑馬",     tag: "🏠 居家", title: "骨傳導按摩眼罩",       url: "https://www.instagram.com/mengru_lin/reel/Db0VFHGBoxG/" },
+  { brand: "睡眠島 Dream Island", tag: "🏠 居家", title: "燕窩枕",               url: "https://www.instagram.com/mengru_lin/reel/Ddi-lCWhabP/" },
+  { brand: "CHAKO LAB 和序",      tag: "☕ 生活", title: "保溫水壺",             url: "https://www.instagram.com/mengru_lin/p/DYCWiNRgbDe/" },
+  { brand: "HTC VIVE Eagle",      tag: "💻 3C",   title: "AI 眼鏡記錄生活",      url: "https://www.instagram.com/mengru_lin/reel/DaK0OaHhJsN/" },
+  { brand: "莊稼熟了2館",         tag: "🏝️ 旅宿", title: "池上稻田民宿",         url: "https://www.instagram.com/mengru_lin/reel/Dd1CzfBB0sa/" },
+  { brand: "巴罕營家",            tag: "🏝️ 旅宿", title: "海景懶人露營",         url: "https://www.instagram.com/mengru_lin/reel/DX_xVUpBY8y/" },
+  { brand: "泰雅渡假村",          tag: "✈️ 旅遊", title: "兩天一夜體驗",         url: "https://www.instagram.com/mengru_lin/reel/DZucGZsB6ye/" },
+  { brand: "LMG",                 tag: "🏠 居家", title: "三鍋組",               url: "https://www.instagram.com/mengru_lin/reel/DewRHYcBZzF/" },
+  { brand: "Nareca",              tag: "✈️ 旅遊", title: "上掀式行李箱",         url: "https://www.instagram.com/mengru_lin/reel/DZH3oYYhXXf/" },
+  { brand: "PPEUM 皮膚科",        tag: "☕ 生活", title: "首爾醫美初體驗",       url: "https://www.instagram.com/mengru_lin/reel/Dc5LmC2Taui/" },
+  { brand: "瀾音悠悠 Lanvillage", tag: "🏝️ 旅宿", title: "雨天懶人露營",         url: "https://www.instagram.com/mengru_lin/reel/DaAeIH4BqCn/" },
+  { brand: "NANLITE 南光",        tag: "📷 攝影", title: "FC-720C 全彩持續燈",   url: "https://www.instagram.com/mengru_lin/reel/Db-ic_Rhp_t/" },
+];
+/* ============================================================ */
+
+const GROUPS = { g1: "旅宿・旅遊", g2: "攝影・3C", g3: "居家・生活好物", g4: "穿搭・配件", g5: "美妝・保健・服務" };
+document.getElementById("brands").innerHTML =
+  BRANDS.map(([n, d, u, g]) => { const inner = `${n}${d ? `<small>${d}</small>` : ""}`; return u ? `<a class="brand ${g}" href="https://www.instagram.com/mengru_lin/${u}/" target="_blank">${inner}</a>` : `<span class="brand ${g}">${inner}</span>`; }).join("");
+document.getElementById("works").innerHTML = WORKS.map((w, i) => `
+  <a class="work w${i % 3}${w.img ? " img" : ""}" href="${w.url}" target="_blank"${w.img ? ` style="background-image:url(${w.img})"` : ""}>
+    <span class="tag">${w.tag}</span>
+    <div>
+      <h3>${w.brand}</h3>
+      <p>${w.title}</p>
+      <span class="go">→</span>
+    </div>
+  </a>`).join("");
+
+function copyMail(){
+  navigator.clipboard.writeText(document.getElementById("email").textContent).then(() => {
+    const t = document.getElementById("toast"); t.classList.add("on");
+    setTimeout(() => t.classList.remove("on"), 1600);
+  });
+}
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("in")), {threshold:.1});
+document.querySelectorAll(".fade").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
