@@ -96,6 +96,16 @@ a{color:inherit;text-decoration:none}
 .w2 .go{background:var(--dk);color:var(--yl)}
 .hint{font-size:12px;color:var(--mute);margin:-8px 0 10px}
 
+/* Threads */
+.th{flex:0 0 66%;scroll-snap-align:start;background:#fff;border:2px solid var(--lt);border-radius:24px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;min-height:150px;transition:transform .2s,border-color .2s}
+.th:hover{transform:translateY(-3px);border-color:var(--yl)}
+.th p{font-size:14px;font-weight:500;line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.th p::before{content:"“";font-family:'Fredoka',sans-serif;font-size:30px;line-height:0;color:var(--yl);vertical-align:-10px;margin-right:2px}
+.ttag{display:inline-block;background:var(--ylt);color:var(--dk);font-size:11px;font-weight:700;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.ts span{white-space:nowrap}
+.ts{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mute);margin-top:12px}
+.ts b{font-family:'Fredoka',sans-serif;font-size:18px;color:var(--dk)}
+.ts .arr{margin-left:auto;width:28px;height:28px;border-radius:50%;background:var(--yl);color:var(--dk);display:flex;align-items:center;justify-content:center;font-weight:900}
 /* 品牌貼紙 */
 .brands{display:flex;flex-wrap:wrap;gap:8px}
 .brand{background:#fff;border:2px solid var(--lt);border-radius:999px;padding:5px 14px;font-weight:700;font-size:13px;line-height:1.3;transition:transform .15s}
@@ -197,6 +207,12 @@ a.brand{cursor:pointer}
   <div class="scroller" id="works"></div>
 </div>
 
+<!-- ===== Threads 熱門貼文 ===== -->
+<div class="bubble fade">
+  <div class="sh"><span class="ico">🧵</span><h2><span class="en">Threads</span>熱門貼文</h2><span class="corner">往右滑看更多 →</span></div>
+  <div class="scroller" id="threads"></div>
+</div>
+
 <!-- ===== 合作過的品牌 ===== -->
 <div class="bubble fade">
   <div class="sh"><span class="ico">🤝</span><h2><span class="en">Worked with</span>合作過的品牌</h2><span class="corner">往右滑・點品牌看作品 ↗</span></div>
@@ -267,6 +283,31 @@ const WORKS = [  // 依觀看數由高到低排
   { brand: "瀾音悠悠 Lanvillage", views: "8,802", tag: "🏝️ 旅宿", title: "雨天懶人露營",         url: "https://www.instagram.com/mengru_lin/reel/DaAeIH4BqCn/" },
   { brand: "NANLITE 南光", views: "8,497",        tag: "📷 攝影", title: "FC-720C 全彩持續燈",   url: "https://www.instagram.com/mengru_lin/reel/Db-ic_Rhp_t/" },
 ];
+
+// Threads 熱門貼文（likes：按讚數）
+const THREADS = [
+  { text: "好奇有離職過的各位，你們離職原因都寫什麼呀", views: "202萬", likes: "5萬", url: "https://www.threads.com/@mengru_lin/post/DW5R6bmEv3t", tag: "💼 職場話題" },
+  { text: "奧德賽懶人包🙌🏻 看戲之前先認識他們，幫助你更快入戲", views: "151.6萬", likes: "2.7萬", url: "https://www.threads.com/@mengru_lin/post/DbGUY1Rkhnv", tag: "🎬 觀影分享" },
+  { text: "台灣月老廟參拜指南🙌🏻 分享給大家，也歡迎分享給你那個單身的朋友", views: "61萬", likes: "1.4萬", url: "https://www.threads.com/@mengru_lin/post/DcDlaztEljV", tag: "🗺️ 在地攻略" },
+  { text: "終於知道為什麼大家去泰國🇹🇭都買這個了，後悔只買一包了😭", views: "61萬", likes: "5,574", url: "https://www.threads.com/@mengru_lin/post/DbBKW1UkvgT", tag: "✈️ 旅遊分享" },
+  { text: "舉手發問🙋‍♀️ 你們吃火鍋會把肉底下的菜吃掉嗎？一直以來吃火鍋都有的疑問🤣", views: "45萬", likes: "1,194", url: "https://www.threads.com/@mengru_lin/post/DbLQrbzkru4", tag: "🍲 美食分享" },
+  { text: "手搖人舉手🙋‍♀️ 想跟大家交換《無糖就很好喝的飲料》，我先：龜記 紅柚翡翠🤩", views: "37萬", likes: "2,669", url: "https://www.threads.com/@mengru_lin/post/DahKfwIEuXj", tag: "🍲 美食分享" },
+  { text: "奧德賽無雷心得：1. 看之前先尿尿，少喝水 2. 直接選 IMAX，音效跟畫質之震撼🙌🏻", views: "33萬", likes: "6,750", url: "https://www.threads.com/@mengru_lin/post/DbD5wnyEjO2", tag: "🎬 觀影分享" },
+  { text: "再說一次‼️「有空發限動」不等於「有空回訊息」耶😍", views: "29萬", likes: "8,167", url: "https://www.threads.com/@mengru_lin/post/DWbcEeCksKs", tag: "💬 生活共鳴" },
+  { text: "台灣人來香港旅遊的第三天，第一次吃香港的糖水，被驚艷到耶🥹", views: "24萬", likes: "5,768", url: "https://www.threads.com/@mengru_lin/post/Dd-3KVyEnOa", tag: "✈️ 旅遊分享" },
+  { text: "建議去泰國一定要買這個防曬，我在泰國、澎湖都用它完全沒有曬傷😌", views: "21萬", likes: "4,317", url: "https://www.threads.com/@mengru_lin/post/DbcT_UbkiOk", tag: "✈️ 旅遊分享" },
+  { text: "7 月第一天的飛機，人多到直接大 delay🙂‍↕️", views: "19萬", likes: "3,338", url: "https://www.threads.com/@mengru_lin/post/DaP0p7dkjif", tag: "✈️ 旅遊分享" },
+  { text: "雖然很多香港朋友都說：連假最好不要來，但我還是來了🤩 每次來香港都很興奮", views: "14萬", likes: "3,622", url: "https://www.threads.com/@mengru_lin/post/Dd5uwLEkpxb", tag: "✈️ 旅遊分享" },
+  { text: "得正的陳皮烏龍鮮奶可以變成常態販售嗎…怎麼可以那麼好喝，完全是我這個月的救贖", views: "13萬", likes: "546", url: "https://www.threads.com/@mengru_lin/post/DYee4fvElb-", tag: "🍲 美食分享" },
+  { text: "我長這樣，我拍的照片長這樣", views: "8.3萬", likes: "4,469", url: "https://www.threads.com/@mengru_lin/post/Ddjiqtjks3I", tag: "📷 攝影日常" },
+  { text: "一人一個攝影師覺得超爽的瞬間，我先來：當你發現有人把頭貼換成你拍的🤩", views: "7.3萬", likes: "3,654", url: "https://www.threads.com/@mengru_lin/post/DXWWIPwkm7-", tag: "📷 攝影日常" },
+  { text: "台灣人來香港旅遊，第一次體驗車仔麵🍜 可以自己加料，我點大腸跟魷魚🤤", views: "5.2萬", likes: "2,006", url: "https://www.threads.com/@mengru_lin/post/DeCNabQkpJL", tag: "🍲 美食分享" },
+  { text: "台灣人來香港旅遊的第三天，今天來旺角～狠狠的感受到黃金週的威力了", views: "5萬", likes: "647", url: "https://www.threads.com/@mengru_lin/post/Dd-z9DGEpAd", tag: "✈️ 旅遊分享" },
+  { text: "台灣人來香港旅遊的第五天，晚餐是每次來都會吃的紅茶冰室，第一次喝好立克好好喝🤤", views: "4.9萬", likes: "1,116", url: "https://www.threads.com/@mengru_lin/post/DeEabJ4Eg-z", tag: "🍲 美食分享" },
+  { text: "有人懂這種「所有包裹一次拆」的快樂嗎📦 雙11的威力，剛好買一些些軟裝，全身鏡沒破！", views: "4.8萬", likes: "751", url: "https://www.threads.com/@mengru_lin/post/DfRiEI9EnC2", tag: "🛍️ 購物分享" },
+  { text: "台灣人來香港旅遊的最後一天，早餐第一次吃通粉，奶茶的冰塊讓它看起來很豪華🤣", views: "4.3萬", likes: "1,160", url: "https://www.threads.com/@mengru_lin/post/DeGSFGOkmd6", tag: "🍲 美食分享" },
+  { text: "台灣人來香港旅遊的第四天，來深水埗喝喝咖啡☕ 避開黃金週人潮，這區雖然舊舊的但挺舒服的", views: "3.3萬", likes: "1,720", url: "https://www.threads.com/@mengru_lin/post/DeBnCBvkhBS", tag: "✈️ 旅遊分享" },
+];
 /* ============================================================ */
 
 const GROUPS = { g1: "旅宿・旅遊", g2: "攝影・3C", g3: "居家・生活好物", g4: "穿搭・配件", g5: "美妝・保健・服務" };
@@ -283,6 +324,11 @@ document.getElementById("works").innerHTML = WORKS.map((w, i) => `
     </div>
   </a>`).join("");
 
+document.getElementById("threads").innerHTML = THREADS.map(t => `
+  <a class="th" href="${t.url}" target="_blank">
+    <div><span class="ttag">${t.tag}</span><p>${t.text}</p></div>
+    <div class="ts"><span><b>${t.views}</b> 次瀏覽</span><span>♥ ${t.likes}</span><span class="arr">↗</span></div>
+  </a>`).join("");
 function copyMail(){
   navigator.clipboard.writeText(document.getElementById("email").textContent).then(() => {
     const t = document.getElementById("toast"); t.classList.add("on");
